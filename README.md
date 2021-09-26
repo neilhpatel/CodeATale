@@ -18,8 +18,6 @@ Currently in pre-development stage.
  - Orally read content (includes all of the words in the book)
  - Quick definition access
 
-### How to use the app
-
 # For Developers
 
 ### Prerequisites
