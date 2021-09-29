@@ -5,7 +5,7 @@
 
 ![HearATale Banner](https://github.com/BrainyEducation/HearATale/blob/master/images/bookbanner.jpg)
 
-Read Dr. Dolittle is a web app designed to teach students in middle or high school to read using an interactive learning app that reads aloud, quizzes students on, and provides vocab definitions through the literary classic Dr. Dolittle. 
+Read Dr. Dolittle (?) is a web app designed to teach students in middle or high school to read using an interactive learning app that reads aloud, quizzes students on, and provides vocab definitions in the literary classic Dr. Dolittle. 
 
 ### Motivation
 Illiteracy in children is a major issue - students that cannot read early on often fail to reach their full potential in life. Oftentimes, teachers are unable to separatly tutor individual stuggling students when the parents are unable or unwilling to help. This web-based app is designed to help these struggling students become proficient readers.
