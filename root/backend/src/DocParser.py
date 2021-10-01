@@ -20,7 +20,7 @@ class DocParser:
 # Main method to run DocParser.py. Reads relative file path of cwd which contains database_words.docx
 def main():
     prefixPath = os.getcwd()
-    srcPath = os.path.join(prefixPath, "database_words.docx")
+    srcPath = os.path.join(prefixPath, "database_words.docx") g
     databaseDocParser = DocParser(srcPath)
     databaseDocParser.parseWordDocumentText()
     print("Number of unique words in the database: ", len(databaseDocParser.wordSet))
