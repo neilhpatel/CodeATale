@@ -4,21 +4,20 @@ import collections
 import re
 
 
-"""
-For the dictionary:
-    key = word and that word's derivatives 
-    value = list: 
-                first item is the definition, second item is a list of
-                words that should not be in the pool for incorrect options 
-                for the quizzes
-
-                note: not all items will have a second item
-                note2: the first item might be 'sightword' this indicates that
-                the word has no definition in the dictionary
-"""
-
-
 class DefParser():
+    """
+    For the dictionary:
+        key = word and that word's derivatives 
+        value = list: 
+                    first item is the definition, second item is a list of
+                    words that should not be in the pool for incorrect options 
+                    for the quizzes
+
+                    note: not all items will have a second item
+                    note2: the first item might be 'sightword' this indicates that
+                    the word has no definition in the dictionary
+    """
+    
     wordSet = set()
 
     def __init__(self, filePath):
@@ -45,12 +44,11 @@ class DefParser():
         self.defDict = wordDict
 
 
-"""
-Main method to run DocParser.py. Reads relative file path of cwd which contains database_words.docx
-"""
-
-
 def main():
+    """
+    Main method to run DocParser.py. Reads relative file path of cwd which contains database_words.docx
+    """
+    
     prefixPath = os.getcwd()
     srcPath = os.path.join(prefixPath, "definitions.docx")
     defParser = DefParser(srcPath)
