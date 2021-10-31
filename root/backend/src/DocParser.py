@@ -17,12 +17,12 @@ class DocParser:
         self.wordSet = set(allWords)
 
     # Parse the story for all words. Lower all text and remove all new line, tab, ':', '”', '“', '.', ',', '?', '!',
-    # ';', '"', '(', and ')' characters. Split by the space delimiter after removing those characters.
+    # ';', '"', '(', ')', and '—' characters. Split by the space delimiter after removing those characters.
     def parseDrDolittle(self):
         text = docx2txt.process(self.filePath)
         filteredText = text.lower().replace("\n", " ").replace("\t", "").replace(":", "").replace("”", "")\
             .replace("“", "").replace(".","").replace(",","").replace("?", "").replace("!", "").replace(";", "")\
-            .replace('"', "").replace("(", "").replace(")", "")
+            .replace('"', "").replace("(", "").replace(")", "").replace("—", " ")
         allWords = filteredText.split()
         self.wordSet = set(allWords)
 
