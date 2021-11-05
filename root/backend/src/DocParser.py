@@ -8,10 +8,10 @@ class DocParser:
     def __init__(self, filePath):
         self.filePath = filePath
 
-    # Parse the database document. Remove all new line and tab characters and then split by the space delimiter.
+    # Parse the database document. Remove all new line, tab, and '+' characters and then split by the space delimiter.
     def parseDatabase(self):
         text = docx2txt.process(self.filePath)
-        filteredText = text.replace("\n", " ").replace("\t", "")
+        filteredText = text.lower().replace("\n", " ").replace("\t", "").replace("+", "")
         allWords = filteredText.split()
         # allWords = [word.replace("_", " ") for word in allWords] If we need to remove _ later on, uncomment
         self.wordSet = set(allWords)
@@ -27,7 +27,8 @@ class DocParser:
         self.wordSet = set(allWords)
 
 
-# Main method to run DocParser.py. Reads relative file path of cwd which contains database_words.docx
+# Main method to run DocParser.py. Reads relative file path of cwd which contains database_words.docx and DrDolittle.docx
+# Compares words in database to words in Dr. Dolittle and writes missing words to missingWordsInDatabase.txt
 def main():
     prefixPath = os.getcwd()
     databaseFilePath = os.path.join(prefixPath, "database_words.docx")
@@ -41,9 +42,15 @@ def main():
     print("Number of unique words in Dr. Dolittle: ", len(storyParser.wordSet))
 
     difference = storyParser.wordSet.difference(databaseDocParser.wordSet)
+    difference = list(difference)
+    difference.sort()
     print("Difference between database and story: ", difference)
-    print("Number of words in Dr. Dolittle and not in database: " ,
-          len(storyParser.wordSet.difference(databaseDocParser.wordSet)))
+    print("Number of words in Dr. Dolittle not in database: " ,
+          len(difference))
+
+    with open("missingWordsInDatabase.txt", "w") as file:
+        for word in difference:
+            file.write("%s\n" % word)
 
 if __name__ == '__main__':
     main()
