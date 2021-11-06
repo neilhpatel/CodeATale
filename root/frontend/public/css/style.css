@@ -50,7 +50,7 @@ body {
     row-gap: 5em;
     left: 50%;
     transform: translate(-50%);
-    margin: 5em 0 5em 0;
+    margin: 5em 0;
 }
 
 #selboxes button {
@@ -69,7 +69,7 @@ body {
 }
 
 #selboxes button:active {
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
     transform: translateY(4px);
     background-color: #6ffafa;
 }
@@ -114,7 +114,7 @@ body {
 }
 
 #navbar i {
-    margin: 0.5em 0.25em 0.5em 0.25em;
+    margin: 0.5em 0.25em;
 }
 
 #quiz-i {
