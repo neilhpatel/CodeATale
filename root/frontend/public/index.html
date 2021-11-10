@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Test Page</title>
+
+        <link rel="stylesheet" href="css/style.css"> <!-- Links the CSS to this HTML page -->
+        <script defer src='scripts.js'></script>
+
+        <script src="https://kit.fontawesome.com/c951839bea.js" crossorigin="anonymous"></script>
+
+    </head>
+
+    <body>
+        <main>
+            
+            <!-- Heading -->
+            <h1 id='home-heading'>Choose a Chapter and Start Reading</h1>
+
+            <!-- Navigation Bar -->
+            <!-- Since this is used on every page maybe try to find a way to make this an object or something. -->
+            <nav id='navbar'>
+                <i class="fas fa-home" id='home-i'></i>
+                <hr class="line">
+                <i class="fas fa-arrow-alt-circle-left" id='back-i'></i>
+                <i class="fas fa-brain"></i>
+                <i class="fas fa-lightbulb" id='quiz-i'></i>
+                <i class="fas fa-sign-out-alt" id='exit-i'></i>
+            </nav>
+
+            <!-- Chapter Selection Boxes -->
+            <div id='selboxes'>
+                <section class='chapter-box'>
+                    <button type="button" class='chapter-button'>Puddleby</button>
+                    <p>Chapter 1</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>Animal Language</button>
+                    <p>Chapter 2</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>More Money Troubles</button>
+                    <p>Chapter 3</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>A Message from Africa</button>
+                    <p>Chapter 4</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>The Great Journey</button>
+                    <p>Chapter 5</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>Polynesia and the King</button>
+                    <p>Chapter 6</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>The Bridge of Apes</button>
+                    <p>Chapter 7</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>The Leader of the Lions</button>
+                    <p>Chapter 8</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>The Monkeys' Council</button>
+                    <p>Chapter 9</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>The Rarest Animal of All</button>
+                    <p>Chapter 10</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>The Black Prince</button>
+                    <p>Chapter 11</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>Medicine and Magic</button>
+                    <p>Chapter 12</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>Red Sails and Blue Wings</button>
+                    <p>Chapter 13</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>The Rats' Warning</button>
+                    <p>Chapter 14</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>The Barbary Dragon</button>
+                    <p>Chapter 15</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>Too-Too, The Listener</button>
+                    <p>Chapter 16</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>Smells</button>
+                    <p>Chapter 17</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>The Rock</button>
+                    <p>Chapter 18</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>The Fisherman's Town</button>
+                    <p>Chapter 19</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+                <section class="chapter-box">
+                    <button type="button" class='chapter-button'>Home Again</button>
+                    <p>Chapter 20</p>
+                    <div class='progress-bar'>
+                        <div class='progress' id='chp1-prog'></div>
+                    </div>
+                    <p class='progress-num'>
+                        %35
+                    </p>
+                </section>
+            </div>
+
+            <!-- Bookmark -->
+            <section class='bookmark'>
+                <div id='overlay'></div>
+                <button type='button' class="fas fa-bookmark" id='bookmark-button'></button>
+                <div class='modal' id='bookmark-modal'>
+                    Select Bookmark
+                </div>
+                
+            </section>
+        </main>
+    </body>
+</html>
