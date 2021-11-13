@@ -1,7 +1,6 @@
 // Navigation bar custom element
 class Navbar extends HTMLElement {
     connectedCallback() {
-        setTimeout(() => console.log());
         this.innerHTML = `
         <nav id='navbar'>
             <i class="fas fa-home" id='home-i'></i>
@@ -12,7 +11,7 @@ class Navbar extends HTMLElement {
             <i class="fas fa-sign-out-alt" id='exit-i'></i>
         </nav>
         `;
-        this.querySelector('nav #home-i').onclick = (evt) => {
+        this.querySelector('nav #home-i').onclick = () => {
             window.location.href = 'index.html';
         };     
     }
@@ -22,7 +21,6 @@ customElements.define('left-navbar', Navbar)
 // Bookmark custom element
 class Bookmark extends HTMLElement {
     connectedCallback() {
-        setTimeout(() => console.log());
         this.innerHTML = `
             <section class='bookmark'>
                 <div id='overlay'></div>
@@ -38,12 +36,12 @@ class Bookmark extends HTMLElement {
 
         const overlay = this.querySelector('#overlay');
 
-        openModalButton.onclick = (evt) =>  {
+        openModalButton.onmousedown = () =>  {
             const modal = this.querySelector('#bookmark-modal');
             openModal(modal);
         };
 
-        overlay.onclick = (evt) => {
+        overlay.onclick = () => {
             const modal = this.querySelector('#bookmark-modal');
             closeModal(modal);
         };

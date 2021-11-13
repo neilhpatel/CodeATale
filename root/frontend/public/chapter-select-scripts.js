@@ -4,7 +4,7 @@ const chapterButtons = document.querySelectorAll('.chapter-button')
 chapterButtons.forEach(button => {
     button.addEventListener('click', () => {
         window.location.href = 'reading-page.html';
-        chptNum = button.nextElementSibling.innerText;
+        let chptNum = parseInt(button.id);
         sessionStorage.setItem('chptNum', chptNum)
     })
 });
