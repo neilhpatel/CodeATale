@@ -6,7 +6,10 @@
         <title>Test Page</title>
 
         <link rel="stylesheet" href="css/style.css"> <!-- Links the CSS to this HTML page -->
+        <link rel="stylesheet" href="css/chapter-select-styles.css">
         <script defer src='scripts.js'></script>
+        <script defer src='components.js'></script>
+        <script defer src='chapter-select-scripts.js'></script>
 
         <script src="https://kit.fontawesome.com/c951839bea.js" crossorigin="anonymous"></script>
 
@@ -19,15 +22,7 @@
             <h1 id='home-heading'>Choose a Chapter and Start Reading</h1>
 
             <!-- Navigation Bar -->
-            <!-- Since this is used on every page maybe try to find a way to make this an object or something. -->
-            <nav id='navbar'>
-                <i class="fas fa-home" id='home-i'></i>
-                <hr class="line">
-                <i class="fas fa-arrow-alt-circle-left" id='back-i'></i>
-                <i class="fas fa-brain"></i>
-                <i class="fas fa-lightbulb" id='quiz-i'></i>
-                <i class="fas fa-sign-out-alt" id='exit-i'></i>
-            </nav>
+            <left-navbar></left-navbar>
 
             <!-- Chapter Selection Boxes -->
             <div id='selboxes'>
@@ -234,14 +229,8 @@
             </div>
 
             <!-- Bookmark -->
-            <section class='bookmark'>
-                <div id='overlay'></div>
-                <button type='button' class="fas fa-bookmark" id='bookmark-button'></button>
-                <div class='modal' id='bookmark-modal'>
-                    Select Bookmark
-                </div>
-                
-            </section>
+            <book-mark></book-mark>
+            
         </main>
     </body>
 </html>

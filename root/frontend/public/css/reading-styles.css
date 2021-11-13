@@ -1,0 +1,45 @@
+/* Chapter Heading */
+
+#reading-heading {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    color:rgb(73, 73, 73);
+    white-space: nowrap;
+    font-size: 3em;
+}
+
+
+/* Main Text */
+
+.main-text {
+    position: relative;
+    left: 50%;
+    top: 5vh;
+    transform: translate(-50%);
+
+    max-width: 50vw;
+    min-width: 25vw;
+
+    font-size: 2em;
+
+}
+
+
+/* Next and Previous Page */
+
+#prevPg, #nextPg {
+    font-size: 7rem;
+
+    position: fixed;
+}
+
+#prevPg {
+    bottom: 5%;
+    left: 15%;
+}
+
+#nextPg {
+    bottom: 5%;
+    right: 15%;
+}
