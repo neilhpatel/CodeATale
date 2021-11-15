@@ -186,6 +186,8 @@ body {
     left: 50%;
     top: 5vh;
     transform: translate(-50%);
+    text-indent: 40px;
+    margin-bottom: 25px; /* this is if we want to have space between paragraphs*/
 
     max-width: 50vw;
     min-width: 25vw;
