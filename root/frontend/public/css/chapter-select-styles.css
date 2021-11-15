@@ -1,0 +1,88 @@
+/* Headings */
+
+#home-heading {
+    position: absolute;
+    text-decoration: underline;
+    color:rgb(73, 73, 73);
+    white-space: nowrap;
+    font-size: 4vw;
+    text-align: center;
+
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+/* Chapter Selection Boxes */
+
+#selboxes {
+    position: relative;
+    display: inline-grid;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 5em;
+    row-gap: 5em;
+    left: 50%;
+    transform: translate(-50%);
+    margin: 5em 0;
+    font-size: 1vw;
+}
+
+@media screen and (max-width: 1000px) {
+    #selboxes {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    #selboxes {
+        grid-template-columns: 1fr;
+    }
+}
+
+#selboxes button {
+    background-color: #38fbfb;
+    width: 18vw;
+    height: 13vh;
+    padding: 0;
+    border-radius: 1em;
+    border: none;
+    box-shadow: -4px 3px 4px rgba(0, 0, 0, 0.2) ;
+    font-size: 2vw;
+}
+
+#selboxes button:hover {
+    background-color: #80f1f1;
+}
+
+#selboxes button:active {
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    transform: translateY(4px);
+    background-color: #7cd6d6;
+}
+
+.chapter-box p {
+    text-align: center;
+    margin: 0.5em;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.progress-num {
+    position: relative;
+    left: 65%;
+    bottom: 15%;
+}
+
+.progress-bar, .progress {
+    width: 1fr;
+    height: 0.33em;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.progress {
+    border: none;
+    width: 2em;
+    background-color: rgba(224,255,0,1);
+}
