@@ -1,45 +1,54 @@
 /* Chapter Heading */
 
 #reading-heading {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-    color:rgb(73, 73, 73);
-    white-space: nowrap;
-    font-size: 3em;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  color: rgb(73, 73, 73);
+  white-space: nowrap;
+  font-size: 3em;
 }
-
 
 /* Main Text */
 
 .main-text {
-    position: relative;
-    left: 50%;
-    top: 5vh;
-    transform: translate(-50%);
+  position: relative;
+  left: 50%;
+  top: 5vh;
+  transform: translate(-50%);
 
-    max-width: 50vw;
-    min-width: 25vw;
+  max-width: 50vw;
+  min-width: 25vw;
 
-    font-size: 2em;
-
+  font-size: 2em;
 }
 
+/* Images */
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  height: 250px;
+  transform: translateY(50px);
+}
 
 /* Next and Previous Page */
 
-#prevPg, #nextPg {
-    font-size: 7rem;
+#prevPg,
+#nextPg {
+  font-size: 7rem;
 
-    position: fixed;
+  position: fixed;
 }
 
 #prevPg {
-    bottom: 5%;
-    left: 15%;
+  bottom: 5%;
+  left: 15%;
 }
 
 #nextPg {
-    bottom: 5%;
-    right: 15%;
+  bottom: 5%;
+  right: 15%;
 }

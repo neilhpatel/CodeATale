@@ -5,7 +5,7 @@ chapterButtons.forEach(button => {
     button.addEventListener('click', () => {
         window.location.href = 'reading-page.html';
         let chptNum = parseInt(button.id);
-        sessionStorage.setItem('chptNum', chptNum)
+        sessionStorage.setItem('chptNum', chptNum);
     })
 });
 
