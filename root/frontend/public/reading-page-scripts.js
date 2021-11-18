@@ -1,6 +1,6 @@
 window.addEventListener('load', () => {
     document.querySelector('#reading-heading').innerHTML = 'Chapter ' + sessionStorage.getItem('chptNum');
-    document.querySelector("img").src = "../assets/chapter_images/chapter" + sessionStorage.getItem("chpNum") + ".png";
+    document.querySelector("img").src = "../assets/chapter_images/chapter" + sessionStorage.getItem("chptNum") + ".png";
 })
 
 const nextPage = document.querySelector('#prevPg');
