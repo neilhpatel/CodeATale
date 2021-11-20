@@ -6,7 +6,7 @@
     transform: translate(-50%);
     color:rgb(73, 73, 73);
     white-space: nowrap;
-    font-size: 3em;
+    font-size: 6vh;
 }
 
 
@@ -18,11 +18,10 @@
     top: 5vh;
     transform: translate(-50%);
 
-    max-width: 50vw;
-    min-width: 25vw;
-
-    font-size: 2em;
-
+    max-width: 65vw; 
+    max-height: 75vh;
+    overflow: auto;
+    font-size: 5vh;
 }
 
 
@@ -32,6 +31,16 @@
     font-size: 7rem;
 
     position: fixed;
+
+    cursor: pointer;
+}
+
+#prevPg:hover {
+    transform: scale(150%);
+}
+
+#nextPg:hover {
+    transform: scale(150%);
 }
 
 #prevPg {
