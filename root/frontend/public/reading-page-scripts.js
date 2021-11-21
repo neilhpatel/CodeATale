@@ -1,11 +1,11 @@
-window.addEventListener('load', () => {
-    document.querySelector('#reading-heading').innerHTML = 'Chapter ' + sessionStorage.getItem('chptNum');
-})
+// When the reading screen's scripts get run this will update the chapter title
+document.querySelector('#reading-heading').innerHTML = 'Chapter ' + sessionStorage.getItem('chptNum');
+
 
 const nextPage = document.querySelector('#prevPg');
 nextPage.addEventListener('click', () => {
     let num = sessionStorage.getItem('chptNum')
-    if (num == 1) return;
+    if (num <= 1) return;
     num =  parseInt(num) - 1;
     changePageTitle('Chapter ' + num);
     changePageText(num);
