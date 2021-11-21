@@ -47,8 +47,9 @@
     padding: 0;
     border-radius: 1em;
     border: none;
-    box-shadow: -4px 3px 4px rgba(0, 0, 0, 0.2) ;
+    box-shadow: -4px 3px 4px rgba(0, 0, 0, 0.2);
     font-size: 2vw;
+    cursor: pointer;
 }
 
 #selboxes button:hover {
@@ -70,13 +71,19 @@
 
 .progress-num {
     position: relative;
-    left: 65%;
-    bottom: 15%;
+    top: -10%;
+    transform: scale(0);
+    transition: 100ms ease-in-out;
+}
+
+.progress-bar:hover + .progress-num, .progress-bar:active + .progress-num {
+    top: -5%;
+    transform: scale(100%);
 }
 
 .progress-bar, .progress {
     width: 1fr;
-    height: 0.33em;
+    height: 0.6em;
     border: 2px solid black;
     border-radius: 5px;
 }

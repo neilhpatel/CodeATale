@@ -1,26 +1,28 @@
 /* Chapter Heading */
 
 #reading-heading {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%);
-  color: rgb(73, 73, 73);
-  white-space: nowrap;
-  font-size: 3em;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    color:rgb(73, 73, 73);
+    white-space: nowrap;
+    font-size: 6vh;
 }
 
 /* Main Text */
 
 .main-text {
-  position: relative;
-  left: 50%;
-  top: 5vh;
-  transform: translate(-50%);
+    position: relative;
+    left: 50%;
+    top: 5vh;
+    transform: translate(-50%);
+    text-indent: 40px;
+    margin-bottom: 25px;
 
-  max-width: 50vw;
-  min-width: 25vw;
-
-  font-size: 2em;
+    max-width: 65vw; 
+    max-height: 75vh;
+    overflow: auto;
+    font-size: 5vh;
 }
 
 /* Images */
@@ -38,9 +40,18 @@ img {
 
 #prevPg,
 #nextPg {
-  font-size: 7rem;
+    font-size: 7rem;
+    position: fixed;
 
-  position: fixed;
+    cursor: pointer;
+}
+
+#prevPg:hover {
+    transform: scale(150%);
+}
+
+#nextPg:hover {
+    transform: scale(150%);
 }
 
 #prevPg {

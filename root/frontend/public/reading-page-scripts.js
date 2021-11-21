@@ -6,7 +6,7 @@ window.addEventListener('load', () => {
 const nextPage = document.querySelector('#prevPg');
 nextPage.addEventListener('click', () => {
     let num = sessionStorage.getItem('chptNum')
-    if (num == 1) return;
+    if (num <= 1) return;
     num =  parseInt(num) - 1;
     addImage("../assets/chapter_images/chapter" + num + ".png");
     changePageTitle('Chapter ' + num);

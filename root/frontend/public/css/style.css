@@ -14,10 +14,10 @@ body {
 #navbar {
     position: fixed;
     display: flex;
-    max-width: 8vw;
-    min-height: 80vh;
+    min-width: 10vw;
+    min-height: 90vh;
     flex-direction: column;
-    font-size: 4vw;
+    font-size: 5vw;
     border-right: 3px solid black;
     border-bottom: 3px solid black;
     text-align: center;
@@ -28,6 +28,7 @@ body {
 
 #navbar i {
     margin: 0.5em 0.25em;
+    cursor: pointer;
 }
 
 #navbar i:hover {
@@ -39,14 +40,14 @@ body {
     border: 1px solid rgb(66, 66, 66);
     background-color: rgb(66, 66, 66);
     max-width: 1em;
-    transform: translateX(25%);
+    margin: 0 25%;
 }
 
 
 /* Bookmark */
 .bookmark {
     position: fixed;
-    right: 10%;
+    right: 5%;
     top: 10%;
 }
 
@@ -61,22 +62,26 @@ body {
     font-size: 5vw;
     background-color: rgba(0, 0, 0, 0.0);
     border: none;
+    cursor: pointer;
+    text-shadow: 5px 5px 5px red;
 }
 
 .fa-bookmark:active {
-    transform: translate(0, 50px);
+    text-shadow: none;
+    transform: translate(5px, 5px);
     color: rgb(66, 66, 66);
 }
 
 .modal {
     z-index: 10;
-    width: 5vw;
+    width: 6vw;
     height: 30vh;
     padding: 1em 0;
     border: 3px solid black;
     background-color: #F5E5BA;
     text-decoration: underline;
     text-align: center;
+    overflow: auto;
 
     position: relative;
     left: -15%;
@@ -112,17 +117,18 @@ body {
     opacity: 1;
 }
 
-#add-bookmark {
+
+#add-bookmark, .newBookmark {
     border: none;
-    padding: 5px;
-    margin: 1em;
-    border-radius: 5px;
+    padding: 4px;
+    margin: 0.5em;
+    border-radius: 10px;
     background-color: rgba(233,82,98,1);
-    box-shadow: -6px 6px 0 black;
+    box-shadow: -4px 4px 0 black;
 }
 
-#add-bookmark:active {
+#add-bookmark:active, .newBookmark:active {
     background-color: rgb(187, 90, 100);
     box-shadow: none;
-    transform: translate(-6px, 6px);
+    transform: translate(-4px, 4px);
 }
