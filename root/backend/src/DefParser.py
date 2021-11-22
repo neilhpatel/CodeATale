@@ -50,7 +50,9 @@ def main():
     """
     
     prefixPath = os.getcwd()
-    srcPath = os.path.join(prefixPath, "definitions.docx")
+    newPath = os.path.abspath(os.path.join(prefixPath, os.pardir))
+    docPath = os.path.join(newPath, "docs")
+    srcPath = os.path.join(docPath, "definitions.docx")
     defParser = DefParser(srcPath)
     defParser.parseWordDocumentText()
     print("Number of unique words in the database: ",

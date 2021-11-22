@@ -53,7 +53,9 @@ class StoryPages:
 
 def main():
     prefixPath = os.getcwd()
-    storyFilePath = os.path.join(prefixPath, "DrDolittle.docx")
+    newPath = os.path.abspath(os.path.join(prefixPath, os.pardir))
+    docPath = os.path.join(newPath, "docs")
+    storyFilePath = os.path.join(docPath, "DrDolittle.docx")
     storyPages = StoryPages(storyFilePath)
     storyPages.parseStoryIntoPages()
 
