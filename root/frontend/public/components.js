@@ -74,6 +74,7 @@ class Bookmark extends HTMLElement {
         const addBookmark = this.querySelector('#add-bookmark');
         addBookmark.onclick = () => {
             let alreadyAdded = false;
+            let onReadingPage = false;
             let bookmarkList = sessionStorage.getItem('bookmarks').split(' ');
             bookmarkList.forEach(bm => {
                 // Check if it is already in the list
@@ -81,7 +82,12 @@ class Bookmark extends HTMLElement {
                     alreadyAdded = true;
                 }
             });
-            if (alreadyAdded === false) {
+            console.log(window.location.href.substring(window.location.href.length - 17, window.location.href.length));
+
+            if (window.location.href.substring(window.location.href.length - 17, window.location.href.length) == 'reading-page.html') {
+                onReadingPage = true;
+            }
+            if (alreadyAdded === false && onReadingPage === true) {
                 let currBookMarks;
                 if (sessionStorage.getItem('bookmarks')) { // If there have been any bookmarks added 
                     currBookMarks = sessionStorage.getItem('bookmarks') + ' ' + sessionStorage.getItem('chptNum');
