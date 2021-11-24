@@ -82,7 +82,7 @@ class Bookmark extends HTMLElement {
                     alreadyAdded = true;
                 }
             });
-            if (window.location.href.substring(window.location.href.length - 17, window.location.href.length) == 'reading-page.html') {
+            if (window.location.href.substring(window.location.href.length - 17, window.location.href.length) == "reading-page.html") {
                 onReadingPage = true;
             }
             if (alreadyAdded === false && onReadingPage === true) {
