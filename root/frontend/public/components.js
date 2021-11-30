@@ -98,7 +98,7 @@ class Bookmark extends HTMLElement {
             }
         };
 
-        // Handleing the modal functionality
+        // Handling the modal functionality
         const openModalButton = this.querySelector('#bookmark-button');
 
         const overlay = this.querySelector('#overlay');
@@ -108,7 +108,7 @@ class Bookmark extends HTMLElement {
             openModal(modal);
         };
 
-        overlay.onclick = () => {
+        overlay.onmousedown = () => {
             const modal = this.querySelector('#bookmark-modal');
             closeModal(modal);
         };
