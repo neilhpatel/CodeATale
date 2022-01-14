@@ -6,15 +6,13 @@ if (!sessionStorage.getItem('firstLoad')) {
     sessionStorage.setItem('bookmarks', '');
 }
 
-
 // Chapter Select Buttons
-const chapterButtons = document.querySelectorAll('.chapter-button')
+const chapterButtons = $(".chapter-button");
 
-chapterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        window.location.href = 'reading-page.html';
-        let chptNum = parseInt(button.id);
-        sessionStorage.setItem('chptNum', chptNum);
+chapterButtons.each(function(i) {
+    $(this).click(function() {
+        let chptNum = parseInt($(this).attr("id"));
+        sessionStorage.setItem("chptNum", chptNum);
+        window.location.href = "reading-page.html";
     })
-});
-
+})

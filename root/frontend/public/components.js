@@ -13,12 +13,12 @@ class Navbar extends HTMLElement {
             <i class="fas fa-sign-out-alt" id='exit-i'></i>
         </nav>
         `;
-        this.querySelector('nav #home-i').onclick = () => {
+        $("nav #home-i").click(function() {
             window.location.href = 'index.html';
-        };
-        this.querySelector('nav #back-i').onclick = () => {
+        })
+        $("nav #back-i").click(function() {
             history.back();
-        };
+        })
     }
 }
 customElements.define('left-navbar', Navbar)
@@ -55,19 +55,20 @@ class Bookmark extends HTMLElement {
 
         // Create a new bookmark element for a given chapter
         function appendBookmark(bm) {
-            const newBookMark = document.createElement('button');
-            newBookMark.innerHTML = 'Chapter ' + bm;
-            newBookMark.setAttribute('class', 'newBookmark');
-            newBookMark.setAttribute('type', 'button');
-            newBookMark.setAttribute('id', 'ch' + bm);
+            const newBookMark = $(document.createElement('button'));
+            newBookMark.html('Chapter ' + bm);
+            newBookMark.attr('class', 'newBookmark');
+            newBookMark.attr('type', 'button');
+            newBookMark.attr('id', 'ch' + bm);
             
-            newBookMark.onclick = () => {
+            newBookMark.click(() => {
                 sessionStorage.setItem('chptNum', bm);
                 window.location.href = 'reading-page.html';
-            };
-            const bookmarkModal = document.querySelector('#bookmark-modal');
+            })
 
-            bookmarkModal.appendChild(newBookMark);
+            const bookmarkModal = $("#bookmark-modal");
+
+            bookmarkModal.append(newBookMark);
         }
 
         // onClick effect for adding a bookmark
@@ -99,33 +100,20 @@ class Bookmark extends HTMLElement {
         };
 
         // Handling the modal functionality
-        const openModalButton = this.querySelector('#bookmark-button');
+        const openModalButton = $("#bookmark-button");
 
-        const overlay = this.querySelector('#overlay');
+        const overlay = $("#overlay");
+        const modal = $("#bookmark-modal");
 
-        openModalButton.onmousedown = () =>  {
-            const modal = this.querySelector('#bookmark-modal');
-            openModal(modal);
-        };
+        openModalButton.click(function() {
+            modal.toggleClass("active");
+            overlay.toggleClass("active");
+        })
 
-        overlay.onmousedown = () => {
-            const modal = this.querySelector('#bookmark-modal');
-            closeModal(modal);
-        };
-
-        function openModal(modal) {
-            if (modal == null) return;
-
-            modal.classList.add('active');
-            overlay.classList.add('active');
-        }
-
-        function closeModal(modal) {
-            if (modal == null) return;
-
-            modal.classList.remove('active');
-            overlay.classList.remove('active');
-        }
+        overlay.click(function() {
+            modal.toggleClass("active");
+            overlay.toggleClass("active");
+        })
     }
 }
 customElements.define('book-mark', Bookmark);

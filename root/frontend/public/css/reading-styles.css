@@ -9,6 +9,17 @@
     font-size: 6vh;
 }
 
+/* Page Number */
+.page-number {
+  position: absolute;
+  left: 50%;
+  bottom: 1%;
+  transform: translate(-50%);
+  color:rgb(73, 73, 73);
+  white-space: nowrap;
+  font-size: 5vh;
+}
+
 /* Main Text */
 
 .main-text {
@@ -60,4 +71,8 @@ img {
 #nextPg {
   bottom: 5%;
   right: 15%;
+}
+
+.highlight:hover {
+  background-color: yellow;
 }
