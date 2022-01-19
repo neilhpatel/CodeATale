@@ -63,7 +63,7 @@ class Bookmark extends HTMLElement {
             // This should be a string of the format "1 2 3 4"
             let bookmarkList = localBookmarks.split(" ");
             bookmarkList.forEach((bm) => {
-                if (bm !== null && bm !== undefined && bm !== false) {
+                if (bm !== null && typeof bm !== "undefined" && bm !== false) {
                     appendBookmark(bm);
                 }
             });
@@ -77,7 +77,7 @@ class Bookmark extends HTMLElement {
             let alreadyAdded = false;
             let onReadingPage = false;
             let bookmarkList = sessionStorage.getItem("bookmarks").split(" ");
-            bookmarkList.forEach(bm => {
+            bookmarkList.forEach((bm) => {
                 // Check if it is already in the list
                 if (bm === sessionStorage.getItem("chptNum")) {
                     alreadyAdded = true;
@@ -108,12 +108,12 @@ class Bookmark extends HTMLElement {
         openModalButton.click(function() {
             modal.toggleClass("active");
             overlay.toggleClass("active");
-        })
+        });
 
         overlay.click(function() {
             modal.toggleClass("active");
             overlay.toggleClass("active");
-        })
+        });
     }
 }
 customElements.define("book-mark", Bookmark);

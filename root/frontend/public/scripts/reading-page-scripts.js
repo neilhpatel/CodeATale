@@ -32,7 +32,7 @@ $("document").ready(function() {
 const prevPage = $("#prevPg");
 prevPage.click(() => {
     let num = sessionStorage.getItem("chptNum");
-    if (num <= 1) {return};
+    if (num <= 1) {return;}
     num =  parseInt(num, 10) - 1;
     $("img").attr("src", `../../assets/chapter_images/chapter${num}.png`); // Changes the chapter image
     $("#reading-heading").html(`Chapter ${num}`); // Changes the title of the chapter
@@ -43,7 +43,7 @@ prevPage.click(() => {
 const nextPage = $("#nextPg");
 nextPage.click(() => {
     let num = sessionStorage.getItem("chptNum");
-    if (num >= 21) {return};
+    if (num >= 21) {return;}
     num = parseInt(num, 10) + 1;
     $("img").attr("src", `../../assets/chapter_images/chapter${num}.png`); // Changes the chapter image
     $("#reading-heading").html(`Chapter ${num}`); // Changes the title of the chapter

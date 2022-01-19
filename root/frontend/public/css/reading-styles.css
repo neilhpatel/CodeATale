@@ -23,16 +23,16 @@
 /* Main Text */
 
 .main-text {
-    position: relative;
-    left: 50%;
-    top: 5vh;
-    transform: translate(-50%);
-    text-indent: 40px;
-    max-width: 65vw;
-    max-height: 60vh;
-    overflow: auto;
-    font-size: 5vh;
-    margin: 2vh;
+  position: relative;
+  left: 50%;
+  top: 5vh;
+  transform: translate(-50%);
+  text-indent: 40px;
+  max-width: 65vw;
+  max-height: 60vh;
+  overflow: auto;
+  font-size: 5vh;
+  margin: 2vh;
 }
 
 /* Images */
