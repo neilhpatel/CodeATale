@@ -71,6 +71,20 @@ class Bookmark extends HTMLElement {
 
         populateBookmarks(sessionStorage.getItem("bookmarks"));
 
+        function addBookmarkHelper(alreadyAdded, onReadingPage) {
+            if (alreadyAdded === false && onReadingPage === true) {
+                let currBookMarks;
+                if (sessionStorage.getItem("bookmarks")) { // If there have been any bookmarks added 
+                    currBookMarks = sessionStorage.getItem("bookmarks") + " " + sessionStorage.getItem("chptNum");
+                } else { // If this is the first bookmark to be added
+                    currBookMarks = sessionStorage.getItem("chptNum");
+                }
+                sessionStorage.setItem("bookmarks", currBookMarks);
+
+                appendBookmark(sessionStorage.getItem("chptNum"));
+            }
+        }
+
         // onClick effect for adding a bookmark
         const addBookmark = $("#add-bookmark");
         addBookmark.click(function() {
@@ -86,17 +100,7 @@ class Bookmark extends HTMLElement {
             if (window.location.href.substring(window.location.href.length - 17, window.location.href.length) === "reading-page.html") {
                 onReadingPage = true;
             }
-            if (alreadyAdded === false && onReadingPage === true) {
-                let currBookMarks;
-                if (sessionStorage.getItem("bookmarks")) { // If there have been any bookmarks added 
-                    currBookMarks = sessionStorage.getItem("bookmarks") + " " + sessionStorage.getItem("chptNum");
-                } else { // If this is the first bookmark to be added
-                    currBookMarks = sessionStorage.getItem("chptNum");
-                }
-                sessionStorage.setItem("bookmarks", currBookMarks);
-
-                appendBookmark(sessionStorage.getItem("chptNum"));
-            }
+            addBookmarkHelper(alreadyAdded, onReadingPage);
         });
 
         // Handling the modal functionality

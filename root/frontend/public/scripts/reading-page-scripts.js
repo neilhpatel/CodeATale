@@ -17,8 +17,8 @@ function updatePageText (num) {
             $(".highlight").each(function() {
                 $(this).click(function() {
                     alert($(this).text());
-                })
-            })
+                });
+            });
         });
 }
 

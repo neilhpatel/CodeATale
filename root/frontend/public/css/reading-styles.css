@@ -47,10 +47,11 @@ img {
 
 /* Next and Previous Page */
 
-#prevPg, #nextPg {
-    font-size: 10vh;
-    position: fixed;
-    cursor: pointer;
+#prevPg, 
+#nextPg {
+  font-size: 10vh;
+  position: fixed;
+  cursor: pointer;
 }
 
 #prevPg:hover {
