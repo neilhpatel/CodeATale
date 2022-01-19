@@ -4,24 +4,24 @@ class Navbar extends HTMLElement {
         super();
 
         this.innerHTML = `
-        <nav id='navbar'>
-            <i class="fas fa-home" id='home-i'></i>
+        <nav id="navbar">
+            <i class="fas fa-home" id="home-i"></i>
             <hr class="line">
-            <i class="fas fa-arrow-alt-circle-left" id='back-i'></i>
+            <i class="fas fa-arrow-alt-circle-left" id="back-i"></i>
             <i class="fas fa-brain"></i>
-            <i class="far fa-lightbulb" id='quiz-i'></i>
-            <i class="fas fa-sign-out-alt" id='exit-i'></i>
+            <i class="far fa-lightbulb" id="quiz-i"></i>
+            <i class="fas fa-sign-out-alt" id="exit-i"></i>
         </nav>
         `;
         $("nav #home-i").click(function() {
-            window.location.href = 'index.html';
+            window.location.href = "index.html";
         })
         $("nav #back-i").click(function() {
             history.back();
         })
     }
 }
-customElements.define('left-navbar', Navbar)
+customElements.define("left-navbar", Navbar)
 
 // Bookmark custom element
 class Bookmark extends HTMLElement {
@@ -29,23 +29,23 @@ class Bookmark extends HTMLElement {
         super();
 
         this.innerHTML = `
-            <section class='bookmark'>
-                <div id='overlay'></div>
-                <button type='button' class="fas fa-bookmark" id='bookmark-button'></button>
-                <div class='modal' id='bookmark-modal'>
+            <section class="bookmark">
+                <div id="overlay"></div>
+                <button type="button" class="fas fa-bookmark" id="bookmark-button"></button>
+                <div class="modal" id="bookmark-modal">
                     Select Bookmark
-                    <button type='button' id='add-bookmark'>Add Page</button>
+                    <button type="button" id="add-bookmark">Add Page</button>
                 </div>
             </section>
         `;
         
-        populateBookmarks(sessionStorage.getItem('bookmarks'));
+        populateBookmarks(sessionStorage.getItem("bookmarks"));
 
         // Look through the local storage to see which bookmarks
         // the user has added.
         function populateBookmarks(localBookmarks) {
             // This should be a string of the format "1 2 3 4"
-            let bookmarkList = localBookmarks.split(' ');
+            let bookmarkList = localBookmarks.split(" ");
             bookmarkList.forEach(bm => {
                 if (bm != null && bm != undefined && bm != false) {
                     appendBookmark(bm);
@@ -55,15 +55,15 @@ class Bookmark extends HTMLElement {
 
         // Create a new bookmark element for a given chapter
         function appendBookmark(bm) {
-            const newBookMark = $(document.createElement('button'));
-            newBookMark.html('Chapter ' + bm);
-            newBookMark.attr('class', 'newBookmark');
-            newBookMark.attr('type', 'button');
-            newBookMark.attr('id', 'ch' + bm);
+            const newBookMark = $(document.createElement("button"));
+            newBookMark.html("Chapter " + bm);
+            newBookMark.attr("class", "newBookmark");
+            newBookMark.attr("type", "button");
+            newBookMark.attr("id", "ch" + bm);
             
             newBookMark.click(() => {
-                sessionStorage.setItem('chptNum', bm);
-                window.location.href = 'reading-page.html';
+                sessionStorage.setItem("chptNum", bm);
+                window.location.href = "reading-page.html";
             })
 
             const bookmarkModal = $("#bookmark-modal");
@@ -72,14 +72,14 @@ class Bookmark extends HTMLElement {
         }
 
         // onClick effect for adding a bookmark
-        const addBookmark = this.querySelector('#add-bookmark');
+        const addBookmark = this.querySelector("#add-bookmark");
         addBookmark.onclick = () => {
             let alreadyAdded = false;
             let onReadingPage = false;
-            let bookmarkList = sessionStorage.getItem('bookmarks').split(' ');
+            let bookmarkList = sessionStorage.getItem("bookmarks").split(" ");
             bookmarkList.forEach(bm => {
                 // Check if it is already in the list
-                if (bm === sessionStorage.getItem('chptNum')) {
+                if (bm === sessionStorage.getItem("chptNum")) {
                     alreadyAdded = true;
                 }
             });
@@ -88,14 +88,14 @@ class Bookmark extends HTMLElement {
             }
             if (alreadyAdded === false && onReadingPage === true) {
                 let currBookMarks;
-                if (sessionStorage.getItem('bookmarks')) { // If there have been any bookmarks added 
-                    currBookMarks = sessionStorage.getItem('bookmarks') + ' ' + sessionStorage.getItem('chptNum');
+                if (sessionStorage.getItem("bookmarks")) { // If there have been any bookmarks added 
+                    currBookMarks = sessionStorage.getItem("bookmarks") + " " + sessionStorage.getItem("chptNum");
                 } else { // If this is the first bookmark to be added
-                    currBookMarks = sessionStorage.getItem('chptNum');
+                    currBookMarks = sessionStorage.getItem("chptNum");
                 }
-                sessionStorage.setItem('bookmarks', currBookMarks);
+                sessionStorage.setItem("bookmarks", currBookMarks);
 
-                appendBookmark(sessionStorage.getItem('chptNum'));
+                appendBookmark(sessionStorage.getItem("chptNum"));
             }
         };
 
@@ -116,4 +116,4 @@ class Bookmark extends HTMLElement {
         })
     }
 }
-customElements.define('book-mark', Bookmark);
+customElements.define("book-mark", Bookmark);
