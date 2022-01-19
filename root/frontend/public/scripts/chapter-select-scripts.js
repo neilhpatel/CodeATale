@@ -48,7 +48,7 @@ let chptArr = [
 "The Fisherman's Town",
 
 "Home Again"
-]
+];
 
 for (let i = 1; i <= 21; i++) {
     let newElem = $(`
@@ -76,6 +76,4 @@ chapterButtons.each(function(i) {
         sessionStorage.setItem("chptNum", chptNum);
         window.location.href = "reading-page.html";
     });
-})
-
-
+});

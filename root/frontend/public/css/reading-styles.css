@@ -28,9 +28,8 @@
     top: 5vh;
     transform: translate(-50%);
     text-indent: 40px;
-
-    max-width: 65vw; 
-    max-height: 60vh;   
+    max-width: 65vw;
+    max-height: 60vh;
     overflow: auto;
     font-size: 5vh;
     margin: 2vh;
@@ -43,17 +42,14 @@ img {
   margin: auto;
   height: 20vh;
   padding: 0.5em 0;
-  
   transform: translateY(7vh);
 }
 
 /* Next and Previous Page */
 
-#prevPg,
-#nextPg {
+#prevPg, #nextPg {
     font-size: 10vh;
     position: fixed;
-
     cursor: pointer;
 }
 
