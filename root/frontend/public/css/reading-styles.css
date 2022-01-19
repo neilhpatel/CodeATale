@@ -30,10 +30,9 @@
     text-indent: 40px;
 
     max-width: 65vw; 
-    max-height: 60vh;
+    max-height: 60vh;   
     overflow: auto;
     font-size: 5vh;
-
     margin: 2vh;
 }
 

@@ -75,7 +75,7 @@ chapterButtons.each(function(i) {
         let chptNum = parseInt($(this).attr("id"), 10);
         sessionStorage.setItem("chptNum", chptNum);
         window.location.href = "reading-page.html";
-    })
+    });
 })
 
 

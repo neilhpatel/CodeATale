@@ -15,13 +15,13 @@ class Navbar extends HTMLElement {
         `;
         $("nav #home-i").click(function() {
             window.location.href = "index.html";
-        })
+        });
         $("nav #back-i").click(function() {
             history.back();
-        })
+        });
     }
 }
-customElements.define("left-navbar", Navbar)
+customElements.define("left-navbar", Navbar);
 
 // Bookmark custom element
 class Bookmark extends HTMLElement {
@@ -38,20 +38,6 @@ class Bookmark extends HTMLElement {
                 </div>
             </section>
         `;
-        
-        populateBookmarks(sessionStorage.getItem("bookmarks"));
-
-        // Look through the local storage to see which bookmarks
-        // the user has added.
-        function populateBookmarks(localBookmarks) {
-            // This should be a string of the format "1 2 3 4"
-            let bookmarkList = localBookmarks.split(" ");
-            bookmarkList.forEach(bm => {
-                if (bm != null && bm != undefined && bm != false) {
-                    appendBookmark(bm);
-                }
-            });
-        }
 
         // Create a new bookmark element for a given chapter
         function appendBookmark(bm) {
@@ -70,6 +56,20 @@ class Bookmark extends HTMLElement {
 
             bookmarkModal.append(newBookMark);
         }
+
+        // Look through the local storage to see which bookmarks
+        // the user has added.
+        function populateBookmarks(localBookmarks) {
+            // This should be a string of the format "1 2 3 4"
+            let bookmarkList = localBookmarks.split(" ");
+            bookmarkList.forEach((bm) => {
+                if (bm !== null && bm !== undefined && bm !== false) {
+                    appendBookmark(bm);
+                }
+            });
+        }
+
+        populateBookmarks(sessionStorage.getItem("bookmarks"));
 
         // onClick effect for adding a bookmark
         const addBookmark = this.querySelector("#add-bookmark");
