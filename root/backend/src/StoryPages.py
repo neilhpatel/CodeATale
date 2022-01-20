@@ -1,18 +1,20 @@
 import docx2txt
 import os
+import json
 
 
 class StoryPages:
     pageDictionary = {}
     text = []
-    AVERAGE_CHARACTERS_PER_PAGE = 700 #Based on the frontend UI, 700 seems to be a good amount to leave
+    # Based on the frontend UI, 700 seems to be a good amount to leave
+    AVERAGE_CHARACTERS_PER_PAGE = 700
     # space for an audio scrollbar but this can be changed later on depending on our needs.
 
     def __init__(self, filePath):
         self.filePath = filePath
         self.text = docx2txt.process(self.filePath)
-        
-    #Method that parses the story into pages that can be accessed by a page number using self.pageDictionary
+
+    # Method that parses the story into pages that can be accessed by a page number using self.pageDictionary
     def parseStoryIntoPages(self):
         pageText = ['']
         characterCountForPage = 0
@@ -21,10 +23,10 @@ class StoryPages:
         totalCharacterCount = 0
         while totalCharacterCount < len(self.text):
             letter = self.text[totalCharacterCount]
-            #letter is part of an existing word so append it to that word
+            # letter is part of an existing word so append it to that word
             if letter != ' ':
                 pageText[wordIndex] = pageText[wordIndex] + letter
-            #letter is a space character so begin a new word
+            # letter is a space character so begin a new word
             elif letter == ' ':
                 pageText.append('')
                 wordIndex += 1
@@ -32,7 +34,7 @@ class StoryPages:
             characterCountForPage += 1
             totalCharacterCount += 1
             if (characterCountForPage >= self.AVERAGE_CHARACTERS_PER_PAGE):
-                #Always end at a space delimeter. This while loop prevents words from being cut off mid-word.
+                # Always end at a space delimeter. This while loop prevents words from being cut off mid-word.
                 while (self.text[totalCharacterCount] != ' '):
                     letter = self.text[totalCharacterCount]
                     pageText[wordIndex] = pageText[wordIndex] + letter
@@ -44,8 +46,8 @@ class StoryPages:
                 wordIndex = 0
                 pageText = ['']
 
-        #Edge case for last page. Without this check, the last page will never be included since the code will exit out
-        #of the outer while loop before adding the final page.
+        # Edge case for last page. Without this check, the last page will never be included since the code will exit out
+        # of the outer while loop before adding the final page.
         if len(pageText) != 0:
             self.pageDictionary[pageNumber] = pageText
         print("Number of pages: ", len(self.pageDictionary))
@@ -58,6 +60,9 @@ def main():
     storyFilePath = os.path.join(docPath, "DrDolittle.docx")
     storyPages = StoryPages(storyFilePath)
     storyPages.parseStoryIntoPages()
+
+    with open("parsedPages.json", "w") as outfile:
+        json.dump(storyPages.pageDictionary, outfile)
 
 
 if __name__ == '__main__':
