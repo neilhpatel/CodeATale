@@ -23,6 +23,7 @@ class StoryPages:
         totalCharacterCount = 0
         paragraphCount = 0
         chapterNumber = 0
+        endsAtParagraph = False
         while totalCharacterCount < len(self.text):
             letter = self.text[totalCharacterCount]
             # letter is part of an existing word so append it to that word
@@ -37,6 +38,7 @@ class StoryPages:
             # immediately checked below.
             if letter == '\n' and self.text[totalCharacterCount-1] == '\n':
                 paragraphCount += 1
+                endsAtParagraph = True
 
             # Regardless of the letter, increment the character count for the page and the total character count.
             characterCountForPage += 1
@@ -45,19 +47,24 @@ class StoryPages:
             # If the word is "CHAPTER", stop parsing and add the remaining text on the page to the current chapter. Reset
             # all variables to default values to begin parsing new chapter and page.
             if pageText[wordIndex] == 'CHAPTER':
-                chapterNumber += 1
                 if chapterNumber not in self.pageDictionary.keys():
                     self.pageDictionary[chapterNumber] = {}
                 self.pageDictionary[chapterNumber][pageNumber] = pageText #Copy remaining text on page to current chapter
+                chapterNumber += 1
                 characterCountForPage = 0
                 wordIndex = 0
                 pageText = ['']
                 pageNumber += 1
                 paragraphCount = 0
 
-            # If paragraph count is at least 3, stop parsing the page and add the page text to the dictionary and reset
-            # variables to begin next page.
-            if (paragraphCount >= 3):
+            # If paragraph count is at least 1, the current iteration has ended at a paragraph, and there are at least
+            # 60 words in the page, stop parsing the page and add the page text to the dictionary and reset
+            # variables to begin next page. To edit the number of words on the page, change 60 to a smaller or higher
+            # value. Smaller values will accept smaller paragraph sizes as pages and larger values will require more
+            # words to quantify a page.
+            if (paragraphCount >= 1 and endsAtParagraph and len(pageText) >= 60):
+                if chapterNumber not in self.pageDictionary.keys():
+                    self.pageDictionary[chapterNumber] = {}
                 self.pageDictionary[chapterNumber][pageNumber] = pageText
                 characterCountForPage = 0
                 pageNumber += 1
@@ -65,6 +72,7 @@ class StoryPages:
                 pageText = ['']
                 paragraphCount = 0
 
+            endsAtParagraph = False
 
         #Remaining text for the last page will be excluded since the while loop terminates at the end without adding
         #the last pages text. Append that text to the existing last page.
