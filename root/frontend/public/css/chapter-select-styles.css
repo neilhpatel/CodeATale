@@ -57,9 +57,7 @@
   display: block;
   background-color: red;
   transform: translate(44%, -100%) scale(20%, 96%);
-
   pointer-events: auto;
-
   z-index: -10;
 }
 
