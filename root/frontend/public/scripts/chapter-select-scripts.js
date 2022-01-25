@@ -51,9 +51,11 @@ let chptArr = [
 ];
 
 for (let i = 1; i <= 21; i++) {
-    let newElem = $(`
+    let newChapter = $(`
     <section class="chapter-box">
-        <button type="button" class="chapter-button" id="${i}">${chptArr[i-1]}</button>
+        <button class="chapter-button" id="${i}">${chptArr[i-1]}</button>
+        <button class="img-button" id="${i}></button>
+
         <p>Chapter ${i}</p>
         <div class="progress-bar">
             <div class="progress" id="chp1-prog"></div>
@@ -64,7 +66,7 @@ for (let i = 1; i <= 21; i++) {
     </section>
     `);
 
-    $("#selboxes").append(newElem);
+    $("#selboxes").append(newChapter);
 }
 
 // Chapter Select Buttons
@@ -75,5 +77,16 @@ chapterButtons.each(function(i) {
         let chptNum = parseInt($(this).attr("id"), 10);
         sessionStorage.setItem("chptNum", chptNum);
         window.location.href = "reading-page.html";
+    });
+});
+
+// Chapter Image Buttons
+const imgButtons = $(".img-button");
+
+imgButtons.each(function(i) {
+    $(this).click(function() {
+        let chptNum = parseInt($(this).attr("id"), 10);
+        sessionStorage.setItem("chptNum", chptNum);
+        window.location.href = "gallery.html";
     });
 });

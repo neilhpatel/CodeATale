@@ -50,3 +50,4 @@ nextPage.click(() => {
     sessionStorage.setItem("chptNum", num);
     updatePageText(num-1);
 });
+

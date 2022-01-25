@@ -26,6 +26,7 @@
     transform: translate(-50%);
     margin: 5em 0;
     font-size: 1vw;
+    height: 100%;
 }
 
 @media screen and (max-width: 1000px) {
@@ -52,14 +53,56 @@
     cursor: pointer;
 }
 
-#selboxes button:hover {
+/* #selboxes .chapter-box::after {
+    position: relative;
+    display: inline-grid;
+    content: "";
+    background-color: red;
+    border-radius: 2em;
+    width: 18vw;
+    height: 12vh;
+
+    top: -51%;
+    transform: translate(0, -51%);
+    right: -5%;
+
+    z-index: -10;
+} */
+
+#selboxes .img-button {
+    position: absolute;
+    display: block;
+    background-color: red;
+    transform: translate(44%, -100%) scale(20%, 96%);
+    
+    pointer-events: auto;
+    
+    z-index: -10;
+}
+
+#selboxes .chapter-button:hover {
     background-color: #80f1f1;
 }
 
-#selboxes button:active {
+#selboxes .chapter-button:active {
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
     transform: translateY(4px);
     background-color: #7cd6d6;
+}
+
+#selboxes .img-button:hover {
+    transform: translate(48%, -100%) scale(20%, 96%);
+}
+
+/* @keyframes test {
+
+    from {transform: translate(48%, -100%) scale(20%, 96%);}
+    to {transform: translate(48%, -100%) scale(40%, 96%);}
+} */
+
+#selboxes .img-button:active {
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    background-color: #ee654d;
 }
 
 .chapter-box p {
