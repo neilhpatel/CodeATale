@@ -53,22 +53,6 @@
     cursor: pointer;
 }
 
-/* #selboxes .chapter-box::after {
-    position: relative;
-    display: inline-grid;
-    content: "";
-    background-color: red;
-    border-radius: 2em;
-    width: 18vw;
-    height: 12vh;
-
-    top: -51%;
-    transform: translate(0, -51%);
-    right: -5%;
-
-    z-index: -10;
-} */
-
 #selboxes .img-button {
     position: absolute;
     display: block;

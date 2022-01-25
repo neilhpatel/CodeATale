@@ -11,6 +11,7 @@ $("document").ready(function() {
         let newImg = $(`
         <div class="slide">
             <img class="gal-img" src="../../assets/Dr.DolittlePictures/Ch. ${num}/img${num}_${i}.jpg">
+            
         </div>
         `);
         $(".slideshow").append(newImg);
@@ -19,7 +20,8 @@ $("document").ready(function() {
 
     // Modify the slidshow settings here
     $(".slideshow").slick({
+        arrows: true,
         prevArrow: "<i class='fas fa-arrow-left prevArrowBtn'></i>",
-        nextArrow: "<i class=fas fa-arrow-right nextArrowBtn'></i>"
+        nextArrow: "<i class='fas fa-arrow-right nextArrowBtn'></i>",
     });
 });

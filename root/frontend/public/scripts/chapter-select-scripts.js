@@ -54,7 +54,7 @@ for (let i = 1; i <= 21; i++) {
     let newChapter = $(`
     <section class="chapter-box">
         <button class="chapter-button" id="${i}">${chptArr[i-1]}</button>
-        <button class="img-button" id="${i}></button>
+        <button class="img-button" id="${i}"></button>
 
         <p>Chapter ${i}</p>
         <div class="progress-bar">
