@@ -31,10 +31,6 @@
   bottom: -10%;
 }
 
-.nextArrowBtn {
-  right: 5%;
-}
+.nextArrowBtn {right: 5%;}
 
-.prevArrowBtn {
-  left: 5%;
-}
+.prevArrowBtn {left: 5%;}

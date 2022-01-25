@@ -19,7 +19,7 @@ $("document").ready(function() {
 
     // Modify the slidshow settings here
     $(".slideshow").slick({
-        prevArrow: `<i class="fas fa-arrow-left prevArrowBtn"></i>`,
-        nextArrow: `<i class="fas fa-arrow-right nextArrowBtn"></i>`
+        prevArrow: "<i class='fas fa-arrow-left prevArrowBtn'></i>",
+        nextArrow: "<i class=fas fa-arrow-right nextArrowBtn'></i>"
     });
 });
