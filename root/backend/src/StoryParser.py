@@ -95,6 +95,7 @@ class StoryPages:
         # Prints Chapter One's text to the console for testing purposes, can copy-paste the output to another text
         # editor to view it
         for pageNum, page in self.pageDictionary[0].items():
+            print(pageNum)
             for word in page:
                 sys.stdout.write(word + " ")
             print("\n\nPAGE END\n\n")
