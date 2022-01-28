@@ -4,6 +4,7 @@ if (!sessionStorage.getItem("firstLoad")) {
     sessionStorage.setItem("firstLoad", "1");
     sessionStorage.setItem("chptNum", "");
     sessionStorage.setItem("bookmarks", "");
+    sessionStorage.setItem("pageNum", "");
 }
 
 let chptArr = [
@@ -76,6 +77,7 @@ chapterButtons.each(function(i) {
     $(this).click(function() {
         let chptNum = parseInt($(this).attr("id"), 10);
         sessionStorage.setItem("chptNum", chptNum);
+        sessionStorage.setItem("pageNum", 0);
         window.location.href = "reading-page.html";
     });
 });
