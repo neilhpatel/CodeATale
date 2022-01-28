@@ -19,15 +19,15 @@ $("document").ready(function() {
     numOfImages.set(14, 2);
     numOfImages.set(15, 2);
     numOfImages.set(16, 2);
-    numOfImages.set(17, 2);
+    numOfImages.set(17, 1);
     numOfImages.set(18, 2);
     numOfImages.set(19, 2);
     numOfImages.set(20, 2);
     numOfImages.set(21, 4);
 
-    
-    captions.set("img2_2", "“He could see as well as ever”");
+
     captions.set("img1_2", "“And she never came to see him any more”");
+    captions.set("img2_2", "“He could see as well as ever”");
     captions.set("img2_3", "“They came at once to his house on the edge of the town”");
     captions.set("img3_2", "“They used to sit in chairs on the lawn”");
     captions.set("img3_3", "“‘All right,’ said the Doctor, ‘go and get married’”");
@@ -61,7 +61,7 @@ $("document").ready(function() {
     // Loops 3 times (this can result in errors since there might be less than 3 images)
     // Also there might be more than 3 images and those images won't get shown
     let i = 1;
-    while (i < numOfImages.get(parseInt(sessionStorage.getItem("chptNum"))) + 1) {
+    while (i < numOfImages.get(parseInt(sessionStorage.getItem("chptNum"), 10)) + 1) {
         // Creates a new div element with an image inside (the div is needed)
         // Checks to see if there is a caption for an image and shows no text if there is no caption
         let newImg = $(`
