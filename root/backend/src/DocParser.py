@@ -31,12 +31,14 @@ class DocParser:
 # Compares words in database to words in Dr. Dolittle and writes missing words to missingWordsInDatabase.txt
 def main():
     prefixPath = os.getcwd()
-    databaseFilePath = os.path.join(prefixPath, "database_words.docx")
+    newPath = os.path.abspath(os.path.join(prefixPath, os.pardir))
+    docPath = os.path.join(newPath, "docs")
+    databaseFilePath = os.path.join(docPath, "database_words.docx")
     databaseDocParser = DocParser(databaseFilePath)
     databaseDocParser.parseDatabase()
     print("Number of unique words in the database: ", len(databaseDocParser.wordSet))
 
-    storyFilePath = os.path.join(prefixPath, "DrDolittle.docx")
+    storyFilePath = os.path.join(docPath, "DrDolittle.docx")
     storyParser = DocParser(storyFilePath)
     storyParser.parseDrDolittle()
     print("Number of unique words in Dr. Dolittle: ", len(storyParser.wordSet))

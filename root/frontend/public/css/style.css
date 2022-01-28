@@ -9,6 +9,26 @@ body {
     background-color: #AFEEEE;
 }
 
+/* width */
+body::-webkit-scrollbar {
+    width: 20px;
+}
+
+/* Track */
+body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+body::-webkit-scrollbar-thumb {
+    background: rgb(224, 38, 69);
+}
+
+/* Handle on hover */
+body::-webkit-scrollbar-thumb:hover {
+    background: rgb(194, 0, 0);
+}
+
 
 /* Navigation Bar */
 #navbar {
@@ -94,6 +114,26 @@ body {
     font-size: 1vw;
 }
 
+/* width */
+.modal::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.modal::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.modal::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+.modal::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 .modal.active {
     transform: scale(1);
 }
@@ -117,18 +157,27 @@ body {
     opacity: 1;
 }
 
-
 #add-bookmark, .newBookmark {
     border: none;
-    padding: 4px;
+    padding: 8px;
     margin: 0.5em;
     border-radius: 10px;
     background-color: rgba(233,82,98,1);
     box-shadow: -4px 4px 0 black;
 }
 
-#add-bookmark:active, .newBookmark:active {
+.newBookmark:active {
     background-color: rgb(187, 90, 100);
+    box-shadow: none;
+    transform: translate(-4px, 4px);
+}
+
+#add-bookmark {
+    background-color: rgb(104, 243, 229);
+}
+
+#add-bookmark:active {
+    background-color: rgb(127, 202, 195);
     box-shadow: none;
     transform: translate(-4px, 4px);
 }
