@@ -69,7 +69,7 @@ class Bookmark extends HTMLElement {
             // This should be a string of the format "1 2 3 4"
             let bookmarkList = localBookmarks.split(" ");
             bookmarkList.forEach((bm) => {
-                if (bm !== null && typeof bm !== "undefined" && bm !== false && bm != "") {
+                if (bm !== null && typeof bm !== "undefined" && bm !== false && bm !== "") {
                     let chapterPage = bm.split("-");
                     appendBookmark(chapterPage[0], chapterPage[1]);
                 }

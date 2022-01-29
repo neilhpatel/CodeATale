@@ -23,7 +23,7 @@ let chapterStartPageNumber = [
 ];
 
 function increasePage(chapterNum, pageNum) {
-  if (pageNum + 1 >= chapterStartPageNumber[chapterNum]) { // Remember: since this is indexed from 0 this is the next chapter not the current one
+  if (pageNum + 1 >= chapterStartPageNumber[parseInt(chapterNum, 10)]) { // Remember: since this is indexed from 0 this is the next chapter not the current one
     chapterNum++;
   }
 
@@ -71,7 +71,7 @@ function updatePageText (chapter, page, modNums) {
       $("#reading-heading").html(`Chapter ${chapter}`);
       $(".page-number").html(`Page ${page}`);
 
-      let str = data[chapter-1][page]
+      let str = data[parseInt(chapter-1, 10)][parseInt(page, 10)]
       .toString()
       .replace(/,/g, " ")
       .split(/\s+/)
