@@ -1,9 +1,10 @@
 // This code only fires once per session and is just 
-// here to setup chptNum and bookmarks in the sessionStorage.
+// here to setup chapterNum and bookmarks in the sessionStorage.
 if (!sessionStorage.getItem("firstLoad")) {
     sessionStorage.setItem("firstLoad", "1");
     sessionStorage.setItem("chptNum", "");
     sessionStorage.setItem("bookmarks", "");
+    sessionStorage.setItem("pageNum", "");
 }
 
 let chptArr = [
@@ -50,6 +51,30 @@ let chptArr = [
 "Home Again"
 ];
 
+let chapterStartPageNumber = [
+    0,
+    8,
+    31,
+    46,
+    61,
+    77,
+    91,
+    111,
+    124,
+    134,
+    150,
+    165,
+    186,
+    196,
+    209,
+    224,
+    236,
+    250,
+    271,
+    287,
+    300
+];
+
 for (let i = 1; i <= 21; i++) {
     let newChapter = $(`
     <section class="chapter-box">
@@ -74,8 +99,10 @@ const chapterButtons = $(".chapter-button");
 
 chapterButtons.each(function(i) {
     $(this).click(function() {
-        let chptNum = parseInt($(this).attr("id"), 10);
-        sessionStorage.setItem("chptNum", chptNum);
+        let chapterNum = parseInt($(this).attr("id"), 10);
+        
+        sessionStorage.setItem("chptNum", chapterNum);
+        sessionStorage.setItem("pageNum", chapterStartPageNumber[chapterNum - 1]); // Chapters are indexed from 0
         window.location.href = "reading-page.html";
     });
 });
@@ -85,8 +112,8 @@ const imgButtons = $(".img-button");
 
 imgButtons.each(function(i) {
     $(this).click(function() {
-        let chptNum = parseInt($(this).attr("id"), 10);
-        sessionStorage.setItem("chptNum", chptNum);
+        let chapterNum = parseInt($(this).attr("id"), 10);
+        sessionStorage.setItem("chptNum", chapterNum);
         window.location.href = "gallery.html";
     });
 });
