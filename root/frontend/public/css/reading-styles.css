@@ -25,14 +25,14 @@
 .main-text {
   position: relative;
   left: 50%;
-  top: 5vh;
+  top: 7vh;
   transform: translate(-50%);
   text-indent: 40px;
-  max-width: 80vw;
-  max-height: 56vh;
+  max-width: 70vw;
+  max-height: 75vh;
   overflow: auto;
-  font-size: 4.6vmin;
-  margin: 2vh;
+  font-size: 5.5vmin;
+  margin: 0 2vh;
 }
 
 /* Images */
