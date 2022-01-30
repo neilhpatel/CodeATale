@@ -40,21 +40,27 @@ class Bookmark extends HTMLElement {
         `;
 
         // Create a new bookmark element for a given chapter
-        function appendBookmark(bm) {
+        function appendBookmark(chapterNum, pageNum) {
             const newBookMark = $(document.createElement("button"));
-            newBookMark.html("Chapter " + bm);
+            newBookMark.html("Chapter " + chapterNum);
             newBookMark.attr("class", "newBookmark");
             newBookMark.attr("type", "button");
-            newBookMark.attr("id", "ch" + bm);
+            newBookMark.attr("id", "ch" + chapterNum);
             
             newBookMark.click(() => {
-                sessionStorage.setItem("chptNum", bm);
+                sessionStorage.setItem("chptNum", chapterNum);
+                sessionStorage.setItem("pageNum", pageNum);
                 window.location.href = "reading-page.html";
             });
 
             const bookmarkModal = $("#bookmark-modal");
 
             bookmarkModal.append(newBookMark);
+
+            const pageNumText = $(document.createElement("span"));
+            pageNumText.html("Page " + pageNum);
+            
+            newBookMark.append(pageNumText);
         }
 
         // Look through the local storage to see which bookmarks
@@ -63,25 +69,27 @@ class Bookmark extends HTMLElement {
             // This should be a string of the format "1 2 3 4"
             let bookmarkList = localBookmarks.split(" ");
             bookmarkList.forEach((bm) => {
-                if (bm !== null && typeof bm !== "undefined" && bm !== false) {
-                    appendBookmark(bm);
+                if (bm !== null && typeof bm !== "undefined" && bm !== false && bm !== "") {
+                    let chapterPage = bm.split("-");
+                    appendBookmark(chapterPage[0], chapterPage[1]);
                 }
             });
         }
-
+        
+        // List of chapter numbers
         populateBookmarks(sessionStorage.getItem("bookmarks"));
 
         function addBookmarkHelper(alreadyAdded, onReadingPage) {
             if (alreadyAdded === false && onReadingPage === true) {
                 let currBookMarks;
                 if (sessionStorage.getItem("bookmarks")) { // If there have been any bookmarks added 
-                    currBookMarks = sessionStorage.getItem("bookmarks") + " " + sessionStorage.getItem("chptNum");
+                    currBookMarks = sessionStorage.getItem("bookmarks") + " " + sessionStorage.getItem("chptNum") + "-" + sessionStorage.getItem("pageNum");
                 } else { // If this is the first bookmark to be added
-                    currBookMarks = sessionStorage.getItem("chptNum");
+                    currBookMarks = sessionStorage.getItem("chptNum") + "-" + sessionStorage.getItem("pageNum");
                 }
                 sessionStorage.setItem("bookmarks", currBookMarks);
 
-                appendBookmark(sessionStorage.getItem("chptNum"));
+                appendBookmark(sessionStorage.getItem("chptNum"), sessionStorage.getItem("pageNum"));
             }
         }
 
@@ -93,7 +101,7 @@ class Bookmark extends HTMLElement {
             let bookmarkList = sessionStorage.getItem("bookmarks").split(" ");
             bookmarkList.forEach((bm) => {
                 // Check if it is already in the list
-                if (bm === sessionStorage.getItem("chptNum")) {
+                if (bm === sessionStorage.getItem("chptNum") + "-" + sessionStorage.getItem("pageNum")) {
                     alreadyAdded = true;
                 }
             });
