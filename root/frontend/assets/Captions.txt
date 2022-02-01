@@ -1,0 +1,68 @@
+﻿Ch. 1
+img1_2 = “And she never came to see him any more”
+
+Ch. 2
+img2_2 = “He could see as well as ever”
+img2_3 = “They came at once to his house on the edge of the town”
+
+Ch. 3
+img3_2 = “They used to sit in chairs on the lawn”
+img3_3 = “‘All right,’ said the Doctor, ‘go and get married’”
+img3_4 = “One evening when the Doctor was asleep in his chair”
+
+Ch. 4
+img4_2 = “‘I felt sure there was twopence left’”
+img4_3 = “And the voyage began”
+
+Ch. 5
+img5_2 = “‘We must have run into Africa’”
+img5_3 = “‘I got into it because I did not want to be drowned’”
+
+Ch. 6
+img6_2 = “And Queen Amina was asleep”
+img6_3 = “‘Who’s that?’”
+
+Ch. 7
+img7_2 = “Cheering and waving leaves and swinging out of the branches to greet him”
+img7_3 = “John Dolittle was the last to cross”
+
+Ch. 8
+img8_2 = “He made all the monkeys who were still well come and be vaccinated”
+img8_3 = “‘ME, the King of Beasts, to wait on a lot of dirty monkeys?’”
+
+Ch. 9
+img9_2 = “Then the Grand Gorilla got up”
+
+Ch. 10
+img10_2 = “‘Lord save us!’ cried the duck. ‘How does it make up its mind?’”
+
+Ch. 11
+img11_2 = “He began reading the fairy-stories to himself”
+
+Ch. 12
+Img12_2 = “Crying bitterly and waving till the ship was out of sight”
+
+Ch. 13
+img13_2 = “‘They are surely the pirates of Barbary’”
+
+Ch. 14
+img14_2 = “‘And you have heard that rats always leave a sinking ship?’”
+
+Ch. 15
+img15_2 = “‘Look here, Ben Ali—’”
+
+Ch. 16
+img16_2 = “‘Sh!—Listen!—I do believe there’s some one in there!’”
+
+Ch. 18
+img18_2 = “‘You stupid piece of warm bacon!’”
+
+Ch. 19
+img19_2 = “‘Doctor!’ he cried. ‘I’ve got it!’”
+
+Ch. 20
+img20_2 = “And she kissed the Doctor many times”
+
+Ch. 21
+Img21_2 = “The Doctor sat in a chair in front”
+img21_3 = “He began running round the garden like a crazy thing”

@@ -1,0 +1,36 @@
+/* Header */
+#gal-header {
+  position: absolute;
+  text-decoration: underline;
+  color: rgb(73, 73, 73);
+  font-size: 4vw;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+/* Slideshow */
+.slideshow {
+  width: 75vw;
+  margin: 0 auto;
+  padding: 15vh 0 0 0;
+}
+
+.slick-slide img {
+  max-width: 50vw;
+  max-height: 30vw;
+  margin: 0 auto;
+}
+
+/* Arrows */
+.nextArrowBtn,
+.prevArrowBtn {
+  position: absolute;
+  color: #e7e7e7;
+  font-size: 6vh;
+  -webkit-text-stroke: 2px rgb(65, 65, 65);
+  bottom: -10%;
+}
+
+.nextArrowBtn { right: 5%; }
+
+.prevArrowBtn { left: 5%; }
