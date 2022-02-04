@@ -23,13 +23,6 @@ let chapterStartPageNumber = [
   217
 ];
 
-$("document").ready(function() {
-  let chapterNum = parseInt(sessionStorage.getItem("chptNum"), 10);
-  let pageNum = parseInt(sessionStorage.getItem("pageNum"), 10);
-  // $("img").attr("src", `../../assets/chapter_images/chapter${chapterNum}.png`);
-  updatePageText(chapterNum, pageNum, maintainPage);
-});
-
 function increasePage(chapterNum, pageNum) {
   // Remember: since this is indexed from 0 this is the next chapter not the current one
   if (pageNum + 1 >= chapterStartPageNumber[parseInt(chapterNum, 10)]) { 
@@ -74,6 +67,20 @@ function maintainPage() {
   return;
 }
 
+function checkArrows() {
+  if (sessionStorage.getItem("pageNum") <= chapterStartPageNumber[0]) {
+    $("#prevPg").hide();
+  } else {
+    $("#prevPg").show();
+  }
+
+  if (sessionStorage.getItem("pageNum") >= chapterStartPageNumber[chapterStartPageNumber.length-1] - 1) {
+    $("#nextPg").hide();
+  } else {
+    $("#nextPg").show();
+  }
+}
+
 function updatePageText (chapter, page, modNums) {
   fetch("../../assets/json_files/parsedPages.json")
     .then((Response) => Response.json())
@@ -95,7 +102,7 @@ function updatePageText (chapter, page, modNums) {
       $(".page-number").html(`Page ${page}`);
       
       let str = data[parseInt(chapter-1, 10)][parseInt(page, 10)];
-      arr = [];
+      let arr = [];
       str.forEach(element => {
         let normalWord = true;
 
@@ -132,19 +139,12 @@ function updatePageText (chapter, page, modNums) {
   });
 }
 
-function checkArrows() {
-  if (sessionStorage.getItem("pageNum") <= chapterStartPageNumber[0]) {
-    $("#prevPg").hide();
-  } else {
-    $("#prevPg").show();
-  }
-
-  if (sessionStorage.getItem("pageNum") >= chapterStartPageNumber[chapterStartPageNumber.length-1] - 1) {
-    $("#nextPg").hide();
-  } else {
-    $("#nextPg").show();
-  }
-}
+$("document").ready(function() {
+  let chapterNum = parseInt(sessionStorage.getItem("chptNum"), 10);
+  let pageNum = parseInt(sessionStorage.getItem("pageNum"), 10);
+  // $("img").attr("src", `../../assets/chapter_images/chapter${chapterNum}.png`);
+  updatePageText(chapterNum, pageNum, maintainPage);
+});
 
 const prevPage = $("#prevPg");
 prevPage.click(() => {

@@ -97,9 +97,7 @@ for (let i = 1; i <= 21; i++) {
         <div class="progress-bar">
             <div class="progress" id="chp${i}-prog" style="width: ${percentComplete*100}%"></div>
         </div>
-        <p class="progress-num percent${percentComplete * 100}">
-            ${percentComplete * 100}%
-        </p>
+        <p class="progress-num percent${percentComplete * 100}">${percentComplete * 100}%</p>
     </section>
     `);
 

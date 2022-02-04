@@ -52,13 +52,12 @@ img {
   font-size: 10vmin;
   position: fixed;
   cursor: pointer;
-
   transition: transform 0.25s;
 }
 
 #prevPg:hover,
 #nextPg:hover {
-    transform: scale(125%);
+  transform: scale(125%);
 }
 
 #prevPg {

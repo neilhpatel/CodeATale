@@ -35,7 +35,7 @@
 
 .nextArrowBtn:hover,
 .prevArrowBtn:hover {
-  transform: scale(125%)
+  transform: scale(125%);
 }
 
 .nextArrowBtn { right: 5%; }
