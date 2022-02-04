@@ -27,11 +27,11 @@
   left: 50%;
   top: 7vh;
   transform: translate(-50%);
-  text-indent: 40px;
   max-width: 70vw;
   max-height: 75vh;
   overflow: auto;
-  font-size: 5.5vmin;
+  font-size: 4vmin;
+  line-height: 5vmin;
   margin: 0 2vh;
 }
 
@@ -52,14 +52,13 @@ img {
   font-size: 10vmin;
   position: fixed;
   cursor: pointer;
+
+  transition: transform 0.25s;
 }
 
-#prevPg:hover {
-    transform: scale(150%);
-}
-
+#prevPg:hover,
 #nextPg:hover {
-    transform: scale(150%);
+    transform: scale(125%);
 }
 
 #prevPg {

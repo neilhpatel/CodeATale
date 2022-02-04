@@ -1,0 +1,80 @@
+#modal {
+  display: flex;
+
+  align-items: center; /* Vertical Center */
+  justify-content: center; /* Horizontal Center */
+
+  background-color: rgb(233, 233, 233);
+  min-width: 45vw;
+  min-height: 30vh;
+  max-width: 60vw;
+  font-size: 4vh;
+  
+  border-radius: 10px;
+  border: 7px solid;
+
+  border-image: linear-gradient(90deg, rgba(40,255,0,1) 0%, rgba(102,224,255,1) 25%, rgba(220,41,226,1) 50%, rgba(233,82,98,1) 75%, rgba(224,255,0,1) 100%) 1;
+}
+
+#modal #modal-container {
+  text-align: center;
+}
+
+#modal #modal-container p {
+  margin: 4vh 10px;
+}
+
+#modal #close-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: 50%;
+  height: 4em;
+  width: 4em;
+  display: inline-block;
+  border: none;
+  background-color: rgb(233, 233, 233);
+}
+
+#modal #close-button::before {
+  display: inline-block;
+  font-size: 4em;
+  content: "\00d7";
+}
+
+#modal #modal-container #modal-def {
+  background-color: rgba(21, 235, 255, 0.8);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgb(177, 177, 177)
+}
+
+
+/* Special Close Button */
+
+#modal .close {
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+}
+#modal .close:hover {
+  opacity: 1;
+}
+#modal .close::before, #modal .close::after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+#modal .close::before {
+  transform: rotate(45deg);
+}
+#modal .close::after {
+  transform: rotate(-45deg);
+}
+

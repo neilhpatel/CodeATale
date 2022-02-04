@@ -14,8 +14,8 @@ class StoryPages:
     def __init__(self, filePath):
         self.filePath = filePath
         self.text = docx2txt.process(self.filePath)
-
     # Method that parses the story into pages that can be accessed by a page number using self.pageDictionary
+
     def parseStoryIntoPages(self):
         pageText = ['']
         characterCountForPage = 0
@@ -26,15 +26,13 @@ class StoryPages:
         chapterNumber = 0
         endsAtParagraph = False
         endOfChapter = False
-        AVERAGE_WORDS_PER_PAGE = 80
-        WORD_TOLERANCE_PER_PAGE = 20
         while totalCharacterCount < len(self.text):
             letter = self.text[totalCharacterCount]
-            # if the beginning sequence "\n\n\n\n" is found, the end of the chapter has been reached. Do not add the
-            # current character to the text
-            if letter == '\n' and self.text[totalCharacterCount+1] == '\n' and self.text[totalCharacterCount+2] == '\n' and self.text[totalCharacterCount+3] == '\n':
+
+            if letter == '\n' and self.text[totalCharacterCount + 1] == '\n' and self.text[
+                    totalCharacterCount + 2] == '\n' and self.text[totalCharacterCount + 3] == '\n':
                 endOfChapter = True
-            else :
+            else:
                 # letter is part of an existing word so append it to that word
                 if letter != ' ':
                     pageText[wordIndex] = pageText[wordIndex] + letter
@@ -42,24 +40,23 @@ class StoryPages:
                 elif letter == ' ':
                     pageText.append('')
                     wordIndex += 1
-                # Paragraphs always have '\n\n' so when this appears, increment the paragraph count. If this occurs, the
-                # current iteration of the while loop has just ended at a paragraph, so the value of paragraphCount can
-                # be immediately checked below.
-                if letter == '\n' and self.text[totalCharacterCount-1] == '\n':
+            # Paragraphs always have '\n\n' so when this appears, increment the paragraph count. If this occurs, the
+            # current iteration of the while loop has just ended at a paragraph, so the value of paragraphCount can
+            # be immediately checked below.
+                if letter == '\n' and self.text[totalCharacterCount - 1] == '\n':
                     paragraphCount += 1
                     endsAtParagraph = True
 
-                # If the letter is not '\n', increment the character count for the page.
-                characterCountForPage += 1
-            # Regardless of the letter, increment the total character count.
+            # Regardless of the letter, increment the character count for the page and the total character count.
+            characterCountForPage += 1
             totalCharacterCount += 1
-
-            # If the end of the chapter has been found, stop parsing and add the remaining text on the page to the
-            # current chapter. Reset all variables to default values to begin parsing new chapter and page.
+            # If the word is "CHAPTER", stop parsing and add the remaining text on the page to the current chapter. Reset
+            # all variables to default values to begin parsing new chapter and page.
             if endOfChapter:
                 if chapterNumber not in self.pageDictionary.keys():
                     self.pageDictionary[chapterNumber] = {}
-                self.pageDictionary[chapterNumber][pageNumber] = pageText #Copy remaining text on page to current chapter
+                # Copy remaining text on page to current chapter
+                self.pageDictionary[chapterNumber][pageNumber] = pageText
                 chapterNumber += 1
                 characterCountForPage = 0
                 wordIndex = 0
@@ -69,13 +66,12 @@ class StoryPages:
                 endOfChapter = False
                 totalCharacterCount += 3
 
-            # If (paragraph count is at least 1, the current iteration has ended at a paragraph, and the minimum number
-            # of words per page has been exceeded) OR (the maximum amount of words per page has been reached), stop
-            # parsing the page and add the page text to the dictionary and reset variables to begin next page. To edit
-            # the number of words on the page, change 60 to a smaller or higher value. Smaller values will accept
-            # smaller paragraph sizes as pages and larger values will require more words to quantify a page.
-            if ((paragraphCount >= 1 and endsAtParagraph and len(pageText) >= AVERAGE_WORDS_PER_PAGE -
-                 WORD_TOLERANCE_PER_PAGE) or (len(pageText) >= AVERAGE_WORDS_PER_PAGE + WORD_TOLERANCE_PER_PAGE)):
+             # If paragraph count is at least 1, the current iteration has ended at a paragraph, and there are at least
+             # 60 words in the page, stop parsing the page and add the page text to the dictionary and reset
+             # variables to begin next page. To edit the number of words on the page, change 60 to a smaller or higher
+             # value. Smaller values will accept smaller paragraph sizes as pages and larger values will require more
+             # words to quantify a page.
+            if (paragraphCount >= 1 and endsAtParagraph and len(pageText) >= 90):
                 if chapterNumber not in self.pageDictionary.keys():
                     self.pageDictionary[chapterNumber] = {}
                 self.pageDictionary[chapterNumber][pageNumber] = pageText
@@ -91,16 +87,6 @@ class StoryPages:
         # the last pages text. Append that text to the existing last page.
         lastPageText = self.pageDictionary[chapterNumber][pageNumber - 1]
         lastPageText += pageText
-
-        # Prints Chapter One's text to the console for testing purposes, can copy-paste the output to another text
-        # editor to view it
-        for pageNum, page in self.pageDictionary[0].items():
-            print(pageNum)
-            for word in page:
-                sys.stdout.write(word + " ")
-            print("\n\nPAGE END\n\n")
-
-
         self.pageDictionary[chapterNumber][pageNumber - 1] = lastPageText
 
 
