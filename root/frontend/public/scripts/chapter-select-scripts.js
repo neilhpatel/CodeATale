@@ -86,7 +86,7 @@ for (let i = 1; i <= 21; i++) {
     
     // toFixed converts the number into one with 2 decimal places
     // but it outputs a string, so + is used to convert the string to a number
-    let percentComplete = +(chapterProgress  / (chapterStartPageNumber[i] - chapterStartPageNumber[i-1])).toFixed(2);
+    let percentComplete = +(chapterProgress  / (chapterStartPageNumber[parseInt(i, 10)] - chapterStartPageNumber[parseInt(i-1, 10)])).toFixed(2);
     
     let newChapter = $(`
     <section class="chapter-box">
