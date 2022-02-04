@@ -114,7 +114,7 @@ chapterButtons.each(function(i) {
         
         sessionStorage.setItem("chptNum", chapterNum);
         sessionStorage.setItem("pageNum", chapterStartPageNumber[chapterNum - 1]); // Chapters are indexed from 0
-        setTimeout(() => {window.location.href = "reading-page.html"}, 250); // Adds a delay so the button can be seen being pressed down
+        setTimeout(() => {window.location.href = "reading-page.html";}, 250); // Adds a delay so the button can be seen being pressed down
         
     });
 });

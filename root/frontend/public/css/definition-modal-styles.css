@@ -9,7 +9,7 @@
   font-size: 4vh;
   border-radius: 10px;
   border: 7px solid;
-  border-image: linear-gradient(90deg, rgba(40,255,0,1) 0%, rgba(102,224,255,1) 25%, rgba(220,41,226,1) 50%, rgba(233,82,98,1) 75%, rgba(224,255,0,1) 100%) 1;
+  border-image: linear-gradient(90deg, rgba(40, 255, 0, 1) 0%, rgba(102, 224, 255, 1) 25%, rgba(220, 41, 226, 1) 50%, rgba(233, 82, 98, 1) 75%, rgba(224, 255, 0, 1) 100%) 1;
 }
 
 #modal #modal-container {
@@ -42,7 +42,7 @@
   background-color: rgba(21, 235, 255, 0.8);
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgb(177, 177, 177)
+  box-shadow: 0 2px 4px rgb(177, 177, 177);
 }
 
 /* Special Close Button */
@@ -59,7 +59,7 @@
   opacity: 1;
 }
 
-#modal .close::before, 
+#modal .close::before,
 #modal .close::after {
   position: absolute;
   left: 15px;

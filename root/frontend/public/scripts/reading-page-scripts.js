@@ -23,6 +23,38 @@ let chapterStartPageNumber = [
   217
 ];
 
+function increaseChapterProgress(chapter) {
+  let progress = sessionStorage.getItem(`progress-ch-${chapter}`);
+  progress = parseInt(progress, 10);
+  progress += 1;
+  sessionStorage.setItem(`progress-ch-${chapter}`, progress);
+}
+
+function pageRead(chapter, page) {
+  chapter -= 1; // Because the chapters are not indexed from 0
+  let alreadyAdded = false;
+  let pagesViewed = sessionStorage.getItem(`viewedPages-ch-${chapter}`).split(" ");
+  pagesViewed.forEach((page) => {
+    // Check if it is already in the list
+    let currChpt = sessionStorage.getItem("chptNum") - 1; // Chapters not indexed from 1
+    let currPg = sessionStorage.getItem("pageNum");
+    if (page === currChpt + "-" + currPg) {
+      alreadyAdded = true;
+    }
+  });
+  if (alreadyAdded === false) {
+    let currPagesViewed;
+    if (sessionStorage.getItem(`viewedPages-ch-${chapter}`)) { // If there have been any pages added 
+      currPagesViewed = sessionStorage.getItem(`viewedPages-ch-${chapter}`) + " " + chapter + "-" + page;
+    } else { // If this is the first page to be added
+      currPagesViewed = chapter + "-" + page;
+    }
+    sessionStorage.setItem(`viewedPages-ch-${chapter}`, currPagesViewed);
+
+    increaseChapterProgress(chapter);
+  }
+}
+
 function increasePage(chapterNum, pageNum) {
   // Remember: since this is indexed from 0 this is the next chapter not the current one
   if (pageNum + 1 >= chapterStartPageNumber[parseInt(chapterNum, 10)]) { 
@@ -81,6 +113,14 @@ function checkArrows() {
   }
 }
 
+let modal = $("#modal").plainModal({duration: 150});
+function defModal(word) {
+  // modWord = word.replace(/[^A-Za-z0-9]/g, ""); // Keeps all alphanumeric characters
+  modal.children("#modal-container").children("#modal-words").text(word);
+  modal.children("#modal-container").children("#modal-def").text("a single distinct meaningful element of speech or writing"); // Filler text
+  modal = $("#modal").plainModal("open");
+}
+
 function updatePageText (chapter, page, modNums) {
   fetch("../../assets/json_files/parsedPages.json")
     .then((Response) => Response.json())
@@ -103,7 +143,7 @@ function updatePageText (chapter, page, modNums) {
       
       let str = data[parseInt(chapter-1, 10)][parseInt(page, 10)];
       let arr = [];
-      str.forEach(element => {
+      str.forEach((element) => {
         let normalWord = true;
 
         if (element.indexOf("\n\n") !== -1) {
@@ -163,43 +203,3 @@ nextPage.click(() => {
   updatePageText(chapterNum, pageNum, increasePage);
   // $("img").attr("src", `../../assets/chapter_images/chapter${num}.png`); // Changes the chapter image
 });
-
-let modal = $("#modal").plainModal({duration: 150});
-function defModal(word) {
-  // modWord = word.replace(/[^A-Za-z0-9]/g, ""); // Keeps all alphanumeric characters
-  modal.children("#modal-container").children("#modal-words").text(word);
-  modal.children("#modal-container").children("#modal-def").text("a single distinct meaningful element of speech or writing"); // Filler text
-  modal = $("#modal").plainModal("open");
-}
-
-function increaseChapterProgress(chapter) {
-  let progress = sessionStorage.getItem(`progress-ch-${chapter}`);
-  progress = parseInt(progress, 10);
-  progress += 1;
-  sessionStorage.setItem(`progress-ch-${chapter}`, progress);
-}
-
-function pageRead(chapter, page) {
-  chapter -= 1; // Because the chapters are not indexed from 0
-  let alreadyAdded = false;
-  let pagesViewed = sessionStorage.getItem(`viewedPages-ch-${chapter}`).split(" ");
-  pagesViewed.forEach((page) => {
-    // Check if it is already in the list
-    let currChpt = sessionStorage.getItem("chptNum") - 1; // Chapters not indexed from 1
-    let currPg = sessionStorage.getItem("pageNum");
-    if (page === currChpt + "-" + currPg) {
-      alreadyAdded = true;
-    }
-  });
-  if (alreadyAdded === false) {
-    let currPagesViewed;
-    if (sessionStorage.getItem(`viewedPages-ch-${chapter}`)) { // If there have been any pages added 
-      currPagesViewed = sessionStorage.getItem(`viewedPages-ch-${chapter}`) + " " + chapter + "-" + page;
-    } else { // If this is the first page to be added
-      currPagesViewed = chapter + "-" + page;
-    }
-    sessionStorage.setItem(`viewedPages-ch-${chapter}`, currPagesViewed);
-
-    increaseChapterProgress(chapter);
-  }
-}

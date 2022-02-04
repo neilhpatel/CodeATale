@@ -57,11 +57,9 @@
   display: block;
   pointer-events: auto;
   z-index: -10;
-
   transform: translate(44%, -100%) scale(20%, 96%);
   background-color: rgb(230, 29, 29);
   transition: background-color 0.5s, transform 0.5s;
-  
 }
 
 #selboxes .img-button:hover {
@@ -100,7 +98,7 @@
   top: -10%;
   transform: scale(0);
   transition: 100ms ease-in-out;
-  color:rgb(255, 196, 0);
+  color: rgb(255, 196, 0);
 }
 
 .progress-bar:hover + .progress-num, .progress-bar:active + .progress-num {
