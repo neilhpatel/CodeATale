@@ -35,11 +35,13 @@ class DefParser():
                 while line[lineInd] != " " and line[lineInd] != "\n":
                     word += line[lineInd]
                     lineInd += 1
+                #increment lineInd to the next non-space character
+                while line[lineInd] == ' ':
+                    lineInd += 1
                 # If the above loop ended at a newline character, current word is a sight word and no more parsing is
                 # needed. Else, continue to parse info.
                 if line[lineInd] != "\n":
                     # lineInd should now be pointing to either '(' if there are child words or '=' if not
-                    lineInd += 1
                     # parse child words into array
                     if line[lineInd] == "(":
                         lineInd += 1
@@ -56,17 +58,34 @@ class DefParser():
                             else:
                                 currSubword += line[lineInd]
                                 lineInd += 1
-                        # make lineInd point to '='
-                        lineInd += 2
+                        #make lineInd point to character right after ')'
+                        lineInd += 1
+                        # make lineInd point to the next non-space character, should either be '/n' if sight word
+                        # and '=' if not
+                        while line[lineInd] == ' ':
+                            lineInd += 1
+                        if line[lineInd] == '\n':
+                            sightWord = True
                     # parse the definition by looking at everything on the current line past the '=' character
-                    definition = line[lineInd + 2:len(line) - 1]
+                    if not sightWord:
+                        definition = line[lineInd + 2:len(line) - 1]
+
                 # if a word has no definition, it is a sight word
+                excludedString = ""
                 if definition == "":
                     sightWord = True
+                else:
+                    for i in range(len(definition)):
+                        if definition[i] == '[':
+                            excludedString = definition[i:len(definition)]
+                            definition = definition[0:i-1]
+                            break
+
                 # currently just printing out info, should be easy to change to store in an object or output into a file
                 print("Word: " + word)
                 print("Is Child? False,\t\tParent Word: \"\"")
                 print("Definition: " + definition)
+                print("Excluded words: " + excludedString)
                 print("Sight word: " + str(sightWord))
                 print("Child words: ")
                 for child in childWords:
@@ -78,6 +97,7 @@ class DefParser():
                     print("Word: " + child)
                     print("Is Child? True,\t\tParent Word: \"" + word + "\"")
                     print("Definition: ")
+                    print("Excluded words: ")
                     print("Sight word: ")
                     print("Child words: ")
                     print("\n\n\n")
