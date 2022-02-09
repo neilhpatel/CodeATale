@@ -75,8 +75,8 @@ class DefParser():
                 if definition == "":
                     sightWord = True
                 else:
-                    for i in range(len(definition)):
-                        if definition[i] == '[':
+                    for i in enumerate(definition):
+                        if i == '[':
                             excludedString = definition[i:len(definition)]
                             definition = definition[0:i-1]
                             break
