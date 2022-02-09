@@ -76,9 +76,9 @@ class DefParser():
                     sightWord = True
                 else:
                     for i in enumerate(definition):
-                        if i == '[':
-                            excludedString = definition[i:len(definition)]
-                            definition = definition[0:i-1]
+                        if i[1] == '[':
+                            excludedString = definition[i[0]:len(definition)]
+                            definition = definition[0:i[0]-1]
                             break
 
                 # currently just printing out info, should be easy to change to store in an object or output into a file
