@@ -1,9 +1,15 @@
 // This code only fires once per session and is just 
-// here to setup chptNum and bookmarks in the sessionStorage.
+// here to setup chapterNum and bookmarks in the sessionStorage.
 if (!sessionStorage.getItem("firstLoad")) {
     sessionStorage.setItem("firstLoad", "1");
     sessionStorage.setItem("chptNum", "");
     sessionStorage.setItem("bookmarks", "");
+    sessionStorage.setItem("pageNum", "");
+
+    for (let i = 0; i < 21; i++) {
+        sessionStorage.setItem(`viewedPages-ch-${i}`, "0");
+        sessionStorage.setItem(`progress-ch-${i}`, "0");
+    }
 }
 
 let chptArr = [
@@ -50,7 +56,38 @@ let chptArr = [
 "Home Again"
 ];
 
+let chapterStartPageNumber = [
+    0,
+    6,
+    20,
+    31,
+    40,
+    51,
+    61,
+    75,
+    85,
+    93,
+    103,
+    113,
+    129,
+    137,
+    145,
+    157,
+    165,
+    174,
+    189,
+    201,
+    211,
+    217
+  ];
+
 for (let i = 1; i <= 21; i++) {
+    let chapterProgress = sessionStorage.getItem(`progress-ch-${i-1}`);
+    
+    // toFixed converts the number into one with 2 decimal places
+    // but it outputs a string, so + is used to convert the string to a number
+    let percentComplete = +(chapterProgress  / (chapterStartPageNumber[parseInt(i, 10)] - chapterStartPageNumber[parseInt(i-1, 10)])).toFixed(2);
+    
     let newChapter = $(`
     <section class="chapter-box">
         <button class="chapter-button" id="${i}">${chptArr[i-1]}</button>
@@ -58,11 +95,9 @@ for (let i = 1; i <= 21; i++) {
 
         <p>Chapter ${i}</p>
         <div class="progress-bar">
-            <div class="progress" id="chp1-prog"></div>
+            <div class="progress" id="chp${i}-prog" style="width: ${percentComplete*100}%"></div>
         </div>
-        <p class="progress-num">
-            %35
-        </p>
+        <p class="progress-num percent${percentComplete * 100}">${percentComplete * 100}%</p>
     </section>
     `);
 
@@ -72,11 +107,15 @@ for (let i = 1; i <= 21; i++) {
 // Chapter Select Buttons
 const chapterButtons = $(".chapter-button");
 
+
 chapterButtons.each(function(i) {
     $(this).click(function() {
-        let chptNum = parseInt($(this).attr("id"), 10);
-        sessionStorage.setItem("chptNum", chptNum);
-        window.location.href = "reading-page.html";
+        let chapterNum = parseInt($(this).attr("id"), 10);
+        
+        sessionStorage.setItem("chptNum", chapterNum);
+        sessionStorage.setItem("pageNum", chapterStartPageNumber[chapterNum - 1]); // Chapters are indexed from 0
+        setTimeout(() => {window.location.href = "reading-page.html";}, 250); // Adds a delay so the button can be seen being pressed down
+        
     });
 });
 
@@ -85,8 +124,8 @@ const imgButtons = $(".img-button");
 
 imgButtons.each(function(i) {
     $(this).click(function() {
-        let chptNum = parseInt($(this).attr("id"), 10);
-        sessionStorage.setItem("chptNum", chptNum);
+        let chapterNum = parseInt($(this).attr("id"), 10);
+        sessionStorage.setItem("chptNum", chapterNum);
         window.location.href = "gallery.html";
     });
 });

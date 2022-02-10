@@ -55,10 +55,25 @@
 #selboxes .img-button {
   position: absolute;
   display: block;
-  background-color: red;
-  transform: translate(44%, -100%) scale(20%, 96%);
   pointer-events: auto;
   z-index: -10;
+  transform: translate(44%, -100%) scale(20%, 96%);
+  background-color: rgb(230, 29, 29);
+  transition: background-color 0.5s, transform 0.5s;
+}
+
+#selboxes .img-button:hover {
+  transform: translate(48%, -100%) scale(20%, 96%);
+  background-color: #fd5e45;
+}
+
+#selboxes .img-button:active {
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  background-color: #ee654d;
+}
+
+#selboxes .chapter-button {
+  transition: 150ms ease-in-out;
 }
 
 #selboxes .chapter-button:hover {
@@ -69,15 +84,6 @@
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
   transform: translateY(4px);
   background-color: #7cd6d6;
-}
-
-#selboxes .img-button:hover {
-  transform: translate(48%, -100%) scale(20%, 96%);
-}
-
-#selboxes .img-button:active {
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
-  background-color: #ee654d;
 }
 
 .chapter-box p {
@@ -92,6 +98,7 @@
   top: -10%;
   transform: scale(0);
   transition: 100ms ease-in-out;
+  color: rgb(255, 196, 0);
 }
 
 .progress-bar:hover + .progress-num, .progress-bar:active + .progress-num {
@@ -100,7 +107,6 @@
 }
 
 .progress-bar, .progress {
-  width: 1fr;
   height: 0.6em;
   border: 2px solid black;
   border-radius: 5px;
@@ -108,6 +114,13 @@
 
 .progress {
   border: none;
-  width: 2em;
   background-color: rgba(224,255,0,1);
+}
+
+.chapter-box .percent100 {
+  color: yellow;
+}
+
+.chapter-box .percent0 {
+  color: rgb(59, 29, 0);
 }

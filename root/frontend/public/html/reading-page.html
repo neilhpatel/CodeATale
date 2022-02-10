@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Test Page</title>
+        <title>Reading Page</title>
 
         <link rel="stylesheet" href="../css/style.css"> <!-- Links the CSS to this HTML page -->
         <link rel="stylesheet" href="../css/reading-styles.css">
+        <link rel="stylesheet" href="../css/definition-modal-styles.css">
         <script defer src="../scripts/reading-page-scripts.js"></script>
         <script defer src="../scripts/components.js"></script>
 
@@ -14,6 +17,8 @@
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+        <!-- Plain Modal -->
+        <script src="jquery.plainmodal.min.js"></script>
 
     </head>
 
@@ -26,7 +31,7 @@
             <left-navbar></left-navbar>
             
             <!-- Image -->
-            <img src="..\..\assets\chapter_images\chapter1.png" alt="chapter-image">
+            <!-- <img src="..\..\assets\chapter_images\chapter1.png" alt="chapter-image"> -->
 
             <!-- Skip to Page # -->
              <div></div>
@@ -42,11 +47,8 @@
             <!-- Page Number -->
             <span class="page-number">Page</span>
 
-
             <!-- Scrub Bar -->
-            <div>
-
-            </div>
+            <div></div>
 
             <!-- Previous and Next Page -->
 
@@ -55,6 +57,15 @@
              
             <!-- Previous Page -->
             <i class="fas fa-arrow-circle-left" id="prevPg"></i>
+
+            <div id="modal">
+                <div id="modal-container"> <!-- Needed for centering the elements with flex while keeping block display -->
+                    <p id="modal-words"></p>
+                    <p id="modal-def"></p>
+                </div>
+                <!-- <div><button id="close-button"></button></div> -->
+                <a class="close plainmodal-close">
+            </div>
             
         </main>
     </body>
