@@ -48,7 +48,9 @@ body::-webkit-scrollbar-thumb:hover {
 
 #navbar i {
     margin: 0.5em 0.25em;
+
     cursor: pointer;
+    transition: transform 0.5s;
 }
 
 #navbar i:hover {
@@ -84,6 +86,8 @@ body::-webkit-scrollbar-thumb:hover {
     border: none;
     cursor: pointer;
     text-shadow: 5px 5px 5px red;
+
+    transition: transform 0.1s;
 }
 
 .fa-bookmark:active {
@@ -115,22 +119,22 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 /* width */
-.modal::-webkit-scrollbar {
+.modal::-webkit-scrollbar, .main-text::-webkit-scrollbar {
     width: 10px;
 }
 
 /* Track */
-.modal::-webkit-scrollbar-track {
+.modal::-webkit-scrollbar-track, .main-text::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
 /* Handle */
-.modal::-webkit-scrollbar-thumb {
+.modal::-webkit-scrollbar-thumb, .main-text::-webkit-scrollbar-thumb {
     background: #888;
 }
 
 /* Handle on hover */
-.modal::-webkit-scrollbar-thumb:hover {
+.modal::-webkit-scrollbar-thumb:hover, .main-text::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
