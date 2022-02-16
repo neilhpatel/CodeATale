@@ -56,8 +56,6 @@ function pageRead(chapter, page) {
 
 function increasePage(chapterNum, pageNum) {
   // Remember: since this is indexed from 0 this is the next chapter not the current one
-  console.log(chapterNum)
-  console.log(pageNum)
   if (pageNum + 1 >= chapterStartPageNumber[parseInt(chapterNum, 10)]) {
     chapterNum++;
   }
