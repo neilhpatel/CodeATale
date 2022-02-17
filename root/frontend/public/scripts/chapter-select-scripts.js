@@ -86,18 +86,20 @@ for (let i = 1; i <= 21; i++) {
     
     // toFixed converts the number into one with 2 decimal places
     // but it outputs a string, so + is used to convert the string to a number
-    let percentComplete = +(chapterProgress  / (chapterStartPageNumber[parseInt(i, 10)] - chapterStartPageNumber[parseInt(i-1, 10)])).toFixed(2);
+    let percentComplete = ~~ (100 * (chapterProgress  / (chapterStartPageNumber[parseInt(i, 10)] - chapterStartPageNumber[parseInt(i-1, 10)])));
     
     let newChapter = $(`
     <section class="chapter-box">
         <button class="chapter-button" id="${i}">${chptArr[i-1]}</button>
-        <button class="img-button" id="${i}"></button>
+        <button class="img-button" id="${i}" title="Pictures">
+            <i class="fa-solid fa-image img-button-icon"></i>
+        </button>
 
         <p>Chapter ${i}</p>
-        <div class="progress-bar">
-            <div class="progress" id="chp${i}-prog" style="width: ${percentComplete*100}%"></div>
+        <div class="progress-bar" title="Chapter Progress">
+            <div class="progress" id="chp${i}-prog" style="width: ${percentComplete}%"></div>
         </div>
-        <p class="progress-num percent${percentComplete * 100}">${percentComplete * 100}%</p>
+        <p class="progress-num percent${percentComplete}">${percentComplete}%</p>
     </section>
     `);
 
