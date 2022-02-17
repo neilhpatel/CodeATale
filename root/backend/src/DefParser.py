@@ -4,6 +4,16 @@ import collections
 import re
 
 
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+# Use a service account
+cred = credentials.Certificate('ServiceAccountKey.json')
+firebase_admin.initialize_app(cred)
+
+db = firestore.client()
+
 class DefParser():
 
     def __init__(self, filePath):
@@ -28,11 +38,12 @@ class DefParser():
                 word = ""
                 definition = ""
                 childWords = []
+                excludedWords = []
                 sightWord = False
 
                 lineInd = 0
                 # parse the current word
-                while line[lineInd] != " " and line[lineInd] != "\n":
+                while line[lineInd] != " " and line[lineInd] != "\n" and line[lineInd] != "(":
                     word += line[lineInd]
                     lineInd += 1
                 #increment lineInd to the next non-space character
@@ -81,11 +92,32 @@ class DefParser():
                             definition = definition[0:i[0]-1]
                             break
 
+                # parse excluded words from excludedString
+                for i in range(len(excludedString) - 3):
+                    if excludedString[i:i+3] == "xxx":
+                        excludedLineInd = i + 4
+                        endExcluded = False
+                        currExcluded = ""
+                        while not endExcluded:
+                            if excludedString[excludedLineInd] == ",":
+                                excludedWords.append(currExcluded)
+                                currExcluded = ""
+                                excludedLineInd += 2
+                            elif excludedString[excludedLineInd] == "]":
+                                excludedWords.append(currExcluded)
+                                endExcluded = True
+                            else:
+                                currExcluded += excludedString[excludedLineInd]
+                                excludedLineInd += 1
+                        break
+
                 # currently just printing out info, should be easy to change to store in an object or output into a file
                 print("Word: " + word)
                 print("Is Child? False,\t\tParent Word: \"\"")
                 print("Definition: " + definition)
                 print("Excluded words: " + excludedString)
+                for excludedWord in excludedWords:
+                    print(excludedWord)
                 print("Sight word: " + str(sightWord))
                 print("Child words: ")
                 for child in childWords:
