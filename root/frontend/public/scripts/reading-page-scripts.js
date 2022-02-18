@@ -1,27 +1,43 @@
 let chapterStartPageNumber = [
   1,
   7,
-  21,
-  32,
-  41,
-  52,
-  62,
-  76,
-  86,
-  94,
-  104,
-  114,
-  130,
-  138,
-  146,
-  158,
-  166,
-  175,
-  190,
-  202,
-  212,
-  218
+  22,
+  33,
+  42,
+  53,
+  63,
+  77,
+  87,
+  95,
+  105,
+  116,
+  132,
+  140,
+  148,
+  160,
+  168,
+  177,
+  192,
+  204,
+  214,
+  220
 ];
+
+// Creating a list of all special characters to check for
+const specialSet = new Set();
+specialSet.add("\n");
+specialSet.add("—");
+specialSet.add(";");
+specialSet.add(":");
+specialSet.add("‘");
+specialSet.add("’");
+specialSet.add(".");
+specialSet.add(",");
+specialSet.add("“");
+specialSet.add("”");
+specialSet.add(",");
+specialSet.add("!");
+specialSet.add("?");
 
 function increaseChapterProgress(chapter) {
   let progress = sessionStorage.getItem(`progress-ch-${chapter}`);
@@ -114,8 +130,9 @@ function checkArrows() {
 
 let modal = $("#modal").plainModal({duration: 150});
 function defModal(word) {
-  // modWord = word.replace(/[^A-Za-z0-9]/g, ""); // Keeps all alphanumeric characters
-  modal.children("#modal-container").children("#modal-words").text(word);
+  //let modWord = word.toLowerCase().replace(/[^a-z0-9’-]+/gi, ""); // Keeps all alphanumeric characters as well as the special apostrophe // Keeping this just in case we need to use the replace feature again.
+  let modWord = word.toLowerCase();
+  modal.children("#modal-container").children("#modal-words").text(word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
   modal.children("#modal-container").children("#modal-def").text("a single distinct meaningful element of speech or writing"); // Filler text
   modal = $("#modal").plainModal("open");
 }
@@ -142,30 +159,48 @@ function updatePageText (chapter, page, modNums) {
       
       let str = data[parseInt(chapter, 10)][parseInt(page, 10)];
       let arr = [];
+      // Parses through every word to make sure only words in database get highlighted (and without grammar syntax)
       str.forEach((element) => {
+        let word = [];
         let normalWord = true;
+        arr.push(" ");
+        for (let i = 0; i < element.length; i++) {
+          if (specialSet.has(element.charAt(i))) {
+            // Can"t tell between contraction and quote so this if statement checks to see which one it is
+            if (element.charAt(i) === "’") {
+              if ((/[a-z]/).test((element.charAt(i + 1)))) {
+                word.push(element.charAt(i));
+                normalWord = false;
+                continue;
+              }
+            }
+            // Pushes word onto the arr if the word array is filled with something
+            if (word.length !== 0) {
+              arr.push(`<span class="highlight">${word.join("")}</span>`);
+              word = [];
+            }
 
-        if (element.indexOf("\n\n") !== -1) {
-          let wordSplit = element.split("\n\n");
-          arr.push(wordSplit[0] + "<br><br>");
-          arr.push(wordSplit[1] + " ");
-          normalWord = false;
-        } 
-
-        if (element.indexOf("—") !== -1) {
-          let wordSplit = element.split("—");
-          arr.push(wordSplit[0] + "—");
-          arr.push(wordSplit[1] + " ");
-          normalWord = false;
-        } 
-        
-        if (normalWord) {
-          arr.push(element + " ");
+            // This just checks to see if a newline character exists
+            if (element.charAt(i) === "\n") {
+              arr.push("<br>");
+            } else {
+              arr.push(element.charAt(i));
+            }
+            normalWord = false;
+          } else { // If the letter is not a special character, it will push the letter onto the word array
+            word.push(element.charAt(i));
+            // If it"s at the end of the word (element), makes the word highlightable only if the word is not a normal word
+            if (i === element.length - 1 && normalWord === false) {
+              arr.push(`<span class="highlight">${word.join("")}</span>`);
+            }
+          } 
         }
-      });
+        // If normalWord it pushes onto the arr normally with highlights
+        if (normalWord) {
+          arr.push(`<span class="highlight">${word.join("")}</span>`);
+        }
 
-      // Could modify what is passed in as w to filter out unwanted characters.
-      arr = arr.map((w) => `<span class="highlight">${w}</span>`); 
+      });
 
     $(".main-text").html(arr);
 
