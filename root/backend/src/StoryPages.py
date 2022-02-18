@@ -61,7 +61,7 @@ def main():
     storyPages = StoryPages(storyFilePath)
     storyPages.parseStoryIntoPages()
 
-    with open("parsedPages.json", "w") as outfile:
+    with open("../../frontend/assets/json_files/parsedPages.json", "w") as outfile:
         json.dump(storyPages.pageDictionary, outfile)
 
 
