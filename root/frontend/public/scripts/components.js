@@ -5,12 +5,12 @@ class Navbar extends HTMLElement {
 
         this.innerHTML = `
         <nav id="navbar">
-            <i class="fas fa-home" id="home-i"></i>
+            <i class="fas fa-home" id="home-i" title="Home"></i>
             <hr class="line">
-            <i class="fas fa-arrow-alt-circle-left" id="back-i"></i>
-            <i class="fas fa-brain"></i>
-            <i class="far fa-lightbulb" id="quiz-i"></i>
-            <i class="fas fa-sign-out-alt" id="exit-i"></i>
+            <i class="fas fa-arrow-alt-circle-left" id="back-i" title="Back"></i>
+            <i class="fa-solid fa-school" title="Review"></i>
+            <i class="far fa-lightbulb" id="quiz-i" title="Quiz"></i>
+            <i class="fas fa-sign-out-alt" id="exit-i" title="Exit"></i>
         </nav>
         `;
         $("nav #home-i").click(function() {
@@ -31,7 +31,7 @@ class Bookmark extends HTMLElement {
         this.innerHTML = `
             <section class="bookmark">
                 <div id="overlay"></div>
-                <button type="button" class="fas fa-bookmark" id="bookmark-button"></button>
+                <button type="button" class="fas fa-bookmark" id="bookmark-button" title="Bookmark"></button>
                 <div class="modal" id="bookmark-modal">
                     Select Bookmark
                     <button type="button" id="add-bookmark">Add Page</button>
@@ -41,7 +41,10 @@ class Bookmark extends HTMLElement {
 
         // Create a new bookmark element for a given chapter
         function appendBookmark(chapterNum, pageNum) {
+            const newBookMarkDel = $(document.createElement("button"));
             const newBookMark = $(document.createElement("button"));
+            
+
             newBookMark.html("Chapter " + chapterNum);
             newBookMark.attr("class", "newBookmark");
             newBookMark.attr("type", "button");
@@ -53,9 +56,32 @@ class Bookmark extends HTMLElement {
                 window.location.href = "reading-page.html";
             });
 
+            newBookMarkDel.html("x");
+            newBookMarkDel.attr("type", "button");
+            newBookMarkDel.attr("class", "bookmarkDel");
+
+            
+
+            // Removes the bookmark from the list of bookmarks when the X is clicked
+            // (this list pervents the user from making multiple bookmarks for the same page)
+            newBookMarkDel.click(() => {
+                newBookMark.remove();
+                newBookMarkDel.remove();
+                const bookmarkList = sessionStorage.getItem("bookmarks").split(" ");
+                let newBookmarkList = "";
+                bookmarkList.forEach((bm) => {
+                    if (!(bm === chapterNum + "-" + pageNum)) {
+                        newBookmarkList += bm + " ";
+                    }
+                });
+                sessionStorage.setItem("bookmarks", newBookmarkList);
+            });
+
             const bookmarkModal = $("#bookmark-modal");
 
             bookmarkModal.append(newBookMark);
+            bookmarkModal.append(newBookMarkDel);
+            
 
             const pageNumText = $(document.createElement("span"));
             pageNumText.html("Page " + pageNum);
@@ -80,6 +106,7 @@ class Bookmark extends HTMLElement {
         populateBookmarks(sessionStorage.getItem("bookmarks"));
 
         function addBookmarkHelper(alreadyAdded, onReadingPage) {
+            
             if (alreadyAdded === false && onReadingPage === true) {
                 let currBookMarks;
                 if (sessionStorage.getItem("bookmarks")) { // If there have been any bookmarks added 

@@ -1,26 +1,26 @@
 let chapterStartPageNumber = [
-  0,
-  6,
-  20,
-  31,
-  40,
-  51,
-  61,
-  75,
-  85,
-  93,
-  103,
-  113,
-  129,
-  137,
-  145,
-  157,
-  165,
-  174,
-  189,
-  201,
-  211,
-  217
+  1,
+  7,
+  21,
+  32,
+  41,
+  52,
+  62,
+  76,
+  86,
+  94,
+  104,
+  114,
+  130,
+  138,
+  146,
+  158,
+  166,
+  175,
+  190,
+  202,
+  212,
+  218
 ];
 
 // Creating a list of all special characters to check for
@@ -47,12 +47,11 @@ function increaseChapterProgress(chapter) {
 }
 
 function pageRead(chapter, page) {
-  chapter -= 1; // Because the chapters are not indexed from 0
   let alreadyAdded = false;
   let pagesViewed = sessionStorage.getItem(`viewedPages-ch-${chapter}`).split(" ");
   pagesViewed.forEach((page) => {
     // Check if it is already in the list
-    let currChpt = sessionStorage.getItem("chptNum") - 1; // Chapters not indexed from 1
+    let currChpt = sessionStorage.getItem("chptNum"); // Chapters not indexed from 1
     let currPg = sessionStorage.getItem("pageNum");
     if (page === currChpt + "-" + currPg) {
       alreadyAdded = true;
@@ -73,7 +72,7 @@ function pageRead(chapter, page) {
 
 function increasePage(chapterNum, pageNum) {
   // Remember: since this is indexed from 0 this is the next chapter not the current one
-  if (pageNum + 1 >= chapterStartPageNumber[parseInt(chapterNum, 10)]) { 
+  if (pageNum + 1 >= chapterStartPageNumber[parseInt(chapterNum, 10)]) {
     chapterNum++;
   }
 
@@ -91,7 +90,7 @@ function increasePage(chapterNum, pageNum) {
 }
 
 function decreasePage(chapterNum, pageNum) {
-  if (pageNum - 1 < chapterStartPageNumber[chapterNum-1]) { // Remember: since this is indexed from 0 this is the current chapter
+  if (pageNum - 1 < chapterStartPageNumber[chapterNum - 1]) { // Remember: since this is indexed from 0 this is the current chapter
     chapterNum--;
   }
 
@@ -158,7 +157,7 @@ function updatePageText (chapter, page, modNums) {
       $("#reading-heading").html(`Chapter ${chapter}`);
       $(".page-number").html(`Page ${page}`);
       
-      let str = data[parseInt(chapter-1, 10)][parseInt(page, 10)];
+      let str = data[parseInt(chapter, 10)][parseInt(page, 10)];
       let arr = [];
       // Parses through every word to make sure only words in database get highlighted (and without grammar syntax)
       str.forEach((element) => {
