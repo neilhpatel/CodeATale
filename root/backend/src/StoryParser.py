@@ -89,6 +89,17 @@ class StoryPages:
         lastPageText += pageText
         self.pageDictionary[chapterNumber][pageNumber - 1] = lastPageText
 
+    # Method that corrects the indexing in the page dictionary. All chapters and pages should begin at 1 instead of 0
+    def correctDictionaryNumbering(self):
+        newDict = {}
+        for chapter in self.pageDictionary.keys():
+            newDict[chapter + 1] = {}
+            chapterToPagesDictionary = self.pageDictionary[chapter]
+            pageNumbers = chapterToPagesDictionary.keys()
+            for page in pageNumbers:
+                newDict[chapter+1][page+1] = self.pageDictionary[chapter][page]
+
+        self.pageDictionary = newDict
 
 def main():
     prefixPath = os.getcwd()
@@ -97,8 +108,9 @@ def main():
     storyFilePath = os.path.join(docPath, "DrDolittle.docx")
     storyPages = StoryPages(storyFilePath)
     storyPages.parseStoryIntoPages()
+    storyPages.correctDictionaryNumbering()
 
-    with open("parsedPages.json", "w") as outfile:
+    with open("../../frontend/assets/json_files/parsedPages.json", "w") as outfile:
         json.dump(storyPages.pageDictionary, outfile)
 
 

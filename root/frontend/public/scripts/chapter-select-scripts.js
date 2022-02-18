@@ -6,7 +6,7 @@ if (!sessionStorage.getItem("firstLoad")) {
     sessionStorage.setItem("bookmarks", "");
     sessionStorage.setItem("pageNum", "");
 
-    for (let i = 0; i < 21; i++) {
+    for (let i = 1; i < 22; i++) {
         sessionStorage.setItem(`viewedPages-ch-${i}`, "0");
         sessionStorage.setItem(`progress-ch-${i}`, "0");
     }
@@ -57,33 +57,32 @@ let chptArr = [
 ];
 
 let chapterStartPageNumber = [
-    0,
-    6,
-    20,
-    31,
-    40,
-    51,
-    61,
-    75,
-    85,
-    93,
-    103,
-    113,
-    129,
-    137,
-    145,
-    157,
-    165,
-    174,
-    189,
-    201,
-    211,
-    217
-  ];
+  1,
+  7,
+  21,
+  32,
+  41,
+  52,
+  62,
+  76,
+  86,
+  94,
+  104,
+  114,
+  130,
+  138,
+  146,
+  158,
+  166,
+  175,
+  190,
+  202,
+  212,
+  218
+];
 
 for (let i = 1; i <= 21; i++) {
-    let chapterProgress = sessionStorage.getItem(`progress-ch-${i-1}`);
-    
+    let chapterProgress = sessionStorage.getItem(`progress-ch-${i}`);
     // toFixed converts the number into one with 2 decimal places
     // but it outputs a string, so + is used to convert the string to a number
     let percentComplete = ~~ (100 * (chapterProgress  / (chapterStartPageNumber[parseInt(i, 10)] - chapterStartPageNumber[parseInt(i-1, 10)])));
