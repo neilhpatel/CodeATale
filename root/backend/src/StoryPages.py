@@ -24,10 +24,10 @@ class StoryPages:
         while totalCharacterCount < len(self.text):
             letter = self.text[totalCharacterCount]
             # letter is part of an existing word so append it to that word
-            if letter != ' ':
+            if letter != ' ' and letter != '\u00a0':
                 pageText[wordIndex] = pageText[wordIndex] + letter
             # letter is a space character so begin a new word
-            elif letter == ' ':
+            elif letter == ' ' or letter == '\u00a0':
                 pageText.append('')
                 wordIndex += 1
 
