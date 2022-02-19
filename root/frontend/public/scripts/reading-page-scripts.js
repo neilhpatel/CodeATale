@@ -131,7 +131,7 @@ function checkArrows() {
 //Note: this function does throw an exception for audio of words not in database. But it does not break the application,
 //it simply doesn't play audio for the word. In the future, determine if a word exists in the database before playing audio.
 function playAudio(word) {
-  let firstLetter = word.charAt(0);
+  let firstLetter = word.charAt(0).toLowerCase();
   let url = "https://words-and-definitons.s3.amazonaws.com/words/" + firstLetter + "/" + word + ".mp3";
   let audioObj = document.createElement("audio");
   audioObj.src = url;
