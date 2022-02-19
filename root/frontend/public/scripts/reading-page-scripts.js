@@ -179,6 +179,7 @@ function playAudio(word) {
   audioObj.play();
 }
 
+
 let modal = $("#modal").plainModal({ duration: 150 });
 async function defModal(word) {
   //let modWord = word.toLowerCase().replace(/[^a-z0-9’-]+/gi, ""); // Keeps all alphanumeric characters as well as the special apostrophe // Keeping this just in case we need to use the replace feature again.
@@ -208,7 +209,6 @@ async function defModal(word) {
       .text(`${wordSnap.data().definition}`); // Filler text
     modal = $("#modal").plainModal("open");
   }
-  
 }
 
 function updatePageText(chapter, page, modNums) {
