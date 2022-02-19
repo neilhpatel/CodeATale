@@ -169,10 +169,21 @@ function checkArrows() {
   }
 }
 
+//Note: this function does throw an exception for audio of words not in database. But it does not break the application,
+//it simply doesn't play audio for the word. In the future, determine if a word exists in the database before playing audio.
+function playAudio(word) {
+  let firstLetter = word.charAt(0);
+  let url = "https://words-and-definitons.s3.amazonaws.com/words/" + firstLetter + "/" + word + ".mp3";
+  let audioObj = document.createElement("audio");
+  audioObj.src = url;
+  audioObj.play();
+}
+
 let modal = $("#modal").plainModal({ duration: 150 });
 async function defModal(word) {
   //let modWord = word.toLowerCase().replace(/[^a-z0-9’-]+/gi, ""); // Keeps all alphanumeric characters as well as the special apostrophe // Keeping this just in case we need to use the replace feature again.
   let modWord = word.toLowerCase();
+  playAudio(modWord);
   let wordDoc = doc(db, modWord.charAt(0), modWord);
   let wordSnap = await getDoc(wordDoc);
   // Checks to see if the word exists in the database and if there is a definition for a word
