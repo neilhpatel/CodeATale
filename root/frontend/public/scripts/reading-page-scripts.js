@@ -131,7 +131,8 @@ function checkArrows() {
 let modal = $("#modal").plainModal({duration: 150});
 function defModal(word) {
   //let modWord = word.toLowerCase().replace(/[^a-z0-9’-]+/gi, ""); // Keeps all alphanumeric characters as well as the special apostrophe // Keeping this just in case we need to use the replace feature again.
-  let modWord = word.toLowerCase();
+  let modWord = word.toLowerCase()
+  playAudio(word)
   modal.children("#modal-container").children("#modal-words").text(word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
   modal.children("#modal-container").children("#modal-def").text("a single distinct meaningful element of speech or writing"); // Filler text
   modal = $("#modal").plainModal("open");
@@ -237,3 +238,14 @@ nextPage.click(() => {
   updatePageText(chapterNum, pageNum, increasePage);
   // $("img").attr("src", `../../assets/chapter_images/chapter${num}.png`); // Changes the chapter image
 });
+
+//Note: this function does throw an exception for audio of words not in database. But it does not break the application,
+//it simply doesn't play audio for the word. In the future, determine if a word exists in the database before playing audio.
+function playAudio(word) {
+  let firstLetter = word.charAt(0)
+  let url = 'https://words-and-definitons.s3.amazonaws.com/words/' + firstLetter + '/' + word + '.mp3'
+  let audioObj = document.createElement('audio')
+  audioObj.src = url
+  audioObj.play()
+
+}
