@@ -22,26 +22,27 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
-let wordDoc1 = doc(db, "a", "accidents");
-let wordSnap1 = await getDoc(wordDoc1);
-console.log(wordSnap1.exists());
-console.log(wordSnap1.data().parent_word);
-let x = [];
-x.push("A");
-x.push("c");
-x.push("c");
-x.push("i");
-x.push("d");
-x.push("e");
-x.push("n");
-x.push("t");
+// Previous testing
+// let wordDoc1 = doc(db, "a", "accidents");
+// let wordSnap1 = await getDoc(wordDoc1);
+// console.log(wordSnap1.exists());
+// console.log(wordSnap1.data().parent_word);
+// let x = [];
+// x.push("A");
+// x.push("c");
+// x.push("c");
+// x.push("i");
+// x.push("d");
+// x.push("e");
+// x.push("n");
+// x.push("t");
 
-x[0] = x[0].toLowerCase();
+// x[0] = x[0].toLowerCase();
 
-wordDoc1 = doc(db, `${x[0]}`, `${x.join("")}`);
-wordSnap1 = await getDoc(wordDoc1);
-console.log(wordSnap1.exists());
-console.log(wordSnap1.data().parent_word);
+// wordDoc1 = doc(db, `${x[0]}`, `${x.join("")}`);
+// wordSnap1 = await getDoc(wordDoc1);
+// console.log(wordSnap1.exists());
+// console.log(wordSnap1.data().parent_word);
 
 let chapterStartPageNumber = [
   1, 7, 22, 33, 42, 53, 63, 77, 87, 95, 105, 116, 132, 140, 148, 160, 168, 177,
