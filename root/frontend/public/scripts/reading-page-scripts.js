@@ -223,7 +223,7 @@ function updatePageText(chapter, page, modNums) {
       let str = data[parseInt(chapter, 10)][parseInt(page, 10)];
       let arr = [];
       // Parses through every word to make sure only words in database get highlighted (and without grammar syntax)
-      str.forEach(async (element) => {
+      str.forEach((element) => {
         let word = [];
         let normalWord = true;
         arr.push(" ");
