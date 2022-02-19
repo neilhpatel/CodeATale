@@ -1,3 +1,18 @@
+import { initializeApp } from 'firebase/app';
+const firebaseConfig = {
+  apiKey: "AIzaSyC2lfp2oGwlyluipIjXCt0ueQKXkq_UudA",
+  authDomain: "junior-design-178a4.firebaseapp.com",
+  databaseURL: "https://junior-design-178a4-default-rtdb.firebaseio.com",
+  projectId: "junior-design-178a4",
+  storageBucket: "junior-design-178a4.appspot.com",
+  messagingSenderId: "503927178988",
+  appId: "1:503927178988:web:343b4404b93c44c24787c9",
+  measurementId: "G-SVL212L9YP"
+};
+
+const app = initializeApp(firebaseConfig);
+
+
 let chapterStartPageNumber = [
   0,
   6,
@@ -113,11 +128,12 @@ function checkArrows() {
   }
 }
 
+//this is where i have to edit
 let modal = $("#modal").plainModal({duration: 150});
 function defModal(word) {
   // modWord = word.replace(/[^A-Za-z0-9]/g, ""); // Keeps all alphanumeric characters
   modal.children("#modal-container").children("#modal-words").text(word);
-  modal.children("#modal-container").children("#modal-def").text("a single distinct meaningful element of speech or writing"); // Filler text
+  modal.children("#modal-container").children("#modal-def").text(word + " = " + "a single distinct meaningful element of speech or writing"); // Filler text
   modal = $("#modal").plainModal("open");
 }
 

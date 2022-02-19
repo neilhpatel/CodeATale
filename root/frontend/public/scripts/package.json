@@ -1,0 +1,25 @@
+{
+  "name": "CodeATale",
+  "version": "1.0.0",
+  "description": "&nbsp;",
+  "main": "reading-page-scripts.js",
+  "dependencies": {
+    "firebase": "^9.6.7"
+  },
+  "type": "module",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neilhpatel/CodeATale.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neilhpatel/CodeATale/issues"
+  },
+  "homepage": "https://github.com/neilhpatel/CodeATale#readme"
+}
