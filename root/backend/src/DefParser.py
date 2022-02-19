@@ -1,3 +1,4 @@
+from xml.etree.ElementInclude import FatalIncludeError
 import docx2txt
 import os
 import collections
@@ -9,7 +10,9 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 
 # Use a service account
-cred = credentials.Certificate('ServiceAccountKey.json')
+cwd = os.getcwd()
+jsonFilePath = os.path.join(cwd, "root/backend/src/ServiceAccountKey.json")
+cred = credentials.Certificate(jsonFilePath)
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
@@ -26,6 +29,8 @@ class DefParser():
         textInd = 0
         # Get rid of tab characters in parsed document
         self.text = self.text.replace("\t", "")
+        
+
         # Iterate through the text one character at a time
         while textInd < len(self.text):
             letter = self.text[textInd]
@@ -39,17 +44,22 @@ class DefParser():
                 definition = ""
                 childWords = []
                 sightWord = False
+                blockedQuizOptions = ""
 
                 lineInd = 0
                 # parse the current word
-                while line[lineInd] != " " and line[lineInd] != "\n":
+                while line[lineInd].isalpha() or line[lineInd] == '-':
                     word += line[lineInd]
                     lineInd += 1
+                word = word.lower()
+
                 #increment lineInd to the next non-space character
                 while line[lineInd] == ' ':
                     lineInd += 1
                 # If the above loop ended at a newline character, current word is a sight word and no more parsing is
                 # needed. Else, continue to parse info.
+                # if (word == "ask"):
+                #     print(line[lineInd])
                 if line[lineInd] != "\n":
                     # lineInd should now be pointing to either '(' if there are child words or '=' if not
                     # parse child words into array
@@ -58,12 +68,12 @@ class DefParser():
                         endSubwords = False
                         currSubword = ""
                         while not endSubwords:
-                            if line[lineInd] == ",":
-                                childWords.append(currSubword)
+                            if line[lineInd] == "," or line[lineInd] == ";" or line[lineInd] == "'":
+                                childWords.append(currSubword.lower())
                                 currSubword = ""
                                 lineInd += 2
                             elif line[lineInd] == ")":
-                                childWords.append(currSubword)
+                                childWords.append(currSubword.lower())
                                 endSubwords = True
                             else:
                                 currSubword += line[lineInd]
@@ -77,8 +87,13 @@ class DefParser():
                         if line[lineInd] == '\n':
                             sightWord = True
                     # parse the definition by looking at everything on the current line past the '=' character
-                    if not sightWord:
-                        definition = line[lineInd + 2:len(line) - 1]
+                    definition = line[lineInd+2:len(line)-1].lower()
+                    if ("[" in definition):
+                        start = definition.index("[")
+                        blockedQuizOptions = definition[start+4:len(definition)-1]
+                        definition = definition[:start]
+                    #if not sightWord:
+                     #   definition = line[lineInd + 2:len(line) - 1]
 
                 # if a word has no definition, it is a sight word
                 excludedString = ""
@@ -91,30 +106,74 @@ class DefParser():
                             definition = definition[0:i[0]-1]
                             break
 
-                # currently just printing out info, should be easy to change to store in an object or output into a file
-                print("Word: " + word)
-                print("Is Child? False,\t\tParent Word: \"\"")
-                print("Definition: " + definition)
-                print("Excluded words: " + excludedString)
-                print("Sight word: " + str(sightWord))
-                print("Child words: ")
+                # populate database; no need to run this every time so it can be commented out until needed
+                collection_ref = db.collection(word[0])
+                doc_ref = collection_ref.document(word)
+                doc_ref.set({
+                    'is_sight_word': sightWord,
+                    'is_child_word': False,
+                    'parent_word': word,
+                    'definition': definition,
+                    'derivative_words': childWords,
+                    'block_from_quiz': blockedQuizOptions,
+                })
+
                 for child in childWords:
-                    print(child)
-                print("\n\n\n")
-                # pseudo-creating new "words" for child words, can do pretty much the same thing even after changing
-                # output method
-                for child in childWords:
-                    print("Word: " + child)
-                    print("Is Child? True,\t\tParent Word: \"" + word + "\"")
-                    print("Definition: ")
-                    print("Excluded words: ")
-                    print("Sight word: ")
-                    print("Child words: ")
-                    print("\n\n\n")
+                    collection_ref = db.collection(child[0])
+                    doc_ref = collection_ref.document(child)
+                    doc_ref.set({
+                        'is_sight_word': False,
+                        'is_child_word': True,
+                        'parent_word': word,
+                        'definition': "",
+                        'derivative_words': "",
+                        'block_from_quiz': ""
+                    })
+
+
+                # # print to test data values              
+                # print("Word: " + word)
+                # print("Is Child? False,\t\tParent Word: \"\"")
+                # print("Definition: " + definition)
+                # print("Blocked Quiz Options: " + blockedQuizOptions)
+                # print("Excluded words: " + excludedString)
+                # print("Sight word: " + str(sightWord))
+                # print("Child words: ")
+                # for child in childWords:
+                #     print(child)
+                # print("\n\n\n")
+                # # pseudo-creating new "words" for child words, can do pretty much the same thing even after changing
+                # # output method
+                # for child in childWords:
+                #     print("Word: " + child)
+                #     print("Is Child? True,\t\tParent Word: \"" + word + "\"")
+                #     print("Definition: ")
+                #     print("Blocked Quiz Options: ")
+                #     print("Excluded words: ")
+                #     print("Sight word: ")
+                #     print("Child words: ")
+                #     print("\n\n\n")
                 startInd = endInd + 2
                 # skip newline character in between entries
                 textInd += 1
             textInd += 1
+        
+         # adding last word
+        last_line = self.text[startInd:]
+        last_word = last_line[0:last_line.index("=")].lower()
+        last_definition = last_line[last_line.index("=")+2:last_line.index("[")].strip().lower()
+        last_blocked_quiz_options = last_line[last_line.index("graze"):-1].lower()
+
+        collection_ref = db.collection(last_word[0])
+        doc_ref = collection_ref.document(last_word)
+        doc_ref.set({
+            'is_sight_word': False,
+            'is_child_word': False,
+            'parent_word': last_word,
+            'definition': last_definition,
+            'derivative_words': [],
+            'block_from_quiz': last_blocked_quiz_options,
+        })
 
 
 def main():
@@ -124,11 +183,10 @@ def main():
 
     prefixPath = os.getcwd()
     newPath = os.path.abspath(os.path.join(prefixPath, os.pardir))
-    docPath = os.path.join(newPath, "docs")
+    docPath = os.path.join(newPath, "CodeATale/root/backend/docs")
     srcPath = os.path.join(docPath, "definitions.docx")
     defParser = DefParser(srcPath)
     defParser.parseWordDocumentText()
-
 
 if __name__ == '__main__':
     main()
