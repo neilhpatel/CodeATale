@@ -28,7 +28,6 @@ class DefParser():
         textInd = 0
         # Get rid of tab characters in parsed document
         self.text = self.text.replace("\t", "")
-        
         # Iterate through the text one character at a time
         while textInd < len(self.text):
             letter = self.text[textInd]
