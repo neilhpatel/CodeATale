@@ -1,4 +1,3 @@
-from xml.etree.ElementInclude import FatalIncludeError
 import docx2txt
 import os
 import collections
@@ -30,7 +29,6 @@ class DefParser():
         # Get rid of tab characters in parsed document
         self.text = self.text.replace("\t", "")
         
-
         # Iterate through the text one character at a time
         while textInd < len(self.text):
             letter = self.text[textInd]
@@ -129,7 +127,6 @@ class DefParser():
                         'derivative_words': "",
                         'block_from_quiz': ""
                     })
-
 
                 # # print to test data values              
                 # print("Word: " + word)
