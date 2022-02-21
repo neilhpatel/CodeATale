@@ -168,7 +168,7 @@ class DefParser():
             'derivative_words': [],
             'block_from_quiz': last_blocked_quiz_options,
         })
-        
+
 def main():
     """
     Main method to run DefParser.py. Reads relative file path of cwd which contains definitions.docx
