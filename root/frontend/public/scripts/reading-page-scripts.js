@@ -165,7 +165,7 @@ async function defModal(word, wordSnap, modWord) {
   let derivativeWords = [];
   wordSnap.data().derivative_words.forEach((derivative) => {
     derivativeWords.push(`<span class="highlight-definition">${derivative}</span>`);
-    derivativeWords.push(" ");
+    derivativeWords.push("; ");
   });
   modal.children("#modal-container").children("#modal-words").text(wordSnap.data().parent_word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
     modal
