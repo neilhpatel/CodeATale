@@ -159,44 +159,25 @@ function playAudio(word) {
 
 
 let modal = $("#modal").plainModal({ duration: 150 });
-async function defModal(word) {
+async function defModal(word, wordSnap, modWord) {
   //let modWord = word.toLowerCase().replace(/[^a-z0-9’-]+/gi, ""); // Keeps all alphanumeric characters as well as the special apostrophe // Keeping this just in case we need to use the replace feature again.
-  let modWord = word.toLowerCase();
   playAudio(modWord);
-  let wordDoc = doc(db, modWord.charAt(0), modWord);
-  let wordSnap = await getDoc(wordDoc);
-  // Checks to see if the word exists in the database and if there is a definition for a word
-  if (!wordSnap.exists()) {
-    modal.children("#modal-container").children("#modal-words").text(word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
+  let derivativeWords = [];
+  wordSnap.data().derivative_words.forEach((derivative) => {
+    derivativeWords.push(`<span class="highlight-definition">${derivative}</span>`);
+    derivativeWords.push(" ");
+  })
+  modal.children("#modal-container").children("#modal-words").text(wordSnap.data().parent_word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
     modal
     .children("#modal-container")
     .children("#modal-def")
-    .text("There is no definition for this word."); // Filler text
-    modal = $("#modal").plainModal("open");
-  } else {
-    // Checks if the chosen word is a derivative word and switches the query to the parent word (as only the parent word contains the definition)
-    if (wordSnap.data().parent_word !== modWord) {
-      modWord = wordSnap.data().parent_word;
-      wordDoc = doc(db, modWord.charAt(0), modWord);
-      wordSnap = await getDoc(wordDoc);
-    }
-    // Checks if the word has a definition
-    if (wordSnap.data().definition === "") {
-      modal.children("#modal-container").children("#modal-words").text(word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
-      modal
+    .html(`<span class="highlight-definition">${wordSnap.data().definition}</span>`)
+    modal
       .children("#modal-container")
-      .children("#modal-def")
-      .text("There is no definition for this word."); // Filler text
-      modal = $("#modal").plainModal("open");
-    } else {
-      modal.children("#modal-container").children("#modal-words").text(word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
-      modal
-        .children("#modal-container")
-        .children("#modal-def")
-        .text(`${wordSnap.data().definition}`); // Filler text
-      modal = $("#modal").plainModal("open");
-    }
-  }
+      .children("#modal-derivative")
+      .html(derivativeWords);
+  
+  modal = $("#modal").plainModal("open");
 }
 
 function updatePageText(chapter, page, modNums) {
@@ -238,7 +219,6 @@ function updatePageText(chapter, page, modNums) {
             }
             // Pushes word onto the arr if the word array is filled with something
             if (word.length !== 0) {
-              
               arr.push(`<span class="highlight">${word.join("")}</span>`);
               word = [];
             }
@@ -255,26 +235,41 @@ function updatePageText(chapter, page, modNums) {
             word.push(element.charAt(i));
             // If it"s at the end of the word (element), makes the word highlightable only if the word is not a normal word
             if (i === element.length - 1 && normalWord === false) {
-              
               arr.push(`<span class="highlight">${word.join("")}</span>`);
             }
           }
         }
         // If normalWord it pushes onto the arr normally with highlights
         if (normalWord) {
-          
           arr.push(`<span class="highlight">${word.join("")}</span>`);
-          
         }
       });
       
       $(".main-text").html(arr);
 
-      // Adds on click funtion for each word individually
-      $(".highlight").each(function () {
-        $(this).click(function () {
-          defModal($(this).text());
-        });
+      // Removes highlighting from word if it's not in the database and also adds click-on functionality for those words that are in the database.
+      $(".highlight").each(async function () {
+        let word = $(this).text();
+        let modWord = word.toLowerCase();
+        let wordDoc = doc(db, modWord.charAt(0), modWord);
+        let wordSnap = await getDoc(wordDoc);
+        
+        if (!wordSnap.exists()) {
+          $(this).removeClass("highlight");
+        } else {
+          if (wordSnap.data().parent_word !== modWord) {
+            modWord = wordSnap.data().parent_word;
+            wordDoc = doc(db, modWord.charAt(0), modWord);
+            wordSnap = await getDoc(wordDoc);
+          }
+          if (wordSnap.data().definition !== "") {
+            $(this).click(function () {
+              defModal(word, wordSnap, modWord);
+            });
+          } else {
+            $(this).removeClass("highlight");
+          }
+        }
       });
     });
 }
