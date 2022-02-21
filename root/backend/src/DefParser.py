@@ -126,7 +126,6 @@ class DefParser():
                         'derivative_words': "",
                         'block_from_quiz': ""
                     })
-                    
                 ## print to test data values
                 # print("Word: " + word)
                 # print("Is Child? False,\t\tParent Word: \"\"")
@@ -153,7 +152,6 @@ class DefParser():
                 # skip newline character in between entries
                 textInd += 1
             textInd += 1
-        
          # adding last word
         last_line = self.text[startInd:]
         last_word = last_line[0:last_line.index("=")].lower()
@@ -170,8 +168,7 @@ class DefParser():
             'derivative_words': [],
             'block_from_quiz': last_blocked_quiz_options,
         })
-
-
+        
 def main():
     """
     Main method to run DefParser.py. Reads relative file path of cwd which contains definitions.docx
