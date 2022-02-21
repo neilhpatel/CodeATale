@@ -127,8 +127,8 @@ class DefParser():
                         'derivative_words': "",
                         'block_from_quiz': ""
                     })
-
-                # # print to test data values              
+                    
+                ## print to test data values
                 # print("Word: " + word)
                 # print("Is Child? False,\t\tParent Word: \"\"")
                 # print("Definition: " + definition)
