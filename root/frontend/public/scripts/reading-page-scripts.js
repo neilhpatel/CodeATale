@@ -166,7 +166,7 @@ async function defModal(word) {
   let wordDoc = doc(db, modWord.charAt(0), modWord);
   let wordSnap = await getDoc(wordDoc);
   // Checks to see if the word exists in the database and if there is a definition for a word
-  if (!wordSnap.exists() || wordSnap.data().definition === "") {
+  if (!wordSnap.exists()) {
     modal.children("#modal-container").children("#modal-words").text(word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
     modal
     .children("#modal-container")
@@ -174,18 +174,28 @@ async function defModal(word) {
     .text("There is no definition for this word."); // Filler text
     modal = $("#modal").plainModal("open");
   } else {
-    // Checks if the chosen word is a derivative word and switches the query to the parent word
+    // Checks if the chosen word is a derivative word and switches the query to the parent word (as only the parent word contains the definition)
     if (wordSnap.data().parent_word !== modWord) {
       modWord = wordSnap.data().parent_word;
       wordDoc = doc(db, modWord.charAt(0), modWord);
       wordSnap = await getDoc(wordDoc);
     }
-    modal.children("#modal-container").children("#modal-words").text(word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
-    modal
+    // Checks if the word has a definition
+    if (wordSnap.data().definition === "") {
+      modal.children("#modal-container").children("#modal-words").text(word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
+      modal
       .children("#modal-container")
       .children("#modal-def")
-      .text(`${wordSnap.data().definition}`); // Filler text
-    modal = $("#modal").plainModal("open");
+      .text("There is no definition for this word."); // Filler text
+      modal = $("#modal").plainModal("open");
+    } else {
+      modal.children("#modal-container").children("#modal-words").text(word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
+      modal
+        .children("#modal-container")
+        .children("#modal-def")
+        .text(`${wordSnap.data().definition}`); // Filler text
+      modal = $("#modal").plainModal("open");
+    }
   }
 }
 
@@ -257,7 +267,7 @@ function updatePageText(chapter, page, modNums) {
           
         }
       });
-
+      
       $(".main-text").html(arr);
 
       // Adds on click funtion for each word individually
