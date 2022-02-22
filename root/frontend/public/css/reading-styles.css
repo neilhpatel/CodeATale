@@ -73,3 +73,8 @@ img {
 .highlight:hover {
   background-color: yellow;
 }
+
+.highlight-definition:hover {
+  background-color: yellow;
+}
+
