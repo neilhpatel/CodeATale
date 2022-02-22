@@ -10,11 +10,12 @@ from firebase_admin import firestore
 
 # Use a service account
 cwd = os.getcwd()
-jsonFilePath = os.path.join(cwd, "root/backend/src/ServiceAccountKey.json")
+jsonFilePath = os.path.join(cwd, "ServiceAccountKey.json")
 cred = credentials.Certificate(jsonFilePath)
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
+
 
 class DefParser():
 
@@ -50,7 +51,7 @@ class DefParser():
                     lineInd += 1
                 word = word.lower()
 
-                #increment lineInd to the next non-space character
+                # increment lineInd to the next non-space character
                 while line[lineInd] == ' ':
                     lineInd += 1
                 # If the above loop ended at a newline character, current word is a sight word and no more parsing is
@@ -75,7 +76,7 @@ class DefParser():
                             else:
                                 currSubword += line[lineInd]
                                 lineInd += 1
-                        #make lineInd point to character right after ')'
+                        # make lineInd point to character right after ')'
                         lineInd += 1
                         # make lineInd point to the next non-space character, should either be '/n' if sight word
                         # and '=' if not
@@ -87,9 +88,10 @@ class DefParser():
                     definition = line[lineInd+2:len(line)-1].lower()
                     if ("[" in definition):
                         start = definition.index("[")
-                        blockedQuizOptions = definition[start+4:len(definition)-1]
+                        blockedQuizOptions = definition[start +
+                                                        4:len(definition)-1]
                         definition = definition[:start]
-                    #if not sightWord:
+                    # if not sightWord:
                      #   definition = line[lineInd + 2:len(line) - 1]
 
                 # if a word has no definition, it is a sight word
@@ -126,7 +128,7 @@ class DefParser():
                         'derivative_words': "",
                         'block_from_quiz': ""
                     })
-                ## print to test data values
+                # print to test data values
                 # print("Word: " + word)
                 # print("Is Child? False,\t\tParent Word: \"\"")
                 # print("Definition: " + definition)
@@ -155,8 +157,10 @@ class DefParser():
          # adding last word
         last_line = self.text[startInd:]
         last_word = last_line[0:last_line.index("=")].lower()
-        last_definition = last_line[last_line.index("=")+2:last_line.index("[")].strip().lower()
-        last_blocked_quiz_options = last_line[last_line.index("graze"):-1].lower()
+        last_definition = last_line[last_line.index(
+            "=")+2:last_line.index("[")].strip().lower()
+        last_blocked_quiz_options = last_line[last_line.index(
+            "graze"):-1].lower()
 
         collection_ref = db.collection(last_word[0])
         doc_ref = collection_ref.document(last_word)
@@ -169,6 +173,7 @@ class DefParser():
             'block_from_quiz': last_blocked_quiz_options,
         })
 
+
 def main():
     """
     Main method to run DefParser.py. Reads relative file path of cwd which contains definitions.docx
@@ -176,10 +181,11 @@ def main():
 
     prefixPath = os.getcwd()
     newPath = os.path.abspath(os.path.join(prefixPath, os.pardir))
-    docPath = os.path.join(newPath, "CodeATale/root/backend/docs")
+    docPath = os.path.join(newPath, "docs")
     srcPath = os.path.join(docPath, "definitions.docx")
     defParser = DefParser(srcPath)
     defParser.parseWordDocumentText()
+
 
 if __name__ == '__main__':
     main()
