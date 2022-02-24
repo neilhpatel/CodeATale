@@ -3,14 +3,14 @@
 }
 
 #quiz-header #quiz-title {
-  font-size: 7rem;
+  font-size: 10vmin;
   color: rgb(241, 241, 241);
   -webkit-text-stroke: 1px rgb(163, 163, 163);
   margin: 50px;
 }
 
 #quiz-header #quiz-explain {
-  font-size: 4rem;
+  font-size: 5vmin;
   color: rgb(241, 241, 241);
 }
 
@@ -25,7 +25,7 @@
   border: 5px black solid;
   box-shadow: 5px 5px 10px grey;
 
-  font-size: 2rem;
+  font-size: 3vmin;
   font-weight: bolder;
 }
 
@@ -39,7 +39,7 @@
 }
 
 #questions {
-  font-size: 2rem;
+  font-size: 3vmin;
 }
 
 .question {
@@ -57,7 +57,7 @@
   height: 10vmin;
   border-radius: 50%;
 
-  font-size: 5rem;
+  font-size: 5vmin;
 
   border: none;
   box-shadow: -4px 4px 2px black;
@@ -89,11 +89,9 @@
 #stars-container #stars-text {
   position: relative;
   text-align: center;
-  font-size: larger;
+  font-size: 3vmin;;
   font-weight: bold;
 }
-
-
 
 #stars img {
   width: 2.5vw;
@@ -143,9 +141,9 @@
 }
 
 #quiz-response, #quiz-buttons {
-  font-size: 1.5rem;
+  font-size: 3vmin;
 }
 
 #quiz-results-screen #quiz-results {
-  font-size: 5rem;
+  font-size: 4vmin;
 }
