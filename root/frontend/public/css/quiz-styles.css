@@ -108,7 +108,7 @@
   color: rgb(192, 192, 192);
 }
 
-#queue, 
+#queue,
 #queue-style-elem {
   position: absolute;
   display: block;
@@ -132,7 +132,7 @@
   border-radius: 0;
 }
 
-#quiz-response, 
+#quiz-response,
 #quiz-buttons {
   font-size: 3vmin;
 }
