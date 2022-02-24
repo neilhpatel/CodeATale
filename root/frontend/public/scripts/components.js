@@ -45,7 +45,6 @@ class Bookmark extends HTMLElement {
 
         // Create a new bookmark element for a given chapter
         function appendBookmark(chapterNum, pageNum) {
-            console.log("Appending bookmark");
             const newBookMarkDel = $(document.createElement("button"));
             const newBookMark = $(document.createElement("button"));
             
@@ -148,10 +147,10 @@ class Bookmark extends HTMLElement {
             addBookmarkHelper(alreadyAdded, onReadingPage);
         });
 
-        // This line does not refresh when the page is resized, which causes the bookmark to be in the wrong location for that new window size
-        let modal = $("#modal1").plainModal({ duration: 150, offset: {left: $(window).width() * 0.895, top: $(window).height() * 0.20}});
+        // This line does not refresh when the page is resized, which causes 
+        // the bookmark to be in the wrong location for that new window size
+        let modal = $("#modal1").plainModal({ duration: 150, offset: {left: $(window).width() * 0.905, top: $(window).height() * 0.2}});
         $("#bookmark-button").click(function () {
-            
             modal = $("#modal1").plainModal("open");
         });
     }
