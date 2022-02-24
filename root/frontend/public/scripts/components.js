@@ -133,7 +133,6 @@ class Bookmark extends HTMLElement {
         // onClick effect for adding a bookmark
         const addBookmark = $("#add-bookmark");
         addBookmark.click(function() {
-            console.log("TEST");
             let alreadyAdded = false;
             let onReadingPage = false;
             let bookmarkList = sessionStorage.getItem("bookmarks").split(" ");
@@ -146,7 +145,6 @@ class Bookmark extends HTMLElement {
             if (window.location.href.substring(window.location.href.length - 17, window.location.href.length) === "reading-page.html") {
                 onReadingPage = true;
             }
-            console.log(alreadyAdded + " " + onReadingPage);
             addBookmarkHelper(alreadyAdded, onReadingPage);
         });
 

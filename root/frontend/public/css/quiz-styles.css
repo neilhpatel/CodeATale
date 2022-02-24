@@ -24,7 +24,6 @@
   text-align: center;
   border: 5px black solid;
   box-shadow: 5px 5px 10px grey;
-
   font-size: 3vmin;
   font-weight: bolder;
 }
@@ -50,25 +49,20 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%);
-  
   bottom: 2%;
   background-color: rgb(255, 245, 245);
   width: 10vmin;
   height: 10vmin;
   border-radius: 50%;
-
   font-size: 5vmin;
-
   border: none;
   box-shadow: -4px 4px 2px black;
-
   transition: 50ms ease-in-out;
 }
 
 #help-btn:active {
   transform: translate(-4px, 4px) translate(-50%);
   box-shadow: none;
-  
 }
 
 #stars-container {
@@ -89,7 +83,7 @@
 #stars-container #stars-text {
   position: relative;
   text-align: center;
-  font-size: 3vmin;;
+  font-size: 3vmin;
   font-weight: bold;
 }
 
@@ -107,11 +101,11 @@
 }
 
 #modal-text .gold {
-  color: rgb(255,215,0);
+  color: rgb(255, 215, 0);
 }
 
 #modal-text .silver {
-  color: rgb(192,192,192);
+  color: rgb(192, 192, 192);
 }
 
 #queue, #queue-style-elem {
@@ -120,12 +114,9 @@
   right: 0;
   top: 45%;
   transform: translate(0, -50%);
-
   background-color: rgb(255, 255, 255);
-  
   width: 4vw;
   height: 45vh;
-
   border-radius: 10px 0 0 10px; /* Top-Left, Top-Right, Bottom-Right, Bottom-Left */
   border-left: 3px black solid;
   border-top: 3px black solid;

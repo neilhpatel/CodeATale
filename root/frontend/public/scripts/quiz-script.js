@@ -1,13 +1,13 @@
 
-$('#quiz').quiz({
+$("#quiz").quiz({
   counter: false,
 
   // Questions are indexed from 0
   questions: [
     {
-      'q': 'Definition 1',
-      'options': [
-        'Answer 1',
+      "q": "Definition 1",
+      "options": [
+        "Answer 1",
         'Answer 2',
         'Answer 3',
         'Answer 4'
@@ -24,9 +24,9 @@ $('#quiz').quiz({
         'Answer 3',
         'Answer 4'
       ],
-      'correctIndex': 1,
-      'correctResponse': 'Correct!',
-      'incorrectResponse': 'Incorrect!',
+      "correctIndex": 1,
+      "correctResponse": "Correct!",
+      "incorrectResponse": "Incorrect!",
     }
   ]
 });
