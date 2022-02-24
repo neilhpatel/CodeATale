@@ -158,7 +158,7 @@ function playAudio(word) {
 }
 
 
-let modal = $("#modal").plainModal({ duration: 150 });
+let modal = $("#modal").plainModal({ duration: 150 }); // The number refers to the time to fade in
 async function defModal(word) {
   //let modWord = word.toLowerCase().replace(/[^a-z0-9’-]+/gi, ""); // Keeps all alphanumeric characters as well as the special apostrophe // Keeping this just in case we need to use the replace feature again.
   let modWord = word.toLowerCase();
@@ -167,11 +167,8 @@ async function defModal(word) {
   let wordSnap = await getDoc(wordDoc);
   // Checks to see if the word exists in the database and if there is a definition for a word
   if (!wordSnap.exists() || wordSnap.data().definition === "") {
-    modal.children("#modal-container").children("#modal-words").text(word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
-    modal
-    .children("#modal-container")
-    .children("#modal-def")
-    .text("There is no definition for this word."); // Filler text
+    $("#modal-words").text(word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
+    $("#modal-def").text("There is no definition for this word.");
     modal = $("#modal").plainModal("open");
   } else {
     // Checks if the chosen word is a derivative word and switches the query to the parent word
@@ -180,11 +177,8 @@ async function defModal(word) {
       wordDoc = doc(db, modWord.charAt(0), modWord);
       wordSnap = await getDoc(wordDoc);
     }
-    modal.children("#modal-container").children("#modal-words").text(word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
-    modal
-      .children("#modal-container")
-      .children("#modal-def")
-      .text(`${wordSnap.data().definition}`); // Filler text
+    $("#modal-words").text(word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
+    $("#modal-def").text(`${wordSnap.data().definition}`);
     modal = $("#modal").plainModal("open");
   }
 }

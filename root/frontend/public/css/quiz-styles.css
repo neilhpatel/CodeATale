@@ -1,0 +1,151 @@
+* {
+  overflow: auto;
+}
+
+#quiz-header #quiz-title {
+  font-size: 7rem;
+  color: rgb(241, 241, 241);
+  -webkit-text-stroke: 1px rgb(163, 163, 163);
+  margin: 50px;
+}
+
+#quiz-header #quiz-explain {
+  font-size: 4rem;
+  color: rgb(241, 241, 241);
+}
+
+.quiz-container {
+  width: 75vw;
+}
+
+.answers li a {
+  margin: 4vmin 15vmin;
+  padding: 8vmin 0;
+  text-align: center;
+  border: 5px black solid;
+  box-shadow: 5px 5px 10px grey;
+
+  font-size: 2rem;
+  font-weight: bolder;
+}
+
+#quiz {
+  padding: 0;
+}
+
+.answers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#questions {
+  font-size: 2rem;
+}
+
+.question {
+  padding: 0 10vw;
+}
+
+#help-btn {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  
+  bottom: 2%;
+  background-color: rgb(255, 245, 245);
+  width: 10vmin;
+  height: 10vmin;
+  border-radius: 50%;
+
+  font-size: 5rem;
+
+  border: none;
+  box-shadow: -4px 4px 2px black;
+
+  transition: 50ms ease-in-out;
+}
+
+#help-btn:active {
+  transform: translate(-4px, 4px) translate(-50%);
+  box-shadow: none;
+  
+}
+
+#stars-container {
+  position: absolute;
+  right: 2%;
+  top: 2%;
+}
+
+#stars {
+  width: 15vw;
+  height: 5vh;
+  background-color: rgb(65, 249, 255);
+  border-radius: 50px;
+  border: 3px black solid;
+  overflow: hidden;
+}
+
+#stars-container #stars-text {
+  position: relative;
+  text-align: center;
+  font-size: larger;
+  font-weight: bold;
+}
+
+
+
+#stars img {
+  width: 2.5vw;
+}
+
+#stars-list {
+  display: flex;
+  justify-content: center;
+}
+
+#stars .grey {
+  opacity: 0.2;
+}
+
+#modal-text .gold {
+  color: rgb(255,215,0);
+}
+
+#modal-text .silver {
+  color: rgb(192,192,192);
+}
+
+#queue, #queue-style-elem {
+  position: absolute;
+  display: block;
+  right: 0;
+  top: 45%;
+  transform: translate(0, -50%);
+
+  background-color: rgb(255, 255, 255);
+  
+  width: 4vw;
+  height: 45vh;
+
+  border-radius: 10px 0 0 10px; /* Top-Left, Top-Right, Bottom-Right, Bottom-Left */
+  border-left: 3px black solid;
+  border-top: 3px black solid;
+  border-bottom: 3px black solid;
+}
+
+#queue-style-elem {
+  background-color: rgb(24, 113, 255);
+  right: 1vw;
+  height: 20vh;
+  z-index: -10;
+  border-radius: 0;
+}
+
+#quiz-response, #quiz-buttons {
+  font-size: 1.5rem;
+}
+
+#quiz-results-screen #quiz-results {
+  font-size: 5rem;
+}

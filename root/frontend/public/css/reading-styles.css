@@ -1,5 +1,4 @@
 /* Chapter Heading */
-
 #reading-heading {
     position: absolute;
     left: 50%;
@@ -20,8 +19,7 @@
   font-size: 5vh;
 }
 
-/* Main Text */
-
+/* Text block */
 .main-text {
   position: relative;
   left: 50%;
@@ -36,7 +34,6 @@
 }
 
 /* Images */
-
 img {
   display: block;
   margin: auto;
@@ -46,7 +43,6 @@ img {
 }
 
 /* Next and Previous Page */
-
 #prevPg,
 #nextPg {
   font-size: 10vmin;
@@ -70,6 +66,7 @@ img {
   right: 15%;
 }
 
+/* Highlight */
 .highlight:hover {
   background-color: yellow;
 }

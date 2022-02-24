@@ -1,3 +1,4 @@
+/* General modal styles */
 #modal {
   display: flex;
   align-items: center; /* Vertical Center */
@@ -9,17 +10,16 @@
   font-size: 4vh;
   border-radius: 10px;
   border: 7px solid;
+  text-align: center;
   border-image: linear-gradient(90deg, rgba(40, 255, 0, 1) 0%, rgba(102, 224, 255, 1) 25%, rgba(220, 41, 226, 1) 50%, rgba(233, 82, 98, 1) 75%, rgba(224, 255, 0, 1) 100%) 1;
 }
 
-#modal #modal-container {
-  text-align: center;
-}
-
+/* Adds padding between the defition and the word */
 #modal #modal-container p {
   margin: 4vh 10px;
 }
 
+/* Close button */
 #modal #close-button {
   position: absolute;
   right: 0;
@@ -32,12 +32,7 @@
   background-color: rgb(233, 233, 233);
 }
 
-#modal #close-button::before {
-  display: inline-block;
-  font-size: 4em;
-  content: "\00d7";
-}
-
+/* Definition */
 #modal #modal-container #modal-def {
   background-color: rgba(21, 235, 255, 0.8);
   padding: 15px;

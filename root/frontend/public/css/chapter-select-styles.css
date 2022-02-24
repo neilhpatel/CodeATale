@@ -12,8 +12,7 @@
 }
 
 
-/* Chapter Selection Boxes */
-
+/* Chapter selection boxes */
 #selboxes {
   position: relative;
   display: inline-grid;
@@ -28,6 +27,7 @@
   height: 100%;
 }
 
+/* Resizing based on screen size */
 @media screen and (max-width: 1000px) {
   #selboxes {
     grid-template-columns: 1fr 1fr;
@@ -40,6 +40,7 @@
   }
 }
 
+/* Chapter select button */
 #selboxes button {
   background-color: #38fbfb;
   width: 18vw;
@@ -52,6 +53,7 @@
   cursor: pointer;
 }
 
+/* Gallery button */
 #selboxes .img-button {
   position: absolute;
   display: block;
@@ -62,6 +64,7 @@
   transition: background-color 0.5s, transform 0.5s;
 }
 
+/* Gallery button effects */
 #selboxes .img-button:hover {
   transform: translate(51%, -100%) scale(20%, 96%);
   background-color: #fd5e45;
@@ -72,6 +75,14 @@
   background-color: #ee654d;
 }
 
+/* Gallery button icon */
+#selboxes .img-button .img-button-icon {
+  position: relative;
+  left: 30%;
+  transform: scale(350%, 100%);
+}
+
+/* Chapter select button effects */
 #selboxes .chapter-button {
   transition: 150ms ease-in-out;
 }
@@ -86,6 +97,7 @@
   background-color: #7cd6d6;
 }
 
+/* Chapter numbers */
 .chapter-box p {
   text-align: center;
   margin: 0.5em;
@@ -93,6 +105,7 @@
   font-weight: bold;
 }
 
+/* Progress bar */
 .progress-num {
   position: relative;
   top: -10%;
@@ -123,10 +136,4 @@
 
 .chapter-box .percent0 {
   color: rgb(59, 29, 0);
-}
-
-#selboxes .img-button .img-button-icon {
-  position: relative;
-  left: 30%;
-  transform: scale(350%, 100%);
 }

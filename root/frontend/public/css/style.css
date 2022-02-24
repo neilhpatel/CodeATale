@@ -1,5 +1,4 @@
 /* General */
-
 * {
     padding: 0;
     margin: 0;
@@ -9,22 +8,19 @@ body {
     background-color: #AFEEEE;
 }
 
-/* width */
+/* Scrollbar */
 body::-webkit-scrollbar {
     width: 20px;
 }
 
-/* Track */
 body::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
-/* Handle */
 body::-webkit-scrollbar-thumb {
     background: rgb(224, 38, 69);
 }
 
-/* Handle on hover */
 body::-webkit-scrollbar-thumb:hover {
     background: rgb(194, 0, 0);
 }
@@ -65,7 +61,6 @@ body::-webkit-scrollbar-thumb:hover {
     margin: 0 25%;
 }
 
-
 /* Bookmark */
 .bookmark {
     position: fixed;
@@ -80,13 +75,11 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .fa-bookmark {
-    position: relative;
     font-size: 5vw;
     background-color: rgba(0, 0, 0, 0.0);
     border: none;
     cursor: pointer;
     text-shadow: 5px 5px 5px red;
-
     transition: transform 0.1s;
 }
 
@@ -96,8 +89,8 @@ body::-webkit-scrollbar-thumb:hover {
     color: rgb(66, 66, 66);
 }
 
-.modal {
-    z-index: 10;
+#modal1 {
+   
     width: 7vw;
     height: 30vh;
     padding: 1em 0;
@@ -106,59 +99,38 @@ body::-webkit-scrollbar-thumb:hover {
     text-decoration: underline;
     text-align: center;
     overflow: auto;
-
-    position: relative;
-    left: -15%;
-
-    transform: scale(0);
+    
     transition: 300ms ease-in-out;
 }
 
-.modal, .modal button {
+#bookmark-modal {
+    height: 10vh;
+    width: 7vw;
+}
+
+
+#modal1, #modal1 button {
     font-size: 0.95vw;
 }
 
 /* width */
-.modal::-webkit-scrollbar, .main-text::-webkit-scrollbar {
+#modal1::-webkit-scrollbar, .main-text::-webkit-scrollbar {
     width: 4px;
 }
 
 /* Track */
-.modal::-webkit-scrollbar-track, .main-text::-webkit-scrollbar-track {
+#modal1::-webkit-scrollbar-track, .main-text::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
 /* Handle */
-.modal::-webkit-scrollbar-thumb, .main-text::-webkit-scrollbar-thumb {
+#modal1::-webkit-scrollbar-thumb, .main-text::-webkit-scrollbar-thumb {
     background: #888;
 }
 
 /* Handle on hover */
-.modal::-webkit-scrollbar-thumb:hover, .main-text::-webkit-scrollbar-thumb:hover {
+#modal1::-webkit-scrollbar-thumb:hover, .main-text::-webkit-scrollbar-thumb:hover {
     background: #555;
-}
-
-.modal.active {
-    transform: scale(1);
-}
-
-#overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0;
-    
-    background-color: rgba(33, 33, 33, 0.5);
-    pointer-events: none;
-
-    transition: 300ms ease-in-out;
-}
-
-#overlay.active {
-    pointer-events: all;
-    opacity: 1;
 }
 
 #add-bookmark, .newBookmark {
@@ -202,7 +174,7 @@ body::-webkit-scrollbar-thumb:hover {
 .bookmarkDel {
     position: relative;
     padding: 3px;
-    top: 3%;
+    top: 8%;
     right: 2%;
     border: none;
     background-color:hsl(27, 100%, 50%);

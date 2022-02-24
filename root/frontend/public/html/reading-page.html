@@ -5,9 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Reading Page</title>
 
-        <link rel="stylesheet" href="../css/style.css"> <!-- Links the CSS to this HTML page -->
+        <!-- CSS Styles -->
+        <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/reading-styles.css">
-        <link rel="stylesheet" href="../css/definition-modal-styles.css">
+        <link rel="stylesheet" href="../css/modal-styles.css">
+
+        <!-- Scripts -->
         <script defer type="module" src="../scripts/reading-page-scripts.js"></script>
         <script defer src="../scripts/components.js"></script>
 
@@ -50,24 +53,20 @@
             <!-- Scrub Bar -->
             <div></div>
 
-            <!-- Previous and Next Page -->
-
             <!-- Next Page -->
             <i class="fas fa-arrow-circle-right" id="nextPg" title="Next Page"></i>
              
             <!-- Previous Page -->
             <i class="fas fa-arrow-circle-left" id="prevPg" title="Previous Page"></i>
 
+            <!-- Definition Modal -->
             <div id="modal">
                 <div id="modal-container"> <!-- Needed for centering the elements with flex while keeping block display -->
                     <p id="modal-words"></p>
                     <p id="modal-def"></p>
                 </div>
-                <!-- <div><button id="close-button"></button></div> -->
-                <a class="close plainmodal-close">
+                <a class="close plainmodal-close"></a>
             </div>
-            
         </main>
-    
     </body>
 </html>
