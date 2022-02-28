@@ -2,16 +2,24 @@
   overflow: auto;
 }
 
+#quiz-header {
+  position: relative;
+  left: -5vw;
+}
+
+
+
 #quiz-header #quiz-title {
   font-size: 10vmin;
-  color: rgb(241, 241, 241);
-  -webkit-text-stroke: 1px rgb(163, 163, 163);
+  color: #643EFF;
+  -webkit-text-stroke: 1px rgb(39, 39, 39);
   margin: 50px;
 }
 
 #quiz-header #quiz-explain {
-  font-size: 5vmin;
-  color: rgb(241, 241, 241);
+  font-size: 4vmin;
+  color: #643EFF;
+  text-decoration: underline;
 }
 
 .quiz-container {

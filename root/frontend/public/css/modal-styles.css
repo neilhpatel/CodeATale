@@ -72,3 +72,58 @@
   transform: rotate(-45deg);
 }
 
+
+.def-quiz-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline;
+
+  
+}
+
+.quiz-btn {
+  font-size: 6vmin;
+  margin: 0.25em;
+  background-color: transparent;
+  border: none;
+  display: inline;
+  transition: 100ms;
+}
+
+.quiz-btn:hover {
+  transform: scale(125%);
+}
+
+.def-quiz-container:hover .quiz-btn {
+  transform: scale(125%);
+}
+
+.quiz-options {
+  position: absolute;
+  display: none;
+  min-width: 10vw;
+}
+
+.def-quiz-container:hover .quiz-options {
+  display: inline-grid;
+}
+
+.quiz-options button {
+  margin: 6px;
+  font-size: 2vmin;
+  padding: 0.5em;
+  border: none;
+  box-shadow: -3px 3px 2px black;
+  transition: 100ms;
+  background-color: rgb(255, 255, 255);
+}
+
+.quiz-options button:active {
+  box-shadow: none;
+  transform: translate(-3px, 3px);
+}
+
+.quiz-options button:hover {
+  background-color: antiquewhite;
+}

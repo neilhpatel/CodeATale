@@ -34,11 +34,9 @@ class Bookmark extends HTMLElement {
         this.innerHTML = `
             <section class="bookmark">
                 <button type="button" class="fas fa-bookmark" id="bookmark-button" title="Bookmark"></button>
-                <div id="modal1">
-                    <div id="bookmark-modal">
-                        Select Bookmark
-                        <button type="button" id="add-bookmark">Add Page</button>
-                    </div>
+                <div id="bookmark-modal-container">
+                    <p>Select Bookmark</p>
+                    <button type="button" id="add-bookmark">Add Page</button>
                 </div>
             </section>
         `;
@@ -80,7 +78,7 @@ class Bookmark extends HTMLElement {
                 sessionStorage.setItem("bookmarks", newBookmarkList);
             });
 
-            const bookmarkModal = $("#bookmark-modal");
+            const bookmarkModal = $("#bookmark-modal-container");
 
             bookmarkModal.append(newBookMark);
             bookmarkModal.append(newBookMarkDel);
@@ -147,11 +145,18 @@ class Bookmark extends HTMLElement {
             addBookmarkHelper(alreadyAdded, onReadingPage);
         });
 
-        // This line does not refresh when the page is resized, which causes 
-        // the bookmark to be in the wrong location for that new window size
-        let modal = $("#modal1").plainModal({ duration: 150, offset: {left: $(window).width() * 0.905, top: $(window).height() * 0.2}});
+        let modal = $("#bookmark-modal-container").plainModal({ duration: 150, offset: function() {
+                // Fit the position to a button.
+                var btnOffset = $("#bookmark-button").offset(), win = $(window);
+                return {
+                    left: btnOffset.left - $("#bookmark-modal-container").width()/4,
+                    top: btnOffset.top + $("#bookmark-modal-container").height()/3
+                };
+            } 
+        });
+            
         $("#bookmark-button").click(function () {
-            modal = $("#modal1").plainModal("open");
+            modal = $("#bookmark-modal-container").plainModal("open");
         });
     }
 }
