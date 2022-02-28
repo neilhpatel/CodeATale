@@ -145,7 +145,7 @@ class Bookmark extends HTMLElement {
             addBookmarkHelper(alreadyAdded, onReadingPage);
         });
 
-        let modal = $("#bookmark-modal-container").plainModal({ duration: 150, offset: function() {
+        let modal = $("#bookmark-modal-container").plainModal({ duration: 150, offset: () => {
                 // Fit the position to a button.
                 var btnOffset = $("#bookmark-button").offset(), win = $(window);
                 return {

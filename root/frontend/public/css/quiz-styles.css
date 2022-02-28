@@ -7,18 +7,16 @@
   left: -5vw;
 }
 
-
-
 #quiz-header #quiz-title {
   font-size: 10vmin;
-  color: #643EFF;
+  color: #643eff;
   -webkit-text-stroke: 1px rgb(39, 39, 39);
   margin: 50px;
 }
 
 #quiz-header #quiz-explain {
   font-size: 4vmin;
-  color: #643EFF;
+  color: #643eff;
   text-decoration: underline;
 }
 

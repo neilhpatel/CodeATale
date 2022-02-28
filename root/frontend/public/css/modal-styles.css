@@ -72,14 +72,11 @@
   transform: rotate(-45deg);
 }
 
-
 .def-quiz-container {
   position: absolute;
   top: 0;
   left: 0;
   display: inline;
-
-  
 }
 
 .quiz-btn {
