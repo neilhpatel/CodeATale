@@ -11,7 +11,7 @@
       <link rel="stylesheet" href="../css/modal-styles.css">
       
       <!-- Scripts -->
-      <script defer src="../scripts/quiz-script.js"></script>
+      <script defer type="module" src="../scripts/quiz-script.js"></script>
       <script defer src="../scripts/components.js"></script>
       
       <!-- Fonts/Icons -->
@@ -19,12 +19,6 @@
       
       <!-- jQuery -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-      <!-- Quiz Js (Plugin for the quiz screen) -->
-      <script src="../Plugins/jquery.quiz-min.js"></script>
-
-      <!-- Quiz CSS (Plugin for the quiz screen) -->
-      <link rel="stylesheet" href="../Plugins/jquery.quiz-min.css">
 
       <!-- Plain Modal -->
       <script src="../Plugins/jquery.plainmodal.min.js"></script>
@@ -60,6 +54,13 @@
       </div>
       
       <!-- Quiz Interface -->
+      <div id="quiz-container">
+        <button type="button" class="false" id="answer1"></button>
+        <button type="button" class="false" id="answer2"></button>
+        <button type="button" class="false" id="answer3"></button>
+        <button type="button" class="false" id="answer4"></button>
+      </div>
+
 
       <!-- Queue -->
       <div id="queue-container">

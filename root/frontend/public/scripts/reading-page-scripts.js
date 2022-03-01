@@ -159,18 +159,46 @@ function playAudio(word) {
 
 
 let modal = $("#modal").plainModal({ duration: 150 });
-async function defModal(word, wordSnap, modWord) {
+function defModal(word, wordSnap, modWord) {
   //let modWord = word.toLowerCase().replace(/[^a-z0-9’-]+/gi, ""); // Keeps all alphanumeric characters as well as the special apostrophe // Keeping this just in case we need to use the replace feature again.
   playAudio(modWord);
   let derivativeWords = [];
   wordSnap.data().derivative_words.forEach((derivative) => {
+    // Need to remove the semicolon if it's the last derivative word
     derivativeWords.push(`<span class="highlight-definition">${derivative}</span>`);
     derivativeWords.push("; ");
   });
   $("#modal-words").text(wordSnap.data().parent_word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
   $("#modal-def").html(`<span class="highlight-definition">${wordSnap.data().definition}</span>`);
   $("#modal-derivative").html(derivativeWords);
-
+  $("#b1").click(function() {
+    let queue = JSON.parse(sessionStorage.getItem("queue"));
+    if (queue == null) { queue = [] };
+    if (!queue.includes(modWord)) {
+      queue.unshift(modWord);
+      sessionStorage.setItem("queue", JSON.stringify(queue));
+      console.log(queue);
+      window.location.href = "quiz.html";
+    } else {
+      queue.splice(queue.indexOf(modWord), 1);
+      queue.unshift(modWord);
+      sessionStorage.setItem("queue", JSON.stringify(queue));
+      console.log(queue);
+      window.location.href = "quiz.html";
+    }
+  });
+  $("#b2").click(function() {
+    let queue = JSON.parse(sessionStorage.getItem("queue"));
+    if (queue == null) { queue = [] };
+    if (!queue.includes(modWord)) {
+      queue.push(modWord);
+      sessionStorage.setItem("queue", JSON.stringify(queue));
+      console.log(queue);
+    } else {
+      //Add pop-up or text that says, "You have this word in your quiz queue!"
+      console.log("Word already in your queue!");
+    }
+  });
   modal = $("#modal").plainModal("open");
 }
 
@@ -288,7 +316,6 @@ const nextPage = $("#nextPg");
 nextPage.click(() => {
   let chapterNum = parseInt(sessionStorage.getItem("chptNum"), 10);
   let pageNum = parseInt(sessionStorage.getItem("pageNum"), 10);
-
   updatePageText(chapterNum, pageNum, increasePage);
   // $("img").attr("src", `../../assets/chapter_images/chapter${num}.png`); // Changes the chapter image
 });

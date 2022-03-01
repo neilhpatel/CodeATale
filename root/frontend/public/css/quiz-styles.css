@@ -65,6 +65,16 @@
   color: rgb(192, 192, 192);
 }
 
+#quiz-container {
+  position: absolute;
+  top: 450px;
+  left: 500px;
+}
+
+.false {
+  color: rgb(255, 0, 0);
+}
+
 #queue,
 #queue-style-elem {
   position: absolute;
