@@ -31,9 +31,10 @@ async function quizWords() {
   if (queue == null || queue == undefined || queue.length == 0) {
     console.log("No words in queue!");
     $(".false").each(function() {
-      $(this).html = "";
+      $(this).html("");
     });
   } else {
+    console.log(queue);
     let queueIndex = 0;
     let word = queue[queueIndex];
     let blockedWords = new Set();
@@ -79,6 +80,10 @@ async function quizWords() {
           console.log("Correct");
           queue.shift();
           sessionStorage.setItem("queue", JSON.stringify(queue));
+          let audioObj = document.createElement("audio");
+          audioObj.crossorigin = "anonymous"
+          audioObj.src = "https://www.dropbox.com/s/dg9277bx242qlpf/correct_quiz_answer_sound.mp3?dl=0";
+          audioObj.play();
           quizWords();
         });
       } else {

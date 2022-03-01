@@ -171,34 +171,39 @@ function defModal(word, wordSnap, modWord) {
   $("#modal-words").text(wordSnap.data().parent_word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
   $("#modal-def").html(`<span class="highlight-definition">${wordSnap.data().definition}</span>`);
   $("#modal-derivative").html(derivativeWords);
-  $("#b1").click(function() {
-    let queue = JSON.parse(sessionStorage.getItem("queue"));
-    if (queue == null) { queue = [] };
-    if (!queue.includes(modWord)) {
-      queue.unshift(modWord);
-      sessionStorage.setItem("queue", JSON.stringify(queue));
-      console.log(queue);
-      window.location.href = "quiz.html";
-    } else {
-      queue.splice(queue.indexOf(modWord), 1);
-      queue.unshift(modWord);
-      sessionStorage.setItem("queue", JSON.stringify(queue));
-      console.log(queue);
-      window.location.href = "quiz.html";
-    }
+  $("document").ready(function() {
+    $("#b1").off("click").click(function() {
+      let queue = JSON.parse(sessionStorage.getItem("queue"));
+      if (queue == null) { queue = [] };
+      if (!queue.includes(modWord)) {
+        queue.unshift(modWord);
+        sessionStorage.setItem("queue", JSON.stringify(queue));
+        console.log(queue);
+        window.location.href = "quiz.html";
+      } else {
+        queue.splice(queue.indexOf(modWord), 1);
+        queue.unshift(modWord);
+        sessionStorage.setItem("queue", JSON.stringify(queue));
+        console.log(queue);
+        window.location.href = "quiz.html";
+      }
+    });
+    $("#b2").off("click").click(function() {
+      let queue = JSON.parse(sessionStorage.getItem("queue"));
+      if (queue == null) { queue = [] };
+      if (!queue.includes(modWord)) {
+        queue.push(modWord);
+        sessionStorage.setItem("queue", JSON.stringify(queue));
+        console.log(queue);
+      } else {
+        //Add pop-up or text that says, "You have this word in your quiz queue!"
+        console.log("Word already in your queue!");
+      }
+    });
   });
-  $("#b2").click(function() {
-    let queue = JSON.parse(sessionStorage.getItem("queue"));
-    if (queue == null) { queue = [] };
-    if (!queue.includes(modWord)) {
-      queue.push(modWord);
-      sessionStorage.setItem("queue", JSON.stringify(queue));
-      console.log(queue);
-    } else {
-      //Add pop-up or text that says, "You have this word in your quiz queue!"
-      console.log("Word already in your queue!");
-    }
-  });
+  
+  let queue = JSON.parse(sessionStorage.getItem("queue"));
+  console.log(queue);
   modal = $("#modal").plainModal("open");
 }
 
@@ -285,7 +290,7 @@ function updatePageText(chapter, page, modNums) {
             wordSnap = await getDoc(wordDoc);
           }
           if (wordSnap.data().definition !== "") {
-            $(this).click(function () {
+            $(this).off("click").click(function () {
               defModal(word, wordSnap, modWord);
             });
           } else {
