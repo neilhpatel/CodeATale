@@ -167,16 +167,10 @@ async function defModal(word, wordSnap, modWord) {
     derivativeWords.push(`<span class="highlight-definition">${derivative}</span>`);
     derivativeWords.push("; ");
   });
-  modal.children("#modal-container").children("#modal-words").text(wordSnap.data().parent_word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
-    modal
-    .children("#modal-container")
-    .children("#modal-def")
-    .html(`<span class="highlight-definition">${wordSnap.data().definition}</span>`);
-    modal
-      .children("#modal-container")
-      .children("#modal-derivative")
-      .html(derivativeWords);
-  
+  $("#modal-words").text(wordSnap.data().parent_word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
+  $("#modal-def").html(`<span class="highlight-definition">${wordSnap.data().definition}</span>`);
+  $("#modal-derivative").html(derivativeWords);
+
   modal = $("#modal").plainModal("open");
 }
 

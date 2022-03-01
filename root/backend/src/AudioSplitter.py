@@ -16,7 +16,6 @@ for ch in range(1, 2, 1):
         f"../Audio/Chapter-{ch}-Audio/Chapter {ch}.wav")
 
     for i in range(len(timeStamps[ch-1])-1):
-        print(i)
         start = timeStamps[ch-1][i] * 1000  # Works in milliseconds
         end = timeStamps[ch-1][i+1] * 1000
 
