@@ -1,8 +1,16 @@
 import docx2txt
 import os
-import sys
 import json
 
+
+# Method that returns a boolean on whether enough paragraphs and enough text is on the screen to constitute a page.
+# Alter values to finetune how much is on a page. In general, each paragraph takes up an entire line due to the new
+# line character so more paragraphs = higher liklihood next paragraph will cause page to be too big (hence why the values
+# are descending as paragraph count increases)
+def checkPageLength(paragraphCount, pageText):
+    return (paragraphCount == 1 and len(pageText) >= 125) or (paragraphCount == 2 and len(pageText) >= 100) \
+           or (paragraphCount == 3 and len(pageText) >= 85) or (paragraphCount == 4 and len(pageText) >= 75) \
+           or (paragraphCount >= 5 and (len(pageText) >= 60))
 
 class StoryPages:
     pageDictionary = {}
@@ -15,14 +23,6 @@ class StoryPages:
         self.filePath = filePath
         self.text = docx2txt.process(self.filePath)
 
-    # Method that returns a boolean on whether enough paragraphs and enough text is on the screen to constitute a page.
-    # Alter values to finetune how much is on a page. In general, each paragraph takes up an entire line due to the new
-    # line character so more paragraphs = higher liklihood next paragraph will cause page to be too big (hence why the values
-    # are descending as paragraph count increases)
-    def checkPageLength(self, paragraphCount, pageText):
-        return (paragraphCount == 1 and len(pageText) >= 125) or (paragraphCount == 2 and len(pageText) >= 100) \
-               or (paragraphCount == 3 and len(pageText) >= 85) or (paragraphCount == 4 and len(pageText) >= 75) \
-               or (paragraphCount >= 5 and (len(pageText) >= 60))
 
     # Method that parses the story into pages that can be accessed by a page number using self.pageDictionary
     def parseStoryIntoPages(self):
@@ -78,7 +78,7 @@ class StoryPages:
             # If the current iterate has ended at a paragraph and a combination of page text and paragraph count constitutes
             # a page, add the page text to the current page number and restart loop with all necessary parameters reset
             # for the next page.
-            if (endsAtParagraph and self.checkPageLength(paragraphCount, pageText)):
+            if (endsAtParagraph and checkPageLength(paragraphCount, pageText)):
                 if chapterNumber not in self.pageDictionary.keys():
                     self.pageDictionary[chapterNumber] = {}
                 self.pageDictionary[chapterNumber][pageNumber] = pageText
