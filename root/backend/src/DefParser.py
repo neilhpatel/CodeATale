@@ -1,8 +1,5 @@
-from xml.etree.ElementInclude import FatalIncludeError
 import docx2txt
 import os
-import collections
-import re
 
 
 import firebase_admin
@@ -29,7 +26,6 @@ class DefParser():
         textInd = 0
         # Get rid of tab characters in parsed document
         self.text = self.text.replace("\t", "")
-        
 
         # Iterate through the text one character at a time
         while textInd < len(self.text):
@@ -109,27 +105,26 @@ class DefParser():
                 # populate database; no need to run this every time so it can be commented out until needed
                 collection_ref = db.collection(word[0])
                 doc_ref = collection_ref.document(word)
-                # doc_ref.set({
-                #     'is_sight_word': sightWord,
-                #     'is_child_word': False,
-                #     'parent_word': word,
-                #     'definition': definition,
-                #     'derivative_words': childWords,
-                #     'block_from_quiz': blockedQuizOptions,
-                # })
-                #
-                # for child in childWords:
-                #     collection_ref = db.collection(child[0])
-                #     doc_ref = collection_ref.document(child)
-                #     doc_ref.set({
-                #         'is_sight_word': False,
-                #         'is_child_word': True,
-                #         'parent_word': word,
-                #         'definition': "",
-                #         'derivative_words': "",
-                #         'block_from_quiz': ""
-                #     })
+                doc_ref.set({
+                    'is_sight_word': sightWord,
+                    'is_child_word': False,
+                    'parent_word': word,
+                    'definition': definition,
+                    'derivative_words': childWords,
+                    'block_from_quiz': blockedQuizOptions,
+                })
 
+                for child in childWords:
+                    collection_ref = db.collection(child[0])
+                    doc_ref = collection_ref.document(child)
+                    doc_ref.set({
+                        'is_sight_word': False,
+                        'is_child_word': True,
+                        'parent_word': word,
+                        'definition': "",
+                        'derivative_words': "",
+                        'block_from_quiz': ""
+                    })
 
                 # # print to test data values              
                 # print("Word: " + word)
@@ -164,16 +159,16 @@ class DefParser():
         last_definition = last_line[last_line.index("=")+2:last_line.index("[")].strip().lower()
         last_blocked_quiz_options = last_line[last_line.index("graze"):-1].lower()
 
-        # collection_ref = db.collection(last_word[0])
-        # doc_ref = collection_ref.document(last_word)
-        # doc_ref.set({
-        #     'is_sight_word': False,
-        #     'is_child_word': False,
-        #     'parent_word': last_word,
-        #     'definition': last_definition,
-        #     'derivative_words': [],
-        #     'block_from_quiz': last_blocked_quiz_options,
-        # })
+        collection_ref = db.collection(last_word[0])
+        doc_ref = collection_ref.document(last_word)
+        doc_ref.set({
+            'is_sight_word': False,
+            'is_child_word': False,
+            'parent_word': last_word,
+            'definition': last_definition,
+            'derivative_words': [],
+            'block_from_quiz': last_blocked_quiz_options,
+        })
 
 
 def main():
