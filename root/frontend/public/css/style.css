@@ -1,5 +1,4 @@
 /* General */
-
 * {
     padding: 0;
     margin: 0;
@@ -9,22 +8,19 @@ body {
     background-color: #AFEEEE;
 }
 
-/* width */
+/* Scrollbar */
 body::-webkit-scrollbar {
     width: 20px;
 }
 
-/* Track */
 body::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
-/* Handle */
 body::-webkit-scrollbar-thumb {
     background: rgb(224, 38, 69);
 }
 
-/* Handle on hover */
 body::-webkit-scrollbar-thumb:hover {
     background: rgb(194, 0, 0);
 }
@@ -65,7 +61,6 @@ body::-webkit-scrollbar-thumb:hover {
     margin: 0 25%;
 }
 
-
 /* Bookmark */
 .bookmark {
     position: fixed;
@@ -80,13 +75,11 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .fa-bookmark {
-    position: relative;
     font-size: 5vw;
     background-color: rgba(0, 0, 0, 0.0);
     border: none;
     cursor: pointer;
     text-shadow: 5px 5px 5px red;
-
     transition: transform 0.1s;
 }
 
@@ -96,69 +89,41 @@ body::-webkit-scrollbar-thumb:hover {
     color: rgb(66, 66, 66);
 }
 
-.modal {
-    z-index: 10;
-    width: 7vw;
+#bookmark-modal-container {
+    max-width: 9vw;
     height: 30vh;
-    padding: 1em 0;
+    padding: 1vh 0;
     border: 3px solid black;
     background-color: #F5E5BA;
     text-decoration: underline;
     text-align: center;
     overflow: auto;
-
-    position: relative;
-    left: -15%;
-
-    transform: scale(0);
     transition: 300ms ease-in-out;
+    border-radius: 3px;
 }
 
-.modal, .modal button {
-    font-size: 1vw;
+#bookmark-modal-container button {
+    font-size: 0.95vw;
 }
 
 /* width */
-.modal::-webkit-scrollbar, .main-text::-webkit-scrollbar {
-    width: 10px;
+#bookmark-modal-container::-webkit-scrollbar, .main-text::-webkit-scrollbar {
+    width: 4px;
 }
 
 /* Track */
-.modal::-webkit-scrollbar-track, .main-text::-webkit-scrollbar-track {
+#bookmark-modal-container::-webkit-scrollbar-track, .main-text::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
 /* Handle */
-.modal::-webkit-scrollbar-thumb, .main-text::-webkit-scrollbar-thumb {
+#bookmark-modal-container::-webkit-scrollbar-thumb, .main-text::-webkit-scrollbar-thumb {
     background: #888;
 }
 
 /* Handle on hover */
-.modal::-webkit-scrollbar-thumb:hover, .main-text::-webkit-scrollbar-thumb:hover {
+#bookmark-modal-container::-webkit-scrollbar-thumb:hover, .main-text::-webkit-scrollbar-thumb:hover {
     background: #555;
-}
-
-.modal.active {
-    transform: scale(1);
-}
-
-#overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0;
-    
-    background-color: rgba(33, 33, 33, 0.5);
-    pointer-events: none;
-
-    transition: 300ms ease-in-out;
-}
-
-#overlay.active {
-    pointer-events: all;
-    opacity: 1;
 }
 
 #add-bookmark, .newBookmark {
@@ -166,19 +131,27 @@ body::-webkit-scrollbar-thumb:hover {
     padding: 8px;
     margin: 0.5em;
     border-radius: 10px;
-    background-color: rgba(233,82,98,1);
+    background-color: rgb(168, 255, 29);
     box-shadow: -4px 4px 0 black;
 }
 
+#add-bookmark:hover {
+    cursor: pointer;
+}
+
 .newBookmark span {
-    font-size: 14px;
+    font-size: 1vmin;
     display: block;
 }
 
 .newBookmark:active {
-    background-color: rgb(187, 90, 100);
+    background-color: rgb(149, 207, 55);
     box-shadow: none;
     transform: translate(-4px, 4px);
+}
+
+.newBookmark:hover {
+    cursor: pointer;
 }
 
 #add-bookmark {
@@ -189,4 +162,25 @@ body::-webkit-scrollbar-thumb:hover {
     background-color: rgb(127, 202, 195);
     box-shadow: none;
     transform: translate(-4px, 4px);
+}
+
+.bookmarkDel {
+    position: relative;
+    top: 2%;
+    padding: 0px 2px;
+    border: none;
+    background-color:hsl(27, 100%, 50%);
+    border-radius: 3px;
+    height: 4vh;
+    box-shadow: -3px 3px 0 black;
+}
+
+.bookmarkDel:active {
+    background-color: hsl(27, 79%, 49%);
+    box-shadow: none;
+    transform: translate(-3px, 3px);
+}
+
+.bookmarkDel:hover {
+    cursor: pointer;
 }

@@ -58,8 +58,6 @@ $("document").ready(function() {
 
     $("#gal-header").text(`Chapter ${num} Pictures`); // Sets the header to the chapter number
 
-    // Loops 3 times (this can result in errors since there might be less than 3 images)
-    // Also there might be more than 3 images and those images won't get shown
     let i = 1;
     while (i < numOfImages.get(parseInt(sessionStorage.getItem("chptNum"), 10)) + 1) {
         // Creates a new div element with an image inside (the div is needed)
@@ -77,7 +75,7 @@ $("document").ready(function() {
     // Modify the slidshow settings here
     $(".slideshow").slick({
         arrows: true,
-        prevArrow: "<i class='fas fa-arrow-left prevArrowBtn'></i>",
-        nextArrow: "<i class='fas fa-arrow-right nextArrowBtn'></i>",
+        prevArrow: "<i class='fas fa-arrow-left prevArrowBtn' title='Previous Picture'></i>",
+        nextArrow: "<i class='fas fa-arrow-right nextArrowBtn' title='Next Picture'></i>",
     });
 });

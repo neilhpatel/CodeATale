@@ -5,12 +5,12 @@ class Navbar extends HTMLElement {
 
         this.innerHTML = `
         <nav id="navbar">
-            <i class="fas fa-home" id="home-i"></i>
+            <i class="fas fa-home" id="home-i" title="Home"></i>
             <hr class="line">
-            <i class="fas fa-arrow-alt-circle-left" id="back-i"></i>
-            <i class="fas fa-brain"></i>
-            <i class="far fa-lightbulb" id="quiz-i"></i>
-            <i class="fas fa-sign-out-alt" id="exit-i"></i>
+            <i class="fas fa-arrow-alt-circle-left" id="back-i" title="Back"></i>
+            <i class="fa-solid fa-school" title="Review"></i>
+            <i class="far fa-lightbulb" id="quiz-i" title="Quiz"></i>
+            <i class="fas fa-sign-out-alt" id="exit-i" title="Exit"></i>
         </nav>
         `;
         $("nav #home-i").click(function() {
@@ -18,6 +18,9 @@ class Navbar extends HTMLElement {
         });
         $("nav #back-i").click(function() {
             history.back();
+        });
+        $("nav #quiz-i").click(function() {
+            window.location.href = "quiz.html";
         });
     }
 }
@@ -30,10 +33,9 @@ class Bookmark extends HTMLElement {
 
         this.innerHTML = `
             <section class="bookmark">
-                <div id="overlay"></div>
-                <button type="button" class="fas fa-bookmark" id="bookmark-button"></button>
-                <div class="modal" id="bookmark-modal">
-                    Select Bookmark
+                <button type="button" class="fas fa-bookmark" id="bookmark-button" title="Bookmark"></button>
+                <div id="bookmark-modal-container">
+                    <p>Select Bookmark</p>
                     <button type="button" id="add-bookmark">Add Page</button>
                 </div>
             </section>
@@ -41,7 +43,9 @@ class Bookmark extends HTMLElement {
 
         // Create a new bookmark element for a given chapter
         function appendBookmark(chapterNum, pageNum) {
+            const newBookMarkDel = $(document.createElement("button"));
             const newBookMark = $(document.createElement("button"));
+            
             newBookMark.html("Chapter " + chapterNum);
             newBookMark.attr("class", "newBookmark");
             newBookMark.attr("type", "button");
@@ -53,9 +57,32 @@ class Bookmark extends HTMLElement {
                 window.location.href = "reading-page.html";
             });
 
-            const bookmarkModal = $("#bookmark-modal");
+            newBookMarkDel.html("x");
+            newBookMarkDel.attr("type", "button");
+            newBookMarkDel.attr("class", "bookmarkDel");
+
+            
+
+            // Removes the bookmark from the list of bookmarks when the X is clicked
+            // (this list pervents the user from making multiple bookmarks for the same page)
+            newBookMarkDel.click(() => {
+                newBookMark.remove();
+                newBookMarkDel.remove();
+                const bookmarkList = sessionStorage.getItem("bookmarks").split(" ");
+                let newBookmarkList = "";
+                bookmarkList.forEach((bm) => {
+                    if (!(bm === chapterNum + "-" + pageNum)) {
+                        newBookmarkList += bm + " ";
+                    }
+                });
+                sessionStorage.setItem("bookmarks", newBookmarkList);
+            });
+
+            const bookmarkModal = $("#bookmark-modal-container");
 
             bookmarkModal.append(newBookMark);
+            bookmarkModal.append(newBookMarkDel);
+            
 
             const pageNumText = $(document.createElement("span"));
             pageNumText.html("Page " + pageNum);
@@ -66,6 +93,12 @@ class Bookmark extends HTMLElement {
         // Look through the local storage to see which bookmarks
         // the user has added.
         function populateBookmarks(localBookmarks) {
+            // Note: window.location.href will give you the complete url not just "index.html"
+            // The - 10 comes from the fact that "index.html" is 10 characters long
+            if (window.location.href.substring(window.location.href.length - 10, window.location.href.length) === "index.html") {
+                $("#add-bookmark").hide();
+            }
+
             // This should be a string of the format "1 2 3 4"
             let bookmarkList = localBookmarks.split(" ");
             bookmarkList.forEach((bm) => {
@@ -80,6 +113,7 @@ class Bookmark extends HTMLElement {
         populateBookmarks(sessionStorage.getItem("bookmarks"));
 
         function addBookmarkHelper(alreadyAdded, onReadingPage) {
+            
             if (alreadyAdded === false && onReadingPage === true) {
                 let currBookMarks;
                 if (sessionStorage.getItem("bookmarks")) { // If there have been any bookmarks added 
@@ -111,20 +145,18 @@ class Bookmark extends HTMLElement {
             addBookmarkHelper(alreadyAdded, onReadingPage);
         });
 
-        // Handling the modal functionality
-        const openModalButton = $("#bookmark-button");
-
-        const overlay = $("#overlay");
-        const modal = $("#bookmark-modal");
-
-        openModalButton.click(function() {
-            modal.toggleClass("active");
-            overlay.toggleClass("active");
+        let modal = $("#bookmark-modal-container").plainModal({ duration: 150, offset: () => {
+                // Fit the position to a button.
+                var btnOffset = $("#bookmark-button").offset(), win = $(window);
+                return {
+                    left: btnOffset.left - $("#bookmark-modal-container").width()/4,
+                    top: btnOffset.top + $("#bookmark-modal-container").height()/3
+                };
+            } 
         });
-
-        overlay.click(function() {
-            modal.toggleClass("active");
-            overlay.toggleClass("active");
+            
+        $("#bookmark-button").click(function () {
+            modal = $("#bookmark-modal-container").plainModal("open");
         });
     }
 }
