@@ -15,9 +15,9 @@
   border-radius: 50%;
   font-size: 5vmin;
   border: none;
-  box-shadow: -4px 4px 1px black, 
-  -5px 5px 1px black,
-  -6px 6px 1px black;
+  box-shadow: -4px 4px 1px black,
+    -5px 5px 1px black,
+    -6px 6px 1px black;
   transition: 50ms ease-in-out;
 }
 
@@ -90,15 +90,24 @@
   height: 11vw;
   margin: 1em;
   border: none;
-  box-shadow: 1px 0px 0px #1976d2,0px 1px 0px #1976d2,
-  2px 1px 0px #1976d2,1px 2px 0px #1976d2,
-  3px 2px 0px #1976d2,2px 3px 0px #1976d2,
-  4px 3px 0px #1976d2,3px 4px 0px #1976d2,
-  5px 4px 0px #1976d2,4px 5px 0px #1976d2,
-  6px 5px 0px #1976d2,5px 6px 0px #1976d2,
-  7px 6px 0px #1976d2,6px 7px 0px #1976d2,
-  8px 7px 0px #1976d2,7px 8px 0px #1976d2,
-  9px 8px 0px #1976d2,8px 9px 0px #1976d2;
+  box-shadow: 1px 0px 0px #1976d2,
+    0px 1px 0px #1976d2,
+    2px 1px 0px #1976d2,
+    1px 2px 0px #1976d2,
+    3px 2px 0px #1976d2,
+    2px 3px 0px #1976d2,
+    4px 3px 0px #1976d2,
+    3px 4px 0px #1976d2,
+    5px 4px 0px #1976d2,
+    4px 5px 0px #1976d2,
+    6px 5px 0px #1976d2,
+    5px 6px 0px #1976d2,
+    7px 6px 0px #1976d2,
+    6px 7px 0px #1976d2,
+    8px 7px 0px #1976d2,
+    7px 8px 0px #1976d2,
+    9px 8px 0px #1976d2,
+    8px 9px 0px #1976d2;
   transition: 100ms ease-in-out;
 }
 
@@ -115,10 +124,6 @@
   font-size: 5vh;
   color:rgb(24, 113, 255);
   margin: 0 11vw;
-}
-
-#quiz-title {
-
 }
 
 #quiz-description {

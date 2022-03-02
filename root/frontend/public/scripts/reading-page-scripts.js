@@ -178,13 +178,13 @@ function defModal(word, wordSnap, modWord) {
       if (!queue.includes(modWord)) {
         queue.unshift(modWord);
         sessionStorage.setItem("queue", JSON.stringify(queue));
-        console.log(queue);
+        // console.log(queue);
         window.location.href = "quiz.html";
       } else {
         queue.splice(queue.indexOf(modWord), 1);
         queue.unshift(modWord);
         sessionStorage.setItem("queue", JSON.stringify(queue));
-        console.log(queue);
+        // console.log(queue);
         window.location.href = "quiz.html";
       }
     });
@@ -194,16 +194,16 @@ function defModal(word, wordSnap, modWord) {
       if (!queue.includes(modWord)) {
         queue.push(modWord);
         sessionStorage.setItem("queue", JSON.stringify(queue));
-        console.log(queue);
+        // console.log(queue);
       } else {
         //Add pop-up or text that says, "You have this word in your quiz queue!"
-        console.log("Word already in your queue!");
+        // console.log("Word already in your queue!");
       }
     });
   });
   
   let queue = JSON.parse(sessionStorage.getItem("queue"));
-  console.log(queue);
+  // console.log(queue);
   modal = $("#modal").plainModal("open");
 }
 
