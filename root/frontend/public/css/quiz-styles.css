@@ -15,7 +15,8 @@
   border-radius: 50%;
   font-size: 5vmin;
   border: none;
-  box-shadow: -4px 4px 1px black,
+  box-shadow:
+    -4px 4px 1px black,
     -5px 5px 1px black,
     -6px 6px 1px black;
   transition: 50ms ease-in-out;
@@ -90,7 +91,8 @@
   height: 11vw;
   margin: 1em;
   border: none;
-  box-shadow: 1px 0 0 #1976d2,
+  box-shadow:
+    1px 0 0 #1976d2,
     0 1px 0 #1976d2,
     2px 1px 0 #1976d2,
     1px 2px 0 #1976d2,
@@ -138,7 +140,7 @@
   transform: translate(-50%);
   text-align: center;
   margin: 1vmin;
-  color:rgb(66, 0, 221);
+  color: rgb(66, 0, 221);
   border-radius: 10px;
   background-color: rgb(125, 255, 238);
   box-shadow: 0 8px 4px -4px rgb(104, 104, 104);

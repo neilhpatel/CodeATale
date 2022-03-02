@@ -32,17 +32,65 @@ async function defModal() {
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
-      let temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
+      let temp = array[parseInt(i, 10)];
+      array[parseInt(i, 10)] = array[parseInt(j, 10)];
+      array[parseInt(j, 10)] = temp;
   }
 }
 
-function quizWordsHelper(answers, queue) {
-  let i = 0;
+function quizWordsHelper(answers, word, wordSnap, derivative_words, blockedWords, quizzableWords) {
+  wordSnap.data().derivative_words.forEach((derivative) => {
+    blockedWords.add(derivative);
+  });
+  while (answers.length !== 4) {
+    let randomIndex = Math.floor(Math.random() * quizzableWords.length);
+    if (blockedWords.has(quizzableWords[parseInt(randomIndex, 10)].id) || quizzableWords[parseInt(randomIndex, 10)].id === word) {
+      continue;
+    }
+    answers.push(quizzableWords[parseInt(randomIndex, 10)]);
+    blockedWords.add(quizzableWords[parseInt(randomIndex, 10)].id);
+  }
+  
+  // for (let i = 0; i < 4; i++) {
+  //   console.log(answers[i].data().definition);
+  // }
+
+  shuffleArray(answers);
+}
+
+async function quizWords() {
+  let queue = JSON.parse(sessionStorage.getItem("queue"));
+  // Codacy does not like the use of "undefined"
+  if (queue === null || queue.length === 0) {
+    // console.log("No words in queue!");
+    $(".false").each(function() {
+      $(this).html("");
+    });
+  } else {
+    // console.log(queue);
+    let word = queue[parseInt(0, 10)];
+    let blockedWords = new Set();
+    let wordSnap = await getDoc(doc(db, word.charAt(0), word));
+    let wordQuery = query(collection(db, word.charAt(0)), where("definition", "!=", ""));
+    let quizzableWords = await getDocs(wordQuery).docs;
+    let answers = [wordSnap];
+
+    quizWordsHelper(answers, word, wordSnap, derivative_words, blockedWords, quizzableWords);
+
+    // console.log("\n");
+
+    // for (let i = 0; i < 4; i++) {
+    //   console.log(answers[i].data().definition);
+    // }
+
+  // wordQuerySnapshot.forEach((word) => {
+  //   console.log(word.id);
+  // });
+
+    let i = 0;
     $(".false").each(function() {
       $(this).html(answers[i].id);
-      if (answers[i].id === word) {
+      if (answers[parseInt(i, 10)].id === word) {
         $(this).off("click").click(function() {
           // console.log("Correct");
           queue.shift();
@@ -60,63 +108,13 @@ function quizWordsHelper(answers, queue) {
       }
       i++;
     });
-}
-
-async function quizWords() {
-  let queue = JSON.parse(sessionStorage.getItem("queue"));
-  // Codacy does not like the use of "undefined"
-  if (queue === null || queue.length === 0) {
-    // console.log("No words in queue!");
-    $(".false").each(function() {
-      $(this).html("");
-    });
-  } else {
-    // console.log(queue);
-    let queueIndex = 0;
-    let word = queue[queueIndex];
-    let blockedWords = new Set();
-    let wordDoc = doc(db, word.charAt(0), word);
-    let wordSnap = await getDoc(wordDoc);
-    let wordCollection = collection(db, word.charAt(0));
-    let wordQuery = query(wordCollection, where("definition", "!=", ""));
-    let wordQuerySnapshot = await getDocs(wordQuery);
-    let quizzableWords = wordQuerySnapshot.docs;
-    let answers = [wordSnap];
-    wordSnap.data().derivative_words.forEach((derivative) => {
-      blockedWords.add(derivative);
-    });
-    while (answers.length !== 4) {
-      let randomIndex = Math.floor(Math.random() * quizzableWords.length);
-      if (blockedWords.has(quizzableWords[parseInt(randomIndex, 10)].id) || quizzableWords[parseInt(randomIndex, 10)].id === word) {
-        continue;
-      }
-      answers.push(quizzableWords[randomIndex]);
-      blockedWords.add(quizzableWords[randomIndex].id);
-    }
-    
-    // for (let i = 0; i < 4; i++) {
-    //   console.log(answers[i].data().definition);
-    // }
-
-    shuffleArray(answers);
-
-    // console.log("\n");
-
-    // for (let i = 0; i < 4; i++) {
-    //   console.log(answers[i].data().definition);
-    // }
-
-  // wordQuerySnapshot.forEach((word) => {
-  //   console.log(word.id);
-  // });
-
-    quizWordsHelper(answers, queue);
-
-    $("#help-btn").off("click").click(function () {
-      // console.log("Clicked!");
-      setTimeout(() => {defModal();}, 50);
-    });
   }
 }
+
+// Does this need to be in the quizWords() function?
+$("#help-btn").off("click").click(function () {
+  // console.log("Clicked!");
+  setTimeout(() => {defModal();}, 50);
+});
 
 quizWords();
