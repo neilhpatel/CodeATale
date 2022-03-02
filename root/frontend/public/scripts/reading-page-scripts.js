@@ -190,7 +190,7 @@ function defModal(word, wordSnap, modWord) {
     });
     $("#b2").off("click").click(function() {
       let queue = JSON.parse(sessionStorage.getItem("queue"));
-      if (queue == null) { queue = [] };
+      if (queue == null) { queue = []; }
       if (!queue.includes(modWord)) {
         queue.push(modWord);
         sessionStorage.setItem("queue", JSON.stringify(queue));

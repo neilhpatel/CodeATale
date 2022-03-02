@@ -38,8 +38,8 @@ function shuffleArray(array) {
   }
 }
 
-function quizWordsHelper(answers, word, wordSnap, derivative_words, blockedWords, quizzableWords) {
-  wordSnap.data().derivative_words.forEach((derivative) => {
+function quizWordsHelper(answers, word, wordSnap, blockedWords, quizzableWords) {
+  wordSnap.data().derivativeWords.forEach((derivative) => {
     blockedWords.add(derivative);
   });
   while (answers.length !== 4) {
@@ -75,7 +75,7 @@ async function quizWords() {
     let quizzableWords = await getDocs(wordQuery).docs;
     let answers = [wordSnap];
 
-    quizWordsHelper(answers, word, wordSnap, derivative_words, blockedWords, quizzableWords);
+    quizWordsHelper(answers, word, wordSnap, blockedWords, quizzableWords);
 
     // console.log("\n");
 
@@ -89,7 +89,7 @@ async function quizWords() {
 
     let i = 0;
     $(".false").each(function() {
-      $(this).html(answers[i].id);
+      $(this).html(answers[parseInt(i, 10)].id);
       if (answers[parseInt(i, 10)].id === word) {
         $(this).off("click").click(function() {
           // console.log("Correct");
