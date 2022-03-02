@@ -29,12 +29,12 @@ quizWords();
 async function quizWords() {
   let queue = JSON.parse(sessionStorage.getItem("queue"));
   if (queue == null || queue == undefined || queue.length == 0) {
-    console.log("No words in queue!");
+    // console.log("No words in queue!");
     $(".false").each(function() {
       $(this).html("");
     });
   } else {
-    console.log(queue);
+    // console.log(queue);
     let queueIndex = 0;
     let word = queue[queueIndex];
     let blockedWords = new Set();
@@ -48,25 +48,26 @@ async function quizWords() {
     wordSnap.data().derivative_words.forEach((derivative) => {
       blockedWords.add(derivative);
     });
-    while (answers.length != 4) {
+    while (answers.length !== 4) {
       let randomIndex = Math.floor(Math.random() * quizzableWords.length);
-      if (blockedWords.has(quizzableWords[randomIndex].id) || quizzableWords[randomIndex].id === word) {
+      if (blockedWords.has(quizzableWords[parseInt(randomIndex)].id) || quizzableWords[parseInt(randomIndex)].id === word) {
         continue;
       }
       answers.push(quizzableWords[randomIndex]);
       blockedWords.add(quizzableWords[randomIndex].id);
     }
     
-    for (let i = 0; i < 4; i++) {
-      console.log(answers[i].data().definition);
-    }
+    // for (let i = 0; i < 4; i++) {
+    //   console.log(answers[i].data().definition);
+    // }
 
     shuffleArray(answers);
-    console.log("\n");
 
-    for (let i = 0; i < 4; i++) {
-      console.log(answers[i].data().definition);
-    }
+    // console.log("\n");
+
+    // for (let i = 0; i < 4; i++) {
+    //   console.log(answers[i].data().definition);
+    // }
 
   // wordQuerySnapshot.forEach((word) => {
   //   console.log(word.id);
@@ -77,25 +78,25 @@ async function quizWords() {
       $(this).html(answers[i].id);
       if (answers[i].id === word) {
         $(this).off("click").click(function() {
-          console.log("Correct");
+          // console.log("Correct");
           queue.shift();
           sessionStorage.setItem("queue", JSON.stringify(queue));
           let audioObj = document.createElement("audio");
-          audioObj.crossorigin = "anonymous"
+          audioObj.crossorigin = "anonymous";
           audioObj.src = "https://www.dropbox.com/s/dg9277bx242qlpf/correct_quiz_answer_sound.mp3?dl=0";
           audioObj.play();
           quizWords();
         });
       } else {
         $(this).off("click").click(function() {
-          console.log("Incorrect!");
+          // console.log("Incorrect!");
         });
       }
       i++;
     });
 
     $("#help-btn").off("click").click(function () {
-      console.log("Clicked!");
+      // console.log("Clicked!");
       setTimeout(() => {defModal();}, 50);
     });
   }
