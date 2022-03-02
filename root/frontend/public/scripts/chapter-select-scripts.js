@@ -56,30 +56,8 @@ let chptArr = [
 "Home Again"
 ];
 
-let chapterStartPageNumber = [
-  1,
-  7,
-  22,
-  33,
-  42,
-  53,
-  63,
-  77,
-  87,
-  95,
-  105,
-  116,
-  132,
-  140,
-  148,
-  160,
-  168,
-  177,
-  192,
-  204,
-  214,
-  220
-];
+let chapterStartPageNumber = [1, 7, 24, 34, 46, 58, 69, 84, 93, 102, 114, 125, 142, 150, 159, 172, 181, 192, 209, 222, 233, 239]
+
 
 for (let i = 1; i <= 21; i++) {
     let chapterProgress = sessionStorage.getItem(`progress-ch-${i}`);
