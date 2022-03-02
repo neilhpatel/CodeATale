@@ -90,24 +90,24 @@
   height: 11vw;
   margin: 1em;
   border: none;
-  box-shadow: 1px 0px 0px #1976d2,
-    0px 1px 0px #1976d2,
-    2px 1px 0px #1976d2,
-    1px 2px 0px #1976d2,
-    3px 2px 0px #1976d2,
-    2px 3px 0px #1976d2,
-    4px 3px 0px #1976d2,
-    3px 4px 0px #1976d2,
-    5px 4px 0px #1976d2,
-    4px 5px 0px #1976d2,
-    6px 5px 0px #1976d2,
-    5px 6px 0px #1976d2,
-    7px 6px 0px #1976d2,
-    6px 7px 0px #1976d2,
-    8px 7px 0px #1976d2,
-    7px 8px 0px #1976d2,
-    9px 8px 0px #1976d2,
-    8px 9px 0px #1976d2;
+  box-shadow: 1px 0 0 #1976d2,
+    0 1px 0 #1976d2,
+    2px 1px 0 #1976d2,
+    1px 2px 0 #1976d2,
+    3px 2px 0 #1976d2,
+    2px 3px 0 #1976d2,
+    4px 3px 0 #1976d2,
+    3px 4px 0 #1976d2,
+    5px 4px 0 #1976d2,
+    4px 5px 0 #1976d2,
+    6px 5px 0 #1976d2,
+    5px 6px 0 #1976d2,
+    7px 6px 0 #1976d2,
+    6px 7px 0 #1976d2,
+    8px 7px 0 #1976d2,
+    7px 8px 0 #1976d2,
+    9px 8px 0 #1976d2,
+    8px 9px 0 #1976d2;
   transition: 100ms ease-in-out;
 }
 
@@ -122,13 +122,13 @@
 
 #quiz-header {
   font-size: 5vh;
-  color:rgb(24, 113, 255);
+  color: rgb(24, 113, 255);
   margin: 0 11vw;
 }
 
 #quiz-description {
   font-size: 4vh;
-  color:rgb(24, 113, 255);
+  color: rgb(24, 113, 255);
 }
 
 #quiz-def {
@@ -141,7 +141,7 @@
   color:rgb(66, 0, 221);
   border-radius: 10px;
   background-color: rgb(125, 255, 238);
-  box-shadow: 0px 8px 4px -4px rgb(104, 104, 104);
+  box-shadow: 0 8px 4px -4px rgb(104, 104, 104);
 }
 
 .false {

@@ -28,7 +28,39 @@ async function defModal() {
   modal = $("#modal").plainModal("open");
 }
 
-quizWords();
+/* Randomize array in-place using Durstenfeld shuffle algorithm */
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      let temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+  }
+}
+
+function quizWordsHelper(answers, queue) {
+  let i = 0;
+    $(".false").each(function() {
+      $(this).html(answers[i].id);
+      if (answers[i].id === word) {
+        $(this).off("click").click(function() {
+          // console.log("Correct");
+          queue.shift();
+          sessionStorage.setItem("queue", JSON.stringify(queue));
+          let audioObj = document.createElement("audio");
+          audioObj.crossorigin = "anonymous";
+          audioObj.src = "https://www.dropbox.com/s/dg9277bx242qlpf/correct_quiz_answer_sound.mp3?dl=0";
+          audioObj.play();
+          quizWords();
+        });
+      } else {
+        $(this).off("click").click(function() {
+          // console.log("Incorrect!");
+        });
+      }
+      i++;
+    });
+}
 
 async function quizWords() {
   let queue = JSON.parse(sessionStorage.getItem("queue"));
@@ -55,7 +87,7 @@ async function quizWords() {
     });
     while (answers.length !== 4) {
       let randomIndex = Math.floor(Math.random() * quizzableWords.length);
-      if (blockedWords.has(quizzableWords[parseInt(randomIndex)].id) || quizzableWords[parseInt(randomIndex)].id === word) {
+      if (blockedWords.has(quizzableWords[parseInt(randomIndex, 10)].id) || quizzableWords[parseInt(randomIndex, 10)].id === word) {
         continue;
       }
       answers.push(quizzableWords[randomIndex]);
@@ -78,27 +110,7 @@ async function quizWords() {
   //   console.log(word.id);
   // });
 
-    let i = 0;
-    $(".false").each(function() {
-      $(this).html(answers[i].id);
-      if (answers[i].id === word) {
-        $(this).off("click").click(function() {
-          // console.log("Correct");
-          queue.shift();
-          sessionStorage.setItem("queue", JSON.stringify(queue));
-          let audioObj = document.createElement("audio");
-          audioObj.crossorigin = "anonymous";
-          audioObj.src = "https://www.dropbox.com/s/dg9277bx242qlpf/correct_quiz_answer_sound.mp3?dl=0";
-          audioObj.play();
-          quizWords();
-        });
-      } else {
-        $(this).off("click").click(function() {
-          // console.log("Incorrect!");
-        });
-      }
-      i++;
-    });
+    quizWordsHelper(answers, queue);
 
     $("#help-btn").off("click").click(function () {
       // console.log("Clicked!");
@@ -107,12 +119,4 @@ async function quizWords() {
   }
 }
 
-/* Randomize array in-place using Durstenfeld shuffle algorithm */
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      let temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-  }
-}
+quizWords();
