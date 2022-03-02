@@ -91,10 +91,8 @@ class StoryPages:
             endsAtParagraph = False
 
         # Remaining text for the last page will be excluded since the while loop terminates at the end without adding
-        # the last pages text. Append that text to the existing last page.
-        lastPageText = self.pageDictionary[chapterNumber][pageNumber - 1]
-        lastPageText += pageText
-        self.pageDictionary[chapterNumber][pageNumber - 1] = lastPageText
+        # the last pages text. Append that text to a new existing page, otherwise last page will have too much text.
+        self.pageDictionary[chapterNumber][pageNumber] = pageText
 
     # Method that corrects the indexing in the page dictionary. All chapters and pages should begin at 1 instead of 0
     def correctDictionaryNumbering(self):
@@ -105,6 +103,8 @@ class StoryPages:
             pageNumbers = chapterToPagesDictionary.keys()
             for page in pageNumbers:
                 newDict[chapter+1][page+1] = self.pageDictionary[chapter][page]
+        # Reassign the dictionary to the updated one with correct numbering beginning at 1.
+        self.pageDictionary = newDict
 
 
 def main():
