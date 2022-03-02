@@ -2,6 +2,8 @@
   overflow: auto;
 }
 
+/* Help Button */
+
 #help-btn {
   position: absolute;
   left: 50%;
@@ -13,14 +15,28 @@
   border-radius: 50%;
   font-size: 5vmin;
   border: none;
-  box-shadow: -4px 4px 2px black;
+  box-shadow: -4px 4px 1px black,
+              -5px 5px 1px black,
+              -6px 6px 1px black;
   transition: 50ms ease-in-out;
 }
 
 #help-btn:active {
-  transform: translate(-4px, 4px) translate(-50%);
+  transform: translate(-6px, 6px) translate(-50%);
   box-shadow: none;
 }
+
+/* Help Modal */
+
+#modal-text .gold {
+  color: rgb(255, 215, 0);
+}
+
+#modal-text .silver {
+  color: rgb(192, 192, 192);
+}
+
+/* Stars */
 
 #stars-container {
   position: absolute;
@@ -57,23 +73,81 @@
   opacity: 0.2;
 }
 
-#modal-text .gold {
-  color: rgb(255, 215, 0);
-}
-
-#modal-text .silver {
-  color: rgb(192, 192, 192);
-}
+/* Quiz */
 
 #quiz-container {
   position: absolute;
-  top: 450px;
-  left: 500px;
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+  gap: 10vmin 15vmin;
+
+  top: 55%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+#quiz-container button {
+  width: 23vw;
+  height: 11vw;
+  margin: 1em;
+  border: none;
+  box-shadow: 1px 0px 0px #1976D2,0px 1px 0px #1976D2,
+    2px 1px 0px #1976D2,1px 2px 0px #1976D2,
+    3px 2px 0px #1976D2,2px 3px 0px #1976D2,
+    4px 3px 0px #1976D2,3px 4px 0px #1976D2,
+    5px 4px 0px #1976D2,4px 5px 0px #1976D2,
+    6px 5px 0px #1976D2,5px 6px 0px #1976D2,
+    7px 6px 0px #1976D2,6px 7px 0px #1976D2,
+    8px 7px 0px #1976D2,7px 8px 0px #1976D2,
+    9px 8px 0px #1976D2,8px 9px 0px #1976D2;
+  transition: 100ms ease-in-out;
+}
+
+#quiz-container button:active {
+  box-shadow: none;
+  transform: translate(9px, 8px);
+  
+}
+
+#quiz-container button:hover {
+  background-color: aliceblue;
+}
+
+#quiz-header {
+  font-size: 5vh;
+  color:rgb(24, 113, 255);
+  margin: 0 11vw;
+}
+
+#quiz-title {
+
+}
+
+#quiz-description {
+  font-size: 4vh;
+  color:rgb(24, 113, 255);
+}
+
+#quiz-def {
+  position: absolute;
+  font-size: 2vmax;
+  left: 50%;
+  transform: translate(-50%);
+  text-align: center;
+  margin: 1vmin;
+  color:rgb(66, 0, 221);
+  border-radius: 10px;
+  background-color: rgb(125, 255, 238);
+  box-shadow: 0px 8px 4px -4px rgb(104, 104, 104);
 }
 
 .false {
   color: rgb(255, 0, 0);
 }
+
+/* Queue */
 
 #queue,
 #queue-style-elem {
