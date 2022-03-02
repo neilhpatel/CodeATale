@@ -5,10 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Reading Page</title>
 
-        <link rel="stylesheet" href="../css/style.css"> <!-- Links the CSS to this HTML page -->
+        <!-- CSS Styles -->
+        <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/reading-styles.css">
-        <link rel="stylesheet" href="../css/definition-modal-styles.css">
-        <script defer src="../scripts/reading-page-scripts.js"></script>
+        <link rel="stylesheet" href="../css/modal-styles.css">
+
+        <!-- Scripts -->
+        <script defer type="module" src="../scripts/reading-page-scripts.js"></script>
         <script defer src="../scripts/components.js"></script>
 
         <!-- Fonts/Icons -->
@@ -50,23 +53,28 @@
             <!-- Scrub Bar -->
             <div></div>
 
-            <!-- Previous and Next Page -->
-
             <!-- Next Page -->
             <i class="fas fa-arrow-circle-right" id="nextPg" title="Next Page"></i>
              
             <!-- Previous Page -->
             <i class="fas fa-arrow-circle-left" id="prevPg" title="Previous Page"></i>
 
+            <!-- Definition Modal -->
             <div id="modal">
                 <div id="modal-container"> <!-- Needed for centering the elements with flex while keeping block display -->
-                    <p id="modal-words"></p>
+                    <span class="highlight-definition" id="modal-words"></span>
+                    <p id="modal-derivative"></p>
                     <p id="modal-def"></p>
                 </div>
-                <!-- <div><button id="close-button"></button></div> -->
-                <a class="close plainmodal-close">
+                <div class="def-quiz-container">
+                    <button type="button" class="far fa-lightbulb quiz-btn" id="quiz-i" title="Quiz"></button>
+                    <div class="quiz-options">
+                        <button id="b1">Go To Quiz</button>
+                        <button id="b2">Queue Word</button>
+                    </div>
+                </div>
+                <a class="close plainmodal-close"></a>
             </div>
-            
         </main>
     </body>
 </html>

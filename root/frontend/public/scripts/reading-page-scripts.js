@@ -1,4 +1,31 @@
-let chapterStartPageNumber = [1, 7, 24, 34, 46, 58, 69, 84, 93, 102, 114, 125, 142, 150, 159, 172, 181, 192, 209, 222, 233, 239];
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
+import { getFirestore, collection, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyC2lfp2oGwlyluipIjXCt0ueQKXkq_UudA",
+  authDomain: "junior-design-178a4.firebaseapp.com",
+  databaseURL: "https://junior-design-178a4-default-rtdb.firebaseio.com",
+  projectId: "junior-design-178a4",
+  storageBucket: "junior-design-178a4.appspot.com",
+  messagingSenderId: "503927178988",
+  appId: "1:503927178988:web:343b4404b93c44c24787c9",
+  measurementId: "G-SVL212L9YP",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore(app);
+
+let chapterStartPageNumber = [
+  1, 7, 22, 33, 42, 53, 63, 77, 87, 95, 105, 116, 132, 140, 148, 160, 168, 177,
+  192, 204, 214, 220,
+];
 
 // Creating a list of all special characters to check for
 const specialSet = new Set();
@@ -25,7 +52,9 @@ function increaseChapterProgress(chapter) {
 
 function pageRead(chapter, page) {
   let alreadyAdded = false;
-  let pagesViewed = sessionStorage.getItem(`viewedPages-ch-${chapter}`).split(" ");
+  let pagesViewed = sessionStorage
+    .getItem(`viewedPages-ch-${chapter}`)
+    .split(" ");
   pagesViewed.forEach((page) => {
     // Check if it is already in the list
     let currChpt = sessionStorage.getItem("chptNum"); // Chapters not indexed from 1
@@ -36,9 +65,16 @@ function pageRead(chapter, page) {
   });
   if (alreadyAdded === false) {
     let currPagesViewed;
-    if (sessionStorage.getItem(`viewedPages-ch-${chapter}`)) { // If there have been any pages added 
-      currPagesViewed = sessionStorage.getItem(`viewedPages-ch-${chapter}`) + " " + chapter + "-" + page;
-    } else { // If this is the first page to be added
+    if (sessionStorage.getItem(`viewedPages-ch-${chapter}`)) {
+      // If there have been any pages added
+      currPagesViewed =
+        sessionStorage.getItem(`viewedPages-ch-${chapter}`) +
+        " " +
+        chapter +
+        "-" +
+        page;
+    } else {
+      // If this is the first page to be added
       currPagesViewed = chapter + "-" + page;
     }
     sessionStorage.setItem(`viewedPages-ch-${chapter}`, currPagesViewed);
@@ -67,11 +103,14 @@ function increasePage(chapterNum, pageNum) {
 }
 
 function decreasePage(chapterNum, pageNum) {
-  if (pageNum - 1 < chapterStartPageNumber[chapterNum - 1]) { // Remember: since this is indexed from 0 this is the current chapter
+  if (pageNum - 1 < chapterStartPageNumber[chapterNum - 1]) {
+    // Remember: since this is indexed from 0 this is the current chapter
     chapterNum--;
   }
 
-  if (chapterNum <= 0) {return;}
+  if (chapterNum <= 0) {
+    return;
+  }
 
   pageNum--;
 
@@ -98,7 +137,10 @@ function checkArrows() {
     $("#prevPg").show();
   }
 
-  if (sessionStorage.getItem("pageNum") >= chapterStartPageNumber[chapterStartPageNumber.length-1] - 1) {
+  if (
+    sessionStorage.getItem("pageNum") >=
+    chapterStartPageNumber[chapterStartPageNumber.length - 1] - 1
+  ) {
     $("#nextPg").hide();
   } else {
     $("#nextPg").show();
@@ -108,24 +150,31 @@ function checkArrows() {
 //Note: this function does throw an exception for audio of words not in database. But it does not break the application,
 //it simply doesn't play audio for the word. In the future, determine if a word exists in the database before playing audio.
 function playAudio(word) {
-  let firstLetter = word.charAt(0).toLowerCase();
+  let firstLetter = word.charAt(0);
   let url = "https://words-and-definitons.s3.amazonaws.com/words/" + firstLetter + "/" + word + ".mp3";
   let audioObj = document.createElement("audio");
   audioObj.src = url;
   audioObj.play();
 }
 
-let modal = $("#modal").plainModal({duration: 150});
-function defModal(word) {
+
+let modal = $("#modal").plainModal({ duration: 150 });
+async function defModal(word, wordSnap, modWord) {
   //let modWord = word.toLowerCase().replace(/[^a-z0-9’-]+/gi, ""); // Keeps all alphanumeric characters as well as the special apostrophe // Keeping this just in case we need to use the replace feature again.
-  let modWord = word.toLowerCase();
   playAudio(modWord);
-  modal.children("#modal-container").children("#modal-words").text(word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
-  modal.children("#modal-container").children("#modal-def").text("a single distinct meaningful element of speech or writing"); // Filler text
+  let derivativeWords = [];
+  wordSnap.data().derivative_words.forEach((derivative) => {
+    derivativeWords.push(`<span class="highlight-definition">${derivative}</span>`);
+    derivativeWords.push("; ");
+  });
+  $("#modal-words").text(wordSnap.data().parent_word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
+  $("#modal-def").html(`<span class="highlight-definition">${wordSnap.data().definition}</span>`);
+  $("#modal-derivative").html(derivativeWords);
+
   modal = $("#modal").plainModal("open");
 }
 
-function updatePageText (chapter, page, modNums) {
+function updatePageText(chapter, page, modNums) {
   fetch("../../assets/json_files/parsedPages.json")
     .then((Response) => Response.json())
     .then((data) => {
@@ -135,7 +184,7 @@ function updatePageText (chapter, page, modNums) {
 
       // Checks if user is at the end or beginning of the book and removes
       // the arrows accordingly
-      checkArrows(); 
+      checkArrows();
 
       // Changes the page and chapter nums in system storage
       chapter = sessionStorage.getItem("chptNum");
@@ -144,7 +193,7 @@ function updatePageText (chapter, page, modNums) {
       // Sets that chapter and page number
       $("#reading-heading").html(`Chapter ${chapter}`);
       $(".page-number").html(`Page ${page}`);
-      
+
       let str = data[parseInt(chapter, 10)][parseInt(page, 10)];
       let arr = [];
       // Parses through every word to make sure only words in database get highlighted (and without grammar syntax)
@@ -156,7 +205,7 @@ function updatePageText (chapter, page, modNums) {
           if (specialSet.has(element.charAt(i))) {
             // Can"t tell between contraction and quote so this if statement checks to see which one it is
             if (element.charAt(i) === "’") {
-              if ((/[a-z]/).test((element.charAt(i + 1)))) {
+              if (/[a-z]/.test(element.charAt(i + 1))) {
                 word.push(element.charAt(i));
                 normalWord = false;
                 continue;
@@ -175,33 +224,51 @@ function updatePageText (chapter, page, modNums) {
               arr.push(element.charAt(i));
             }
             normalWord = false;
-          } else { // If the letter is not a special character, it will push the letter onto the word array
+          } else {
+            // If the letter is not a special character, it will push the letter onto the word array
             word.push(element.charAt(i));
             // If it"s at the end of the word (element), makes the word highlightable only if the word is not a normal word
             if (i === element.length - 1 && normalWord === false) {
               arr.push(`<span class="highlight">${word.join("")}</span>`);
             }
-          } 
+          }
         }
         // If normalWord it pushes onto the arr normally with highlights
         if (normalWord) {
           arr.push(`<span class="highlight">${word.join("")}</span>`);
         }
-
       });
+      
+      $(".main-text").html(arr);
 
-    $(".main-text").html(arr);
-
-    // Adds on click funtion for each word individually
-    $(".highlight").each(function() {
-      $(this).click(function() {
-        defModal($(this).text());
+      // Removes highlighting from word if it's not in the database and also adds click-on functionality for those words that are in the database.
+      $(".highlight").each(async function () {
+        let word = $(this).text();
+        let modWord = word.toLowerCase();
+        let wordDoc = doc(db, modWord.charAt(0), modWord);
+        let wordSnap = await getDoc(wordDoc);
+        
+        if (!wordSnap.exists()) {
+          $(this).removeClass("highlight");
+        } else {
+          if (wordSnap.data().parent_word !== modWord) {
+            modWord = wordSnap.data().parent_word;
+            wordDoc = doc(db, modWord.charAt(0), modWord);
+            wordSnap = await getDoc(wordDoc);
+          }
+          if (wordSnap.data().definition !== "") {
+            $(this).click(function () {
+              defModal(word, wordSnap, modWord);
+            });
+          } else {
+            $(this).removeClass("highlight");
+          }
+        }
       });
     });
-  });
 }
 
-$("document").ready(function() {
+$("document").ready(function () {
   let chapterNum = parseInt(sessionStorage.getItem("chptNum"), 10);
   let pageNum = parseInt(sessionStorage.getItem("pageNum"), 10);
   // $("img").attr("src", `../../assets/chapter_images/chapter${chapterNum}.png`);
@@ -221,7 +288,7 @@ const nextPage = $("#nextPg");
 nextPage.click(() => {
   let chapterNum = parseInt(sessionStorage.getItem("chptNum"), 10);
   let pageNum = parseInt(sessionStorage.getItem("pageNum"), 10);
-  
+
   updatePageText(chapterNum, pageNum, increasePage);
   // $("img").attr("src", `../../assets/chapter_images/chapter${num}.png`); // Changes the chapter image
 });
