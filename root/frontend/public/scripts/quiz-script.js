@@ -63,7 +63,7 @@ async function quizWords() {
   // Codacy does not like the use of "undefined"
   if (queue === null || queue.length === 0) {
     // console.log("No words in queue!");
-    $("#quiz-def").text("");
+    $("#quiz-def").text("No words in queue!");
     $(".false").each(function() {
       $(this).html("");
     });
