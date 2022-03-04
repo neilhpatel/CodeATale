@@ -80,7 +80,7 @@
   position: absolute;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10vmin 15vmin;
+  gap: 4vmin 15vmin;
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
