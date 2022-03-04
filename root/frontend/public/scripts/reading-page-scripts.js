@@ -228,7 +228,7 @@ function defModal(word, wordSnap, modWord) {
         if ($("#queue-msg").hasClass("queue-msg-show")) {
           $("#queue-msg").toggleClass("queue-msg-show queue-msg-hide");
         }
-      }, 3000)
+      }, 3000);
     });
   });
   
@@ -361,4 +361,4 @@ nextPage.click(() => {
 // -------------
 // --- Audio ---
 // -------------
-$("#audio-bar")[0].volume = 0.10;
+$("#audio-bar")[0].volume = 0.1;
