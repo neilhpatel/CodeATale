@@ -74,3 +74,31 @@ img {
 .highlight-definition:hover {
   background-color: yellow;
 }
+
+/* Audio */
+
+audio {
+  position: absolute;
+  display: flex;
+  
+  left: 50%;
+  bottom: 8%;
+  transform: translate(-50%) scale(125%);
+
+  width: 40vw;
+  transition: 100ms ease-in-out;
+  box-shadow: 0px 29.0px 8.0px -25.0px hsl(0deg 0% 0% / 0.38);
+  
+  border-radius: 15px;
+  background: linear-gradient(90deg, rgba(255,140,0,1) 0%, rgba(255,76,49,1) 50%, rgba(255,146,112,1) 100%);
+}
+
+audio:hover {
+  transform: translate(-50%) scale(135%);
+  box-shadow: 0px 29.0px 15.0px -25.0px hsl(0deg 0% 0% / 0.38);
+}
+
+audio::-webkit-media-controls-panel {
+  border: none;
+  background: linear-gradient(90deg, rgba(255,140,0,1) 0%, rgba(255,76,49,1) 50%, rgba(255,146,112,1) 100%);
+}

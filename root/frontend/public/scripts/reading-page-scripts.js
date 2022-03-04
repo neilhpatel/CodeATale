@@ -324,3 +324,9 @@ nextPage.click(() => {
   updatePageText(chapterNum, pageNum, increasePage);
   // $("img").attr("src", `../../assets/chapter_images/chapter${num}.png`); // Changes the chapter image
 });
+
+
+// -------------
+// --- Audio ---
+// -------------
+$("#audio-bar")[0].volume = 0.10;
