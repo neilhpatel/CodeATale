@@ -39,7 +39,7 @@ function shuffleArray(array) {
 }
 
 function quizWordsHelper(answers, word, wordSnap, blockedWords, quizzableWords) {
-  wordSnap.data().derivativeWords.forEach((derivative) => {
+  wordSnap.data().derivative_words.forEach((derivative) => {
     blockedWords.add(derivative);
   });
   while (answers.length !== 4) {
@@ -63,6 +63,7 @@ async function quizWords() {
   // Codacy does not like the use of "undefined"
   if (queue === null || queue.length === 0) {
     // console.log("No words in queue!");
+    $("#quiz-def").text("");
     $(".false").each(function() {
       $(this).html("");
     });
@@ -72,8 +73,11 @@ async function quizWords() {
     let blockedWords = new Set();
     let wordSnap = await getDoc(doc(db, word.charAt(0), word));
     let wordQuery = query(collection(db, word.charAt(0)), where("definition", "!=", ""));
-    let quizzableWords = await getDocs(wordQuery).docs;
+    let wordQuerySnapshot = await getDocs(wordQuery);
+    let quizzableWords = wordQuerySnapshot.docs;
     let answers = [wordSnap];
+
+    $("#quiz-def").text(wordSnap.data().definition);
 
     quizWordsHelper(answers, word, wordSnap, blockedWords, quizzableWords);
 
@@ -95,10 +99,6 @@ async function quizWords() {
           // console.log("Correct");
           queue.shift();
           sessionStorage.setItem("queue", JSON.stringify(queue));
-          let audioObj = document.createElement("audio");
-          audioObj.crossorigin = "anonymous";
-          audioObj.src = "https://www.dropbox.com/s/dg9277bx242qlpf/correct_quiz_answer_sound.mp3?dl=0";
-          audioObj.play();
           quizWords();
         });
       } else {
