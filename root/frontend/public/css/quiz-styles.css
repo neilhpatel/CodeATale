@@ -91,6 +91,7 @@
   height: 11vw;
   margin: 1em;
   border: none;
+  font-size: 4vmin;
   box-shadow:
     1px 0 0 #1976d2,
     0 1px 0 #1976d2,
@@ -121,6 +122,7 @@
 #quiz-container button:hover {
   background-color: aliceblue;
 }
+
 
 #quiz-header {
   font-size: 5vh;
@@ -174,4 +176,29 @@
   height: 20vh;
   z-index: -10;
   border-radius: 0;
+}
+
+/* Next and Previous Buttons */
+/* Next and Previous Page */
+#prevPg,
+#nextPg {
+  font-size: 10vmin;
+  position: fixed;
+  cursor: pointer;
+  transition: transform 0.25s;
+}
+
+#prevPg:hover,
+#nextPg:hover {
+  transform: scale(125%);
+}
+
+#prevPg {
+  bottom: 5%;
+  left: 15%;
+}
+
+#nextPg {
+  bottom: 5%;
+  right: 15%;
 }
