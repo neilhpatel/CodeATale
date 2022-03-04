@@ -124,7 +124,6 @@
   background-color: aliceblue;
 }
 
-
 #quiz-header {
   font-size: 5vh;
   color: rgb(24, 113, 255);
@@ -177,17 +176,13 @@
 
 /* Next and Previous Buttons */
 /* Next and Previous Page */
+
 #prevPg,
 #nextPg {
   font-size: 10vmin;
   position: fixed;
   cursor: pointer;
   transition: transform 0.25s;
-}
-
-#prevPg:hover,
-#nextPg:hover {
-  transform: scale(125%);
 }
 
 #prevPg {
@@ -198,4 +193,9 @@
 #nextPg {
   bottom: 5%;
   right: 15%;
+}
+
+#prevPg:hover,
+#nextPg:hover {
+  transform: scale(125%);
 }
