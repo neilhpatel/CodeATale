@@ -85,7 +85,7 @@ audio {
   transform: translate(-50%) scale(125%);
   width: 40vw;
   transition: 100ms ease-in-out;
-  box-shadow: 0 29.0px 8.0px -25.0px hsl(0deg 0% 0% / 0.38);
+  box-shadow: 0 29px 8.0px -25px hsl(0deg 0% 0% / 0.38);
   border-radius: 15px;
   background: linear-gradient(90deg, rgba(255, 140, 0, 1) 0%, rgba(255, 76, 49, 1) 50%, rgba(255, 146, 112, 1) 100%);
 }
@@ -97,5 +97,5 @@ audio::-webkit-media-controls-panel {
 
 audio:hover {
   transform: translate(-50%) scale(135%);
-  box-shadow: 0 29.0px 15.0px -25.0px hsl(0deg 0% 0% / 0.38);
+  box-shadow: 0 29px 15.0px -25px hsl(0deg 0% 0% / 0.38);
 }
