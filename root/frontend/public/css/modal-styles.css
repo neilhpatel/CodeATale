@@ -102,6 +102,10 @@
   min-width: 10vw;
 }
 
+.quiz-options button {
+  border-radius: 10px;
+}
+
 .def-quiz-container:hover .quiz-options {
   display: inline-grid;
 }
@@ -123,4 +127,19 @@
 
 .quiz-options button:hover {
   background-color: antiquewhite;
+}
+
+.queue-msg-show {
+  position: absolute;
+  top: 50%;
+  left: 400%;
+  transform: translate(0, -50%);
+  font-size: 2vmin;
+
+  width: 4vw;
+  max-height: 9vh;
+}
+
+.queue-msg-hide {
+  display: none;
 }

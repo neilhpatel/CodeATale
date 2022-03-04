@@ -188,17 +188,47 @@ function defModal(word, wordSnap, modWord) {
         window.location.href = "quiz.html";
       }
     });
-    $("#b2").off("click").click(function() {
+
+    // Below this is my take on the problem. I'm not sure why .off() is used 
+
+    // $("#b2").off("click").click(function() {
+    //   let queue = JSON.parse(sessionStorage.getItem("queue"));
+    //   if (queue == null) { queue = []; }
+    //   if (!queue.includes(modWord)) {
+    //     queue.push(modWord);
+    //     sessionStorage.setItem("queue", JSON.stringify(queue));
+    //     // console.log(queue);
+    //   } else {
+        
+    //     //Add pop-up or text that says, "You have this word in your quiz queue!"
+    //     // console.log("Word already in your queue!");
+    //   }
+    // });
+
+    $("#b2").mousedown(function() {
       let queue = JSON.parse(sessionStorage.getItem("queue"));
       if (queue == null) { queue = []; }
       if (!queue.includes(modWord)) {
         queue.push(modWord);
         sessionStorage.setItem("queue", JSON.stringify(queue));
-        // console.log(queue);
+        if ($("#queue-msg").hasClass("queue-msg-show") === false) {
+          $("#queue-msg").text("Word added to quiz queue!");
+          $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
+        }
       } else {
-        //Add pop-up or text that says, "You have this word in your quiz queue!"
-        // console.log("Word already in your queue!");
+        if ($("#queue-msg").hasClass("queue-msg-show") === false) {
+          $("#queue-msg").text("You already have this word in your quiz queue!");
+          $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
+        }
       }
+    });
+    
+    $("#b2").mouseup(function() {
+      setTimeout(function() {
+        if ($("#queue-msg").hasClass("queue-msg-show")) {
+          $("#queue-msg").toggleClass("queue-msg-show queue-msg-hide");
+        }
+      }, 3000)
     });
   });
   
@@ -206,6 +236,8 @@ function defModal(word, wordSnap, modWord) {
   // console.log(queue);
   modal = $("#modal").plainModal("open");
 }
+
+
 
 function updatePageText(chapter, page, modNums) {
   fetch("../../assets/json_files/parsedPages.json")

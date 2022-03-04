@@ -92,6 +92,7 @@
   margin: 1em;
   border: none;
   font-size: 4vmin;
+  color: black;
   box-shadow:
     1px 0 0 #1976d2,
     0 1px 0 #1976d2,
@@ -146,10 +147,6 @@
   border-radius: 10px;
   background-color: rgb(125, 255, 238);
   box-shadow: 0 8px 4px -4px rgb(104, 104, 104);
-}
-
-.false {
-  color: rgb(255, 0, 0);
 }
 
 /* Queue */
