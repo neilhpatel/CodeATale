@@ -149,7 +149,7 @@ function checkArrows() {
 
 //Note: this function does throw an exception for audio of words not in database. But it does not break the application,
 //it simply doesn't play audio for the word. In the future, determine if a word exists in the database before playing audio.
-function playAudio(word) {
+function playWordAudio(word) {
   let firstLetter = word.charAt(0);
   let url = "https://words-and-definitons.s3.amazonaws.com/words/" + firstLetter + "/" + word + ".mp3";
   let audioObj = document.createElement("audio");
@@ -161,7 +161,6 @@ function playAudio(word) {
 let modal = $("#modal").plainModal({ duration: 150 });
 function defModal(word, wordSnap, modWord) {
   //let modWord = word.toLowerCase().replace(/[^a-z0-9’-]+/gi, ""); // Keeps all alphanumeric characters as well as the special apostrophe // Keeping this just in case we need to use the replace feature again.
-  playAudio(modWord);
   let derivativeWords = [];
   wordSnap.data().derivative_words.forEach((derivative) => {
     // Need to remove the semicolon if it's the last derivative word
@@ -322,8 +321,11 @@ function updatePageText(chapter, page, modNums) {
             wordSnap = await getDoc(wordDoc);
           }
           if (wordSnap.data().definition !== "") {
-            $(this).off("click").click(function () {
+            $(this).off("dblclick").dblclick(function () {
               defModal(word, wordSnap, modWord);
+            });
+            $(this).off("click").click(function () {
+              playWordAudio(modWord);
             });
           } else {
             $(this).removeClass("highlight");
