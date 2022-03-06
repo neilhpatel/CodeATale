@@ -61,8 +61,23 @@ function quizWordsHelper(answers, word, wordSnap, blockedWords, quizzableWords) 
   shuffleArray(answers);
 }
 
+function checkArrows() {
+  if (quizIndex === 0) {
+    $("#prevPg").hide();
+  } else {
+    $("#prevPg").show();
+  }
+
+  if (quizIndex === queue.length - 1) {
+    $("#nextPg").hide();
+  } else {
+    $("#nextPg").show();
+  }
+}
+
 async function quizWords() {
   // Codacy does not like the use of "undefined"
+  checkArrows();
   if (queue === null || queue.length === 0) {
     $("#quiz-def").text("No words in queue!");
     $(".false").each(function() {
