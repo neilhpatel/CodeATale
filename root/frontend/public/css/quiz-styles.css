@@ -2,6 +2,8 @@
   overflow: auto;
 }
 
+/* Help Button */
+
 #help-btn {
   position: absolute;
   left: 50%;
@@ -13,14 +15,29 @@
   border-radius: 50%;
   font-size: 5vmin;
   border: none;
-  box-shadow: -4px 4px 2px black;
+  box-shadow:
+    -4px 4px 1px black,
+    -5px 5px 1px black,
+    -6px 6px 1px black;
   transition: 50ms ease-in-out;
 }
 
 #help-btn:active {
-  transform: translate(-4px, 4px) translate(-50%);
+  transform: translate(-6px, 6px) translate(-50%);
   box-shadow: none;
 }
+
+/* Help Modal */
+
+#modal-text .gold {
+  color: rgb(255, 215, 0);
+}
+
+#modal-text .silver {
+  color: rgb(192, 192, 192);
+}
+
+/* Stars */
 
 #stars-container {
   position: absolute;
@@ -57,13 +74,81 @@
   opacity: 0.2;
 }
 
-#modal-text .gold {
-  color: rgb(255, 215, 0);
+/* Quiz */
+
+#quiz-container {
+  position: absolute;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4vmin 15vmin;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-#modal-text .silver {
-  color: rgb(192, 192, 192);
+#quiz-container button {
+  width: 23vw;
+  height: 11vw;
+  margin: 1em;
+  border: none;
+  font-size: 4vmin;
+  color: black;
+  box-shadow:
+    1px 0 0 #1976d2,
+    0 1px 0 #1976d2,
+    2px 1px 0 #1976d2,
+    1px 2px 0 #1976d2,
+    3px 2px 0 #1976d2,
+    2px 3px 0 #1976d2,
+    4px 3px 0 #1976d2,
+    3px 4px 0 #1976d2,
+    5px 4px 0 #1976d2,
+    4px 5px 0 #1976d2,
+    6px 5px 0 #1976d2,
+    5px 6px 0 #1976d2,
+    7px 6px 0 #1976d2,
+    6px 7px 0 #1976d2,
+    8px 7px 0 #1976d2,
+    7px 8px 0 #1976d2,
+    9px 8px 0 #1976d2,
+    8px 9px 0 #1976d2;
+  transition: 100ms ease-in-out;
 }
+
+#quiz-container button:active {
+  box-shadow: none;
+  transform: translate(9px, 8px);
+}
+
+#quiz-container button:hover {
+  background-color: aliceblue;
+}
+
+#quiz-header {
+  font-size: 5vh;
+  color: rgb(24, 113, 255);
+  margin: 0 11vw;
+}
+
+#quiz-description {
+  font-size: 4vh;
+  color: rgb(24, 113, 255);
+}
+
+#quiz-def {
+  position: absolute;
+  font-size: 2vmax;
+  left: 50%;
+  transform: translate(-50%);
+  text-align: center;
+  margin: 1vmin;
+  color: rgb(66, 0, 221);
+  border-radius: 10px;
+  background-color: rgb(125, 255, 238);
+  box-shadow: 0 8px 4px -4px rgb(104, 104, 104);
+}
+
+/* Queue */
 
 #queue,
 #queue-style-elem {
@@ -87,4 +172,29 @@
   height: 20vh;
   z-index: -10;
   border-radius: 0;
+}
+
+/* Next and Previous Page */
+
+#prevPg,
+#nextPg {
+  font-size: 10vmin;
+  position: fixed;
+  cursor: pointer;
+  transition: transform 0.25s;
+}
+
+#prevPg {
+  bottom: 5%;
+  left: 15%;
+}
+
+#nextPg {
+  bottom: 5%;
+  right: 15%;
+}
+
+#prevPg:hover,
+#nextPg:hover {
+  transform: scale(125%);
 }
