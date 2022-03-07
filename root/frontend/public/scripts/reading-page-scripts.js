@@ -173,7 +173,7 @@ function defModal(word, wordSnap, modWord) {
   $("document").ready(function() {
     $("#b1").off("click").click(function() {
       let queue = JSON.parse(sessionStorage.getItem("queue"));
-      if (queue == null) { queue = []; }
+      if (queue === null) { queue = []; }
       if (!queue.includes(modWord)) {
         queue.unshift(modWord);
         sessionStorage.setItem("queue", JSON.stringify(queue));
@@ -206,7 +206,7 @@ function defModal(word, wordSnap, modWord) {
 
     $("#b2").mousedown(function() {
       let queue = JSON.parse(sessionStorage.getItem("queue"));
-      if (queue == null) { queue = []; }
+      if (queue === null) { queue = []; }
       if (!queue.includes(modWord)) {
         queue.push(modWord);
         sessionStorage.setItem("queue", JSON.stringify(queue));
@@ -231,8 +231,6 @@ function defModal(word, wordSnap, modWord) {
     });
   });
   
-  let queue = JSON.parse(sessionStorage.getItem("queue"));
-  // console.log(queue);
   modal = $("#modal").plainModal("open");
 }
 
