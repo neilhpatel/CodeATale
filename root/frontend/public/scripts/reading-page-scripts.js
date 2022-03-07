@@ -211,15 +211,15 @@ function defModal(word, wordSnap, modWord) {
       if (!queue.includes(modWord)) {
         queue.push(modWord);
         sessionStorage.setItem("queue", JSON.stringify(queue));
-        if ($("#queue-msg").hasClass("queue-msg-show") === false) {
-          $("#queue-msg").text("Word added to quiz queue!");
-          $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
-        }
-      } else {
-        if ($("#queue-msg").hasClass("queue-msg-show") === false) {
-          $("#queue-msg").text("You already have this word in your quiz queue!");
-          $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
-        }
+      //   if ($("#queue-msg").hasClass("queue-msg-show") === false) {
+      //     $("#queue-msg").text("Word added to quiz queue!");
+      //     $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
+      //   }
+      // } else {
+      //   if ($("#queue-msg").hasClass("queue-msg-show") === false) {
+      //     $("#queue-msg").text("You already have this word in your quiz queue!");
+      //     $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
+      //   }
       }
     });
     
