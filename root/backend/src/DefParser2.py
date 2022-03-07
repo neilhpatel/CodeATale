@@ -37,7 +37,7 @@ class DefParser():
                 endInd = textInd
                 # line is a substring containing the current word entry
                 line = self.text[startInd:endInd + 1]
-                BEFOREline = self.text[startInd:endInd+4]
+                # BEFOREline = self.text[startInd:endInd+4]
 
                 if line == '\n' or line == '\n\n':
                     newlineCounts += 1
