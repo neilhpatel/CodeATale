@@ -22,6 +22,9 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
+let quizIndex = 0;
+let queue = JSON.parse(sessionStorage.getItem("queue"));
+
 let modal = $("#modal").plainModal({ duration: 150 }); // The number refers to the time to fade in
 async function defModal() {
   $("#modal-text").html("<p>Each time you answer the question correctly for a given word you gain a <span class='gold'>gold star</span>. If you get a question wrong all <span class='gold'>gold stars</span> become <span class='silver'>silver</span>. If you correctly answer the quiz for <b>this word</b> 5 times in a row you get the maximum number of stars (5).</p>");
@@ -58,18 +61,30 @@ function quizWordsHelper(answers, word, wordSnap, blockedWords, quizzableWords) 
   shuffleArray(answers);
 }
 
+function checkArrows() {
+  if (quizIndex === 0) {
+    $("#prevPg").hide();
+  } else {
+    $("#prevPg").show();
+  }
+
+  if (quizIndex === queue.length - 1) {
+    $("#nextPg").hide();
+  } else {
+    $("#nextPg").show();
+  }
+}
+
 async function quizWords() {
-  let queue = JSON.parse(sessionStorage.getItem("queue"));
   // Codacy does not like the use of "undefined"
+  checkArrows();
   if (queue === null || queue.length === 0) {
-    // console.log("No words in queue!");
     $("#quiz-def").text("No words in queue!");
     $(".false").each(function() {
       $(this).html("");
     });
   } else {
-    // console.log(queue);
-    let word = queue[parseInt(0, 10)];
+    let word = queue[parseInt(quizIndex, 10)];
     let blockedWords = new Set();
     let wordSnap = await getDoc(doc(db, word.charAt(0), word));
     let wordQuery = query(collection(db, word.charAt(0)), where("definition", "!=", ""));
@@ -80,16 +95,6 @@ async function quizWords() {
     $("#quiz-def").text(wordSnap.data().definition);
 
     quizWordsHelper(answers, word, wordSnap, blockedWords, quizzableWords);
-
-    // console.log("\n");
-
-    // for (let i = 0; i < 4; i++) {
-    //   console.log(answers[i].data().definition);
-    // }
-
-  // wordQuerySnapshot.forEach((word) => {
-  //   console.log(word.id);
-  // });
 
     let i = 0;
     $(".false").each(function() {
@@ -110,6 +115,16 @@ async function quizWords() {
     });
   }
 }
+
+$("#prevPg").off("click").click(function () {
+  quizIndex--;
+  quizWords();
+});
+
+$("#nextPg").off("click").click(function () {
+  quizIndex++;
+  quizWords();
+});
 
 // Does this need to be in the quizWords() function?
 $("#help-btn").off("click").click(function () {
