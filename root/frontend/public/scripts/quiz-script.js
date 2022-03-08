@@ -62,6 +62,12 @@ function quizWordsHelper(answers, word, wordSnap, blockedWords, quizzableWords) 
 }
 
 function checkArrows() {
+  if (queue === null || queue.length === 0) {
+    $("#prevPg").hide();
+    $("#nextPg").hide();
+    return;
+  }
+
   if (quizIndex === 0) {
     $("#prevPg").hide();
   } else {
@@ -80,8 +86,8 @@ async function quizWords() {
   checkArrows();
   if (queue === null || queue.length === 0) {
     $("#quiz-def").text("No words in queue!");
-    $(".false").each(function() {
-      $(this).html("");
+    $(".quiz-option").each(function() {
+      $(this).css("display", "none");
     });
   } else {
     let word = queue[parseInt(quizIndex, 10)];
@@ -97,18 +103,28 @@ async function quizWords() {
     quizWordsHelper(answers, word, wordSnap, blockedWords, quizzableWords);
 
     let i = 0;
-    $(".false").each(function() {
+    $(".quiz-option").each(function() {
       $(this).html(answers[parseInt(i, 10)].id);
       if (answers[parseInt(i, 10)].id === word) {
         $(this).off("click").click(function() {
           // console.log("Correct");
-          queue.shift();
-          sessionStorage.setItem("queue", JSON.stringify(queue));
-          quizWords();
+          $(this).css("background-color", "lime");
+          new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav").play();
+          setTimeout(() => {
+            $(this).css("background-color", "white");
+            queue.shift();
+            sessionStorage.setItem("queue", JSON.stringify(queue));
+            quizWords();
+          }, 1000);
         });
       } else {
         $(this).off("click").click(function() {
           // console.log("Incorrect!");
+          $(this).css("background-color", "red");
+          new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav").play();
+          setTimeout(() => {
+            $(this).css("background-color", "white");
+          }, 1000);
         });
       }
       i++;

@@ -5,7 +5,7 @@
   justify-content: center; /* Horizontal Center */
   background-color: rgb(233, 233, 233);
   min-width: 45vw;
-  min-height: 30vh;
+  min-height: 35vh;
   max-width: 60vw;
   font-size: 4vh;
   border-radius: 10px;
@@ -99,11 +99,7 @@
 .quiz-options {
   position: absolute;
   display: none;
-  min-width: 10vw;
-}
-
-.quiz-options button {
-  border-radius: 10px;
+  min-width: 8vw;
 }
 
 .def-quiz-container:hover .quiz-options {
@@ -112,9 +108,10 @@
 
 .quiz-options button {
   margin: 6px;
-  font-size: 2vmin;
-  padding: 0.5em;
+  font-size: 1.5vmin;
+  padding: 0.5em 0;
   border: none;
+  border-radius: 10px;
   box-shadow: -3px 3px 2px black;
   transition: 100ms;
   background-color: rgb(255, 255, 255);
@@ -131,12 +128,10 @@
 
 .queue-msg-show {
   position: absolute;
-  top: 50%;
-  left: 400%;
-  transform: translate(0, -50%);
+  top: 0%;
   font-size: 2vmin;
-  width: 4vw;
-  max-height: 9vh;
+  font-weight: bolder;
+  color: rgb(57, 255, 189);
 }
 
 .queue-msg-hide {
