@@ -146,7 +146,7 @@ function checkArrows() {
 
 //Note: this function does throw an exception for audio of words not in database. But it does not break the application,
 //it simply doesn't play audio for the word. In the future, determine if a word exists in the database before playing audio.
-function playAudio(word) {
+function playWordAudio(word) {
   let firstLetter = word.charAt(0);
   let url = "https://words-and-definitons.s3.amazonaws.com/words/" + firstLetter + "/" + word + ".mp3";
   let audioObj = document.createElement("audio");
@@ -158,7 +158,6 @@ function playAudio(word) {
 let modal = $("#modal").plainModal({ duration: 150 });
 function defModal(word, wordSnap, modWord) {
   //let modWord = word.toLowerCase().replace(/[^a-z0-9’-]+/gi, ""); // Keeps all alphanumeric characters as well as the special apostrophe // Keeping this just in case we need to use the replace feature again.
-  playAudio(modWord);
   let derivativeWords = [];
   wordSnap.data().derivative_words.forEach((derivative) => {
     // Need to remove the semicolon if it's the last derivative word
@@ -168,68 +167,73 @@ function defModal(word, wordSnap, modWord) {
   $("#modal-words").text(wordSnap.data().parent_word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
   $("#modal-def").html(`<span class="highlight-definition">${wordSnap.data().definition}</span>`);
   $("#modal-derivative").html(derivativeWords);
-  
-  $("#b1").off("click").click(function() {
-    let queue = JSON.parse(sessionStorage.getItem("queue"));
-    if (queue == null) { queue = []; }
-    if (!queue.includes(modWord)) {
-      queue.unshift(modWord);
-      sessionStorage.setItem("queue", JSON.stringify(queue));
-      window.location.href = "quiz.html";
-    } else {
-      queue.splice(queue.indexOf(modWord), 1);
-      queue.unshift(modWord);
-      sessionStorage.setItem("queue", JSON.stringify(queue));
-      window.location.href = "quiz.html";
-    }
-  });
-
-  $("#b2").mousedown(function() {
-    let queue = JSON.parse(sessionStorage.getItem("queue"));
-    if (queue == null) { queue = []; }
-    console.log("----------");
-    console.log("Start queue | " + queue);
-
-    if (!queue.includes(modWord)) { // New word selected
-      console.log("Queue does not include word");
-      queue.push(modWord);
-      sessionStorage.setItem("queue", JSON.stringify(queue));
-      if ($("#queue-msg").hasClass("queue-msg-show") === false) { // If the message is not already showing
-        console.log("msg show is false");
-        $("#queue-msg").html("Word <u>added</u> to quiz queue!");
-        $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
+  $("document").ready(function() {
+    $("#b1").off("click").click(function() {
+      let queue = JSON.parse(sessionStorage.getItem("queue"));
+      if (queue === null) { queue = []; }
+      if (!queue.includes(modWord)) {
+        queue.unshift(modWord);
+        sessionStorage.setItem("queue", JSON.stringify(queue));
+        // console.log(queue);
+        window.location.href = "quiz.html";
+      } else {
+        queue.splice(queue.indexOf(modWord), 1);
+        queue.unshift(modWord);
+        sessionStorage.setItem("queue", JSON.stringify(queue));
+        // console.log(queue);
+        window.location.href = "quiz.html";
       }
-    } else { // Old word selected
-      console.log("Qeue does include word");
-      if ($("#queue-msg").hasClass("queue-msg-show") === false) { // If the message is not already showing
-        console.log("msg show is false");
-        $("#queue-msg").html("You <u>already</u> have this word in your quiz queue!");
-        $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
-      }
-    }
-    console.log("End queue | " + queue);
-    console.log("____________________");
-  });
-  
-  $("#b2").mouseup(function() {
-    setTimeout(function() {
-      if ($("#queue-msg").hasClass("queue-msg-show")) { // If the message is currently showing
-        $("#queue-msg").toggleClass("queue-msg-show queue-msg-hide");
-      }
-    }, 6000);
-  });
+    });
 
-  $("#modal").on("plainmodalclose", function(event) {
-    $("#queue-msg").toggleClass("queue-msg-show queue-msg-hide");
-  });
+    // Below this is my take on the problem. I'm not sure why .off() is used 
+
+    // $("#b2").off("click").click(function() {
+    //   let queue = JSON.parse(sessionStorage.getItem("queue"));
+    //   if (queue == null) { queue = []; }
+    //   if (!queue.includes(modWord)) {
+    //     queue.push(modWord);
+    //     sessionStorage.setItem("queue", JSON.stringify(queue));
+    //     // console.log(queue);
+    //   } else {
+        
+    //     //Add pop-up or text that says, "You have this word in your quiz queue!"
+    //     // console.log("Word already in your queue!");
+    //   }
+    // });
+    });
+
+    $("#b2").mousedown(function() {
+      let queue = JSON.parse(sessionStorage.getItem("queue"));
+      if (queue === null) { queue = []; }
+      if (!queue.includes(modWord)) {
+        queue.push(modWord);
+        sessionStorage.setItem("queue", JSON.stringify(queue));
+      }
+    });
+    //   //   if ($("#queue-msg").hasClass("queue-msg-show") === false) {
+    //   //     $("#queue-msg").text("Word added to quiz queue!");
+    //   //     $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
+    //   //   }
+    //   // } else {
+    //   //   if ($("#queue-msg").hasClass("queue-msg-show") === false) {
+    //   //     $("#queue-msg").text("You already have this word in your quiz queue!");
+    //   //     $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
+    //   //   }
+    //   // }
+    // } else { // Old word selected
+    //   console.log("Qeue does include word");
+    //   if ($("#queue-msg").hasClass("queue-msg-show") === false) { // If the message is not already showing
+    //     console.log("msg show is false");
+    //     $("#queue-msg").html("You <u>already</u> have this word in your quiz queue!");
+    //     $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
+    //   }
+    // }
+    // console.log("End queue | " + queue);
+    // console.log("____________________");
+  // });
   
-  
-  let queue = JSON.parse(sessionStorage.getItem("queue"));
-  // console.log(queue);
   modal = $("#modal").plainModal("open");
 }
-
-
 
 function updatePageText(chapter, page, modNums) {
   fetch("../../assets/json_files/parsedPages.json")
@@ -314,8 +318,11 @@ function updatePageText(chapter, page, modNums) {
             wordSnap = await getDoc(wordDoc);
           }
           if (wordSnap.data().definition !== "") {
-            $(this).off("click").click(function () {
+            $(this).off("dblclick").dblclick(function () {
               defModal(word, wordSnap, modWord);
+            });
+            $(this).off("click").click(function () {
+              playWordAudio(modWord);
             });
           } else {
             $(this).removeClass("highlight");
