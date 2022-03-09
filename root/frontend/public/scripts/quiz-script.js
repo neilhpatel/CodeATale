@@ -88,11 +88,40 @@ function removeStars() {
   });
 }
 
+async function quizWords() {
+  // Codacy does not like the use of "undefined"
+  checkArrows();
+  if (queue === null || queue.length === 0) {
+    emptyScreen();
+  } else {
+    let word = queue[parseInt(quizIndex, 10)];
+    let blockedWords = new Set();
+    let wordSnap = await getDoc(doc(db, word.charAt(0), word));
+    let wordQuery = query(collection(db, word.charAt(0)), where("definition", "!=", ""));
+    let wordQuerySnapshot = await getDocs(wordQuery);
+    let quizzableWords = wordQuerySnapshot.docs;
+    let answers = [];
+    let starNumber = (starMap.has(word) ? starMap.get(word) : 0);
+    removeStars();
+    addStars(starNumber);
+
+    $("#quiz-def").text(wordSnap.data().definition);
+
+    setQuizAnswers(answers, word, wordSnap, blockedWords, quizzableWords);
+
+    quizHelper(answers, word, wordSnap, blockedWords, quizzableWords);
+  }
+}
+
+async function repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords) {
+  setQuizAnswers(answers, word, wordSnap, blockedWords, quizzableWords);
+  quizHelper(answers, word, wordSnap, blockedWords, quizzableWords);
+}
+
 function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords) {
   let i = 0;
   $(".quiz-option").each(function() {
     $(this).html(answers[parseInt(i, 10)].id);
-    console.log("test 1 " + answers[parseInt(i, 10)].id);
     if (answers[parseInt(i, 10)].id === word) {
       $(this).off("click").click(function() {
         $(this).css("background-color", "lime");
@@ -135,42 +164,12 @@ function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords) {
   });
 }
 
-async function repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords) {
-  setQuizAnswers(answers, word, wordSnap, blockedWords, quizzableWords);
-  quizHelper(answers, word, wordSnap, blockedWords, quizzableWords);
-}
-
 function emptyScreen() {
   $("#quiz-def").text("No words in queue!");
   $(".quiz-option").each(function() {
     $(this).off().html("");
   });
   removeStars();
-}
-
-async function quizWords() {
-  // Codacy does not like the use of "undefined"
-  checkArrows();
-  if (queue === null || queue.length === 0) {
-    emptyScreen();
-  } else {
-    let word = queue[parseInt(quizIndex, 10)];
-    let blockedWords = new Set();
-    let wordSnap = await getDoc(doc(db, word.charAt(0), word));
-    let wordQuery = query(collection(db, word.charAt(0)), where("definition", "!=", ""));
-    let wordQuerySnapshot = await getDocs(wordQuery);
-    let quizzableWords = wordQuerySnapshot.docs;
-    let answers = [];
-    let starNumber = (starMap.has(word) ? starMap.get(word) : 0);
-    removeStars();
-    addStars(starNumber);
-
-    $("#quiz-def").text(wordSnap.data().definition);
-
-    setQuizAnswers(answers, word, wordSnap, blockedWords, quizzableWords);
-
-    quizHelper(answers, word, wordSnap, blockedWords, quizzableWords);
-  }
 }
 
 $("#prevPg").off("click").click(function () {
