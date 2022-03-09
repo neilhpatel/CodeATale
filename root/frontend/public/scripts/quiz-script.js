@@ -43,32 +43,6 @@ function shuffleArray(array) {
   }
 }
 
-function playCongratulationsAudio() {
-  let audioObj = document.createElement("audio");
-  audioObj.src = "../../assets/audio/correct_quiz_answer_sound.mp3"
-  audioObj.play();
-}
-
-function playIncorrectAudio() {
-  let audioObj = document.createElement("audio");
-  audioObj.src = "../../assets/audio/incorrect_quiz_answer_sound.mp3";
-  audioObj.play();
-}
-
-// $(".false").each(function() {
-//   $(this).off("click").click(function() {
-//     let starCount = 3;
-//     // if (starMap.has("Test")) {
-//     //   starCount = starMap.get("Test");
-//     // } else {
-//     //   starCount = 3;
-//     // }
-    
-//     $("#star1").attr("src", "../../assets/Stars/Gold-Star-Blank.png");
-    
-//   });
-// });
-
 function setQuizAnswers(answers, word, wordSnap, blockedWords, quizzableWords) {
   wordSnap.data().derivative_words.forEach((derivative) => {
     blockedWords.add(derivative);
@@ -89,12 +63,6 @@ function setQuizAnswers(answers, word, wordSnap, blockedWords, quizzableWords) {
 }
 
 function checkArrows() {
-  if (queue === null || queue.length === 0) {
-    $("#prevPg").hide();
-    $("#nextPg").hide();
-    return;
-  }
-
   if (quizIndex === 0) {
     $("#prevPg").hide();
   } else {
@@ -122,36 +90,45 @@ function removeStars() {
 
 function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords) {
   let i = 0;
-  $(".false").each(function() {
+  $(".quiz-option").each(function() {
     $(this).html(answers[parseInt(i, 10)].id);
+    console.log("test 1 " + answers[parseInt(i, 10)].id);
     if (answers[parseInt(i, 10)].id === word) {
       $(this).off("click").click(function() {
-        playCongratulationsAudio();
-        let starNumber = (starMap.has(word) ? starMap.get(word) : 0);
-        starMap.set(word, starNumber + 1);
-        addStars(starNumber + 1);
-        
-        sessionStorage.setItem("queue", JSON.stringify(queue));
-        if (starNumber + 1 === 5) {
-          //console.log("Congratulations, you've mastered the word!");
-          if (quizIndex === queue.length - 1) {
-            quizIndex--;
+        $(this).css("background-color", "lime");
+        new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav").play();
+        setTimeout(() => {
+          $(this).css("background-color", "white");
+          let starNumber = (starMap.has(word) ? starMap.get(word) : 0);
+          starMap.set(word, starNumber + 1);
+          addStars(starNumber + 1);
+          
+          sessionStorage.setItem("queue", JSON.stringify(queue));
+          if (starNumber + 1 === 5) {
+            //console.log("Congratulations, you've mastered the word!");
+            if (quizIndex === queue.length - 1) {
+              quizIndex--;
+            }
+            queue.splice(queue.indexOf(word), 1);
+            starMap.set(word, 0);
+            sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
+            quizWords();
+          } else {
+            sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
+            repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords);
           }
-          queue.splice(queue.indexOf(word), 1);
-          starMap.set(word, 0);
-          sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
-          quizWords();
-        } else {
-          sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
-          repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords);
-        }
+        }, 1000);
       });
     } else {
       $(this).off("click").click(function() {
-        playIncorrectAudio();
-        starMap.set(word, 0);
-        sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
-        removeStars()
+        $(this).css("background-color", "red");
+        new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav").play();
+        setTimeout(() => {
+          $(this).css("background-color", "white");
+          starMap.set(word, 0);
+          sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
+          removeStars()
+        }, 1000);
       });
     }
     i++;
@@ -165,7 +142,7 @@ async function repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords)
 
 function emptyScreen() {
   $("#quiz-def").text("No words in queue!");
-  $(".false").each(function() {
+  $(".quiz-option").each(function() {
     $(this).off().html("");
   });
   removeStars();
