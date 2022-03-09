@@ -156,7 +156,7 @@ function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords) {
           $(this).css("background-color", "white");
           starMap.set(word, 0);
           sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
-          removeStars()
+          removeStars();
         }, 1000);
       });
     }
