@@ -22,6 +22,8 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
+let starMap = new Map(JSON.parse(sessionStorage.getItem("starMap")));
+if (starMap === null) { starMap = new Map(); }
 let quizIndex = 0;
 let queue = JSON.parse(sessionStorage.getItem("queue"));
 
@@ -41,24 +43,23 @@ function shuffleArray(array) {
   }
 }
 
-function quizWordsHelper(answers, word, wordSnap, blockedWords, quizzableWords) {
+function setQuizAnswers(answers, word, wordSnap, blockedWords, quizzableWords) {
   wordSnap.data().derivative_words.forEach((derivative) => {
     blockedWords.add(derivative);
   });
-  while (answers.length !== 4) {
+  let i = 1;
+  answers[0] = wordSnap;
+  while (i < 4) {
     let randomIndex = Math.floor(Math.random() * quizzableWords.length);
     if (blockedWords.has(quizzableWords[parseInt(randomIndex, 10)].id) || quizzableWords[parseInt(randomIndex, 10)].id === word) {
       continue;
     }
-    answers.push(quizzableWords[parseInt(randomIndex, 10)]);
+    answers[parseInt(i, 10)] = quizzableWords[parseInt(randomIndex, 10)];
     blockedWords.add(quizzableWords[parseInt(randomIndex, 10)].id);
+    i++;
   }
-  
-  // for (let i = 0; i < 4; i++) {
-  //   console.log(answers[i].data().definition);
-  // }
-
   shuffleArray(answers);
+  blockedWords.clear();
 }
 
 function checkArrows() {
@@ -68,21 +69,30 @@ function checkArrows() {
     $("#prevPg").show();
   }
 
-  if (quizIndex === queue.length - 1) {
+  if (queue === null || quizIndex === queue.length - 1 ) {
     $("#nextPg").hide();
   } else {
     $("#nextPg").show();
   }
 }
 
+function addStars(starNumber) {
+  for (let i = 1; i <= starNumber; i++) {
+    $("#star" + i).attr("src", "../../assets/Stars/Gold-Star-Blank.png");
+  }
+}
+
+function removeStars() {
+  $("img").each(function () {
+    $(this).attr("src", "../../assets/Stars/Silver-Star-Blank.png");
+  });
+}
+
 async function quizWords() {
   // Codacy does not like the use of "undefined"
   checkArrows();
   if (queue === null || queue.length === 0) {
-    $("#quiz-def").text("No words in queue!");
-    $(".false").each(function() {
-      $(this).html("");
-    });
+    emptyScreen();
   } else {
     let word = queue[parseInt(quizIndex, 10)];
     let blockedWords = new Set();
@@ -90,30 +100,76 @@ async function quizWords() {
     let wordQuery = query(collection(db, word.charAt(0)), where("definition", "!=", ""));
     let wordQuerySnapshot = await getDocs(wordQuery);
     let quizzableWords = wordQuerySnapshot.docs;
-    let answers = [wordSnap];
+    let answers = [];
+    let starNumber = (starMap.has(word) ? starMap.get(word) : 0);
+    removeStars();
+    addStars(starNumber);
 
     $("#quiz-def").text(wordSnap.data().definition);
 
-    quizWordsHelper(answers, word, wordSnap, blockedWords, quizzableWords);
+    setQuizAnswers(answers, word, wordSnap, blockedWords, quizzableWords);
 
-    let i = 0;
-    $(".false").each(function() {
-      $(this).html(answers[parseInt(i, 10)].id);
-      if (answers[parseInt(i, 10)].id === word) {
-        $(this).off("click").click(function() {
-          // console.log("Correct");
-          queue.shift();
-          sessionStorage.setItem("queue", JSON.stringify(queue));
-          quizWords();
-        });
-      } else {
-        $(this).off("click").click(function() {
-          // console.log("Incorrect!");
-        });
-      }
-      i++;
-    });
+    quizHelper(answers, word, wordSnap, blockedWords, quizzableWords);
   }
+}
+
+async function repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords) {
+  setQuizAnswers(answers, word, wordSnap, blockedWords, quizzableWords);
+  quizHelper(answers, word, wordSnap, blockedWords, quizzableWords);
+}
+
+function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords) {
+  let i = 0;
+  $(".quiz-option").each(function() {
+    $(this).html(answers[parseInt(i, 10)].id);
+    if (answers[parseInt(i, 10)].id === word) {
+      $(this).off("click").click(function() {
+        $(this).css("background-color", "lime");
+        new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav").play();
+        setTimeout(() => {
+          $(this).css("background-color", "white");
+          let starNumber = (starMap.has(word) ? starMap.get(word) : 0);
+          starMap.set(word, starNumber + 1);
+          addStars(starNumber + 1);
+          
+          sessionStorage.setItem("queue", JSON.stringify(queue));
+          if (starNumber + 1 === 5) {
+            //console.log("Congratulations, you've mastered the word!");
+            if (quizIndex === queue.length - 1) {
+              quizIndex--;
+            }
+            queue.splice(queue.indexOf(word), 1);
+            starMap.set(word, 0);
+            sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
+            quizWords();
+          } else {
+            sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
+            repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords);
+          }
+        }, 1000);
+      });
+    } else {
+      $(this).off("click").click(function() {
+        $(this).css("background-color", "red");
+        new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav").play();
+        setTimeout(() => {
+          $(this).css("background-color", "white");
+          starMap.set(word, 0);
+          sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
+          removeStars();
+        }, 1000);
+      });
+    }
+    i++;
+  });
+}
+
+function emptyScreen() {
+  $("#quiz-def").text("No words in queue!");
+  $(".quiz-option").each(function() {
+    $(this).off().html("");
+  });
+  removeStars();
 }
 
 $("#prevPg").off("click").click(function () {
@@ -128,7 +184,6 @@ $("#nextPg").off("click").click(function () {
 
 // Does this need to be in the quizWords() function?
 $("#help-btn").off("click").click(function () {
-  // console.log("Clicked!");
   setTimeout(() => {defModal();}, 50);
 });
 

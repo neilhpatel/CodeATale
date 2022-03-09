@@ -66,6 +66,11 @@ img {
   right: 15%;
 }
 
+.highlight {
+  user-select: none;
+  cursor: pointer;
+}
+
 /* Highlight */
 .highlight:hover {
   background-color: yellow;

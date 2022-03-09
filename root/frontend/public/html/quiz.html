@@ -5,6 +5,9 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Quiz</title>
 
+      <!-- Apparently this is needed to prevent an error message for the dropbox audio. -->
+      <link rel="shortcut icon" href="#">
+
       <!-- Styles -->
       <link rel="stylesheet" href="../css/style.css">
       <link rel="stylesheet" href="../css/quiz-styles.css">
@@ -33,20 +36,20 @@
       <div id="stars-container">
         <div id="stars">
           <ul id="stars-list">
-            <li id="star1">
-              <img src="../../assets/Stars/Gold-Star-Blank.png" alt="First star">
+            <li>
+              <img src="../../assets/Stars/Silver-Star-Blank.png" id="star1" alt="First star">
             </li>
-            <li id="star2">
-              <img src="../../assets/Stars/Gold-Star-Blank.png" alt="Second star">
+            <li>
+              <img src="../../assets/Stars/Silver-Star-Blank.png" id="star2" alt="Second star">
             </li>
-            <li id="star3">
-              <img src="../../assets/Stars/Gold-Star-Blank.png" alt="Third star">
+            <li>
+              <img src="../../assets/Stars/Silver-Star-Blank.png" id="star3" alt="Third star">
             </li>
-            <li id="star4">
-              <img src="../../assets/Stars/Gold-Star-Blank.png" alt="Fourth star">
+            <li>
+              <img src="../../assets/Stars/Silver-Star-Blank.png" id="star4" alt="Fourth star">
             </li>
-            <li id="star5">
-              <img class="grey" src="../../assets/Stars/Gold-Star-Blank.png" alt="Fifth star">
+            <li>
+              <img src="../../assets/Stars/Silver-Star-Blank.png" id="star5" alt="Fifth star">
             </li>
           </ul>
         </div>
@@ -71,10 +74,10 @@
       
       <!-- Quiz Interface -->
       <div id="quiz-container">
-        <button type="button" class="false" id="answer1"></button>
-        <button type="button" class="false" id="answer2"></button>
-        <button type="button" class="false" id="answer3"></button>
-        <button type="button" class="false" id="answer4"></button>
+        <button type="button" class="quiz-option" id="answer1"></button>
+        <button type="button" class="quiz-option" id="answer2"></button>
+        <button type="button" class="quiz-option" id="answer3"></button>
+        <button type="button" class="quiz-option" id="answer4"></button>
       </div>
 
 
