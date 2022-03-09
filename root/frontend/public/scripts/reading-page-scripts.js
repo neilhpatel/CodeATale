@@ -168,66 +168,61 @@ function defModal(word, wordSnap, modWord) {
   $("#modal-words").text(wordSnap.data().parent_word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
   $("#modal-def").html(`<span class="highlight-definition">${wordSnap.data().definition}</span>`);
   $("#modal-derivative").html(derivativeWords);
-  $("document").ready(function() {
-    $("#b1").off("click").click(function() {
-      let queue = JSON.parse(sessionStorage.getItem("queue"));
-      if (queue == null) { queue = []; }
-      if (!queue.includes(modWord)) {
-        queue.unshift(modWord);
-        sessionStorage.setItem("queue", JSON.stringify(queue));
-        // console.log(queue);
-        window.location.href = "quiz.html";
-      } else {
-        queue.splice(queue.indexOf(modWord), 1);
-        queue.unshift(modWord);
-        sessionStorage.setItem("queue", JSON.stringify(queue));
-        // console.log(queue);
-        window.location.href = "quiz.html";
-      }
-    });
-
-    // Below this is my take on the problem. I'm not sure why .off() is used 
-
-    // $("#b2").off("click").click(function() {
-    //   let queue = JSON.parse(sessionStorage.getItem("queue"));
-    //   if (queue == null) { queue = []; }
-    //   if (!queue.includes(modWord)) {
-    //     queue.push(modWord);
-    //     sessionStorage.setItem("queue", JSON.stringify(queue));
-    //     // console.log(queue);
-    //   } else {
-        
-    //     //Add pop-up or text that says, "You have this word in your quiz queue!"
-    //     // console.log("Word already in your queue!");
-    //   }
-    // });
-
-    $("#b2").mousedown(function() {
-      let queue = JSON.parse(sessionStorage.getItem("queue"));
-      if (queue == null) { queue = []; }
-      if (!queue.includes(modWord)) {
-        queue.push(modWord);
-        sessionStorage.setItem("queue", JSON.stringify(queue));
-        if ($("#queue-msg").hasClass("queue-msg-show") === false) {
-          $("#queue-msg").html("Word <u>added</u> to quiz queue!");
-          $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
-        }
-      } else {
-        if ($("#queue-msg").hasClass("queue-msg-show") === false) {
-          $("#queue-msg").html("You <u>already</u> have this word in your quiz queue!");
-          $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
-        }
-      }
-    });
-    
-    $("#b2").mouseup(function() {
-      setTimeout(function() {
-        if ($("#queue-msg").hasClass("queue-msg-show")) {
-          $("#queue-msg").toggleClass("queue-msg-show queue-msg-hide");
-        }
-      }, 3000);
-    });
+  
+  $("#b1").off("click").click(function() {
+    let queue = JSON.parse(sessionStorage.getItem("queue"));
+    if (queue == null) { queue = []; }
+    if (!queue.includes(modWord)) {
+      queue.unshift(modWord);
+      sessionStorage.setItem("queue", JSON.stringify(queue));
+      window.location.href = "quiz.html";
+    } else {
+      queue.splice(queue.indexOf(modWord), 1);
+      queue.unshift(modWord);
+      sessionStorage.setItem("queue", JSON.stringify(queue));
+      window.location.href = "quiz.html";
+    }
   });
+
+  $("#b2").mousedown(function() {
+    let queue = JSON.parse(sessionStorage.getItem("queue"));
+    if (queue == null) { queue = []; }
+    console.log("----------");
+    console.log("Start queue | " + queue);
+
+    if (!queue.includes(modWord)) { // New word selected
+      console.log("Queue does not include word");
+      queue.push(modWord);
+      sessionStorage.setItem("queue", JSON.stringify(queue));
+      if ($("#queue-msg").hasClass("queue-msg-show") === false) { // If the message is not already showing
+        console.log("msg show is false");
+        $("#queue-msg").html("Word <u>added</u> to quiz queue!");
+        $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
+      }
+    } else { // Old word selected
+      console.log("Qeue does include word");
+      if ($("#queue-msg").hasClass("queue-msg-show") === false) { // If the message is not already showing
+        console.log("msg show is false");
+        $("#queue-msg").html("You <u>already</u> have this word in your quiz queue!");
+        $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
+      }
+    }
+    console.log("End queue | " + queue);
+    console.log("____________________");
+  });
+  
+  $("#b2").mouseup(function() {
+    setTimeout(function() {
+      if ($("#queue-msg").hasClass("queue-msg-show")) { // If the message is currently showing
+        $("#queue-msg").toggleClass("queue-msg-show queue-msg-hide");
+      }
+    }, 6000);
+  });
+
+  $("#modal").on("plainmodalclose", function(event) {
+    $("#queue-msg").toggleClass("queue-msg-show queue-msg-hide");
+  });
+  
   
   let queue = JSON.parse(sessionStorage.getItem("queue"));
   // console.log(queue);
