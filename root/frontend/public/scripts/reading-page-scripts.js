@@ -178,7 +178,7 @@ function defModal(word, wordSnap, modWord) {
     let url = "https://words-and-definitons.s3.amazonaws.com/definitions/" + firstLetter + "/" + word + ".mp3";
     definitionAudio.src = url;
     definitionAudio.play();
-  })
+  });
 
   $("#b1").off("click").click(function() {
     let queue = JSON.parse(sessionStorage.getItem("queue"));
