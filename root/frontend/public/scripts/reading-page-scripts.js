@@ -170,8 +170,8 @@ function defModal(word, wordSnap, modWord) {
   $("#modal-derivative").html(derivativeWords);
 
   $("#modal-words").off("click").click(function () {
-    playWordAudio(word)
-  })
+    playWordAudio(word);
+  });
 
   $("#modal-def").off("click").click(function () {
     let firstLetter = word.charAt(0);
@@ -224,7 +224,7 @@ function defModal(word, wordSnap, modWord) {
   });
 
   $("#modal").on("plainmodalclose", function(event) {
-    definitionAudio.pause()
+    definitionAudio.pause();
     $("#queue-msg").off("toggleClass").toggleClass("queue-msg-show queue-msg-hide");
   });
 
