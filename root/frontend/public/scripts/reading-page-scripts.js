@@ -159,6 +159,7 @@ let modal = $("#modal").plainModal({ duration: 150 });
 function defModal(word, wordSnap, modWord) {
   //let modWord = word.toLowerCase().replace(/[^a-z0-9’-]+/gi, ""); // Keeps all alphanumeric characters as well as the special apostrophe // Keeping this just in case we need to use the replace feature again.
   let derivativeWords = [];
+  let definitionAudio = document.createElement("audio");
   wordSnap.data().derivative_words.forEach((derivative) => {
     // Need to remove the semicolon if it's the last derivative word
     derivativeWords.push(`<span class="highlight-definition">${derivative}</span>`);
@@ -167,7 +168,18 @@ function defModal(word, wordSnap, modWord) {
   $("#modal-words").text(wordSnap.data().parent_word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
   $("#modal-def").html(`<span class="highlight-definition">${wordSnap.data().definition}</span>`);
   $("#modal-derivative").html(derivativeWords);
-  
+
+  $("#modal-words").off("click").click(function () {
+    playWordAudio(word)
+  })
+
+  $("#modal-def").off("click").click(function () {
+    let firstLetter = word.charAt(0);
+    let url = "https://words-and-definitons.s3.amazonaws.com/definitions/" + firstLetter + "/" + word + ".mp3";
+    definitionAudio.src = url;
+    definitionAudio.play();
+  })
+
   $("#b1").off("click").click(function() {
     let queue = JSON.parse(sessionStorage.getItem("queue"));
     if (queue === null) { queue = []; }
@@ -212,9 +224,10 @@ function defModal(word, wordSnap, modWord) {
   });
 
   $("#modal").on("plainmodalclose", function(event) {
+    definitionAudio.pause()
     $("#queue-msg").off("toggleClass").toggleClass("queue-msg-show queue-msg-hide");
   });
-  
+
   modal = $("#modal").plainModal("open");
 }
 
