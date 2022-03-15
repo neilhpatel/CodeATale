@@ -24,7 +24,7 @@ class Navbar extends HTMLElement {
         });
         $("nav #review-i").click(function() {
             setTimeout(() => {window.location.href = "review.html";}, 250); 
-        })
+        });
     }
 }
 customElements.define("left-navbar", Navbar);
