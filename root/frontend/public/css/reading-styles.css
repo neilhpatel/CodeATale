@@ -71,6 +71,16 @@ img {
   cursor: pointer;
 }
 
+#modal-words {
+  user-select: none;
+  cursor: pointer;
+}
+
+#modal-def {
+  user-select: none;
+  cursor: pointer;
+}
+
 /* Highlight */
 .highlight:hover {
   background-color: yellow;
