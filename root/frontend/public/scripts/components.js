@@ -8,23 +8,50 @@ class Navbar extends HTMLElement {
             <i class="fas fa-home" id="home-i" title="Home"></i>
             <hr class="line">
             <i class="fas fa-arrow-alt-circle-left" id="back-i" title="Back"></i>
-            <i class="fa-solid fa-school" title="Review"></i>
+            <i class="fa-solid fa-school" id="review-i" title="Review"></i>
             <i class="far fa-lightbulb" id="quiz-i" title="Quiz"></i>
             <i class="fas fa-sign-out-alt" id="exit-i" title="Exit"></i>
         </nav>
         `;
         $("nav #home-i").click(function() {
-            window.location.href = "index.html";
+            setTimeout(() => {window.location.href = "index.html";}, 250); 
         });
         $("nav #back-i").click(function() {
             history.back();
         });
         $("nav #quiz-i").click(function() {
-            window.location.href = "quiz.html";
+            setTimeout(() => {window.location.href = "quiz.html";}, 250); 
+        });
+        $("nav #review-i").click(function() {
+            setTimeout(() => {window.location.href = "review.html";}, 250); 
         });
     }
 }
 customElements.define("left-navbar", Navbar);
+
+class Stars extends HTMLElement {
+    constructor() {
+        super();
+
+        this.innerHTML = `
+        <div id="stars-container">
+            <div id="stars">
+                <img src="../../assets/Stars/Silver-Star-Blank.png" id="star1" alt="First star">
+            
+                <img src="../../assets/Stars/Silver-Star-Blank.png" id="star2" alt="Second star">
+            
+                <img src="../../assets/Stars/Silver-Star-Blank.png" id="star3" alt="Third star">
+            
+                <img src="../../assets/Stars/Silver-Star-Blank.png" id="star4" alt="Fourth star">
+            
+                <img src="../../assets/Stars/Silver-Star-Blank.png" id="star5" alt="Fifth star">
+                    
+            </div>
+        </div>
+        `;
+    }
+}
+customElements.define("stars-bar", Stars);
 
 // Bookmark custom element
 class Bookmark extends HTMLElement {
