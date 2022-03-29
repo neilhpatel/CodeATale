@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
-import { getFirestore, collection, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
+import { getFirestore, collection, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,6 +21,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
+
+const username = "mtl10";
+
+const wordBank = collection(db, "Users", username, "wordBank");
 
 let chapterStartPageNumber = [1, 7, 24, 34, 46, 58, 69, 84, 93, 102, 114, 125, 142, 150, 159, 172, 181, 192, 209, 222, 233, 240];
 
@@ -159,6 +163,7 @@ let modal = $("#modal").plainModal({ duration: 150 });
 function defModal(word, wordSnap, modWord) {
   //let modWord = word.toLowerCase().replace(/[^a-z0-9’-]+/gi, ""); // Keeps all alphanumeric characters as well as the special apostrophe // Keeping this just in case we need to use the replace feature again.
   let derivativeWords = [];
+  let definitionAudio = document.createElement("audio");
   wordSnap.data().derivative_words.forEach((derivative) => {
     // Need to remove the semicolon if it's the last derivative word
     derivativeWords.push(`<span class="highlight-definition">${derivative}</span>`);
@@ -167,7 +172,18 @@ function defModal(word, wordSnap, modWord) {
   $("#modal-words").text(wordSnap.data().parent_word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
   $("#modal-def").html(`<span class="highlight-definition">${wordSnap.data().definition}</span>`);
   $("#modal-derivative").html(derivativeWords);
-  
+
+  $("#modal-words").off("click").click(function () {
+    playWordAudio(word);
+  });
+
+  $("#modal-def").off("click").click(function () {
+    let firstLetter = word.charAt(0);
+    let url = "https://words-and-definitons.s3.amazonaws.com/definitions/" + firstLetter + "/" + word + ".mp3";
+    definitionAudio.src = url;
+    definitionAudio.play();
+  });
+
   $("#b1").off("click").click(function() {
     let queue = JSON.parse(sessionStorage.getItem("queue"));
     if (queue === null) { queue = []; }
@@ -212,9 +228,10 @@ function defModal(word, wordSnap, modWord) {
   });
 
   $("#modal").on("plainmodalclose", function(event) {
+    definitionAudio.pause();
     $("#queue-msg").off("toggleClass").toggleClass("queue-msg-show queue-msg-hide");
   });
-  
+
   modal = $("#modal").plainModal("open");
 }
 
@@ -301,11 +318,32 @@ function updatePageText(chapter, page, modNums) {
             wordSnap = await getDoc(wordDoc);
           }
           if (wordSnap.data().definition !== "") {
-            $(this).off("dblclick").dblclick(function () {
+            
+            $(this).off("dblclick").dblclick(async function () {
               defModal(word, wordSnap, modWord);
+              let wordRef = doc(wordBank, modWord);
+              let wordDoc = await getDoc(wordRef);
+              if (!wordDoc.exists()) {
+                await setDoc(doc(wordBank, modWord), {
+                  definitionQueued: false, highestCorrect: 0, totalCorrect: 0,
+                  totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken"
+                });
+              } else {
+                await updateDoc(doc(wordBank, modWord), {
+                  definitionqueued: true
+                });
+              }
             });
-            $(this).off("click").click(function () {
+            $(this).off("click").click(async function () {
               playWordAudio(modWord);
+              let wordRef = doc(wordBank, modWord);
+              let wordDoc = await getDoc(wordRef);
+              if (!wordDoc.exists()) {
+                await setDoc(doc(wordBank, modWord), {
+                  definitionQueued: false, highestCorrect: 0, totalCorrect: 0,
+                  totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken"
+                });
+              }
             });
           } else {
             $(this).removeClass("highlight");
