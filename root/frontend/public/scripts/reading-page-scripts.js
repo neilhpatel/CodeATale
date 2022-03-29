@@ -325,12 +325,12 @@ function updatePageText(chapter, page, modNums) {
               let wordDoc = await getDoc(wordRef);
               if (!wordDoc.exists()) {
                 await setDoc(doc(wordBank, modWord), {
-                  definition_queued: false, highest_correct: 0, total_correct: 0,
-                  total_incorrect: 0, last_date_accessed: "N/A"
+                  definitionQueued: false, highestCorrect: 0, totalCorrect: 0,
+                  totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken"
                 });
               } else {
                 await updateDoc(doc(wordBank, modWord), {
-                  definition_queued: true
+                  definitionqueued: true
                 });
               }
             });
@@ -340,8 +340,8 @@ function updatePageText(chapter, page, modNums) {
               let wordDoc = await getDoc(wordRef);
               if (!wordDoc.exists()) {
                 await setDoc(doc(wordBank, modWord), {
-                  definition_queued: false, highest_correct: 0, total_correct: 0,
-                  total_incorrect: 0, last_date_accessed: "N/A"
+                  definitionQueued: false, highestCorrect: 0, totalCorrect: 0,
+                  totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken"
                 });
               }
             });

@@ -7,7 +7,7 @@ import { getFirestore, collection, doc, getDoc, setDoc, getDocs, where, query} f
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyC2lfp2oGwlyluipIjXCt0ueQKXkq_UudA",
+  apiKey: "AIzaSyC2lfp2oGwlyluipIjXCt0ueQKXkqUudA",
   authDomain: "junior-design-178a4.firebaseapp.com",
   databaseURL: "https://junior-design-178a4-default-rtdb.firebaseio.com",
   projectId: "junior-design-178a4",
@@ -32,11 +32,11 @@ async function populateReviewScreen() {
    
   wordBank.forEach( (word) => {
     $(".words").append(`<li>${word.id}</li>`);
-    $(".definition_queued").append(`<li>${word.data().definition_queued}</li>`);
-    $(".highest_correct").append(`<li>${word.data().highest_correct}</li>`);
-    $(".total_correct").append(`<li>${word.data().total_correct}</li>`);
-    $(".total_incorrect").append(`<li>${word.data().total_incorrect}</li>`);
-    $(".date").append(`<li>${word.data().last_date_accessed}</li>`);
+    $(".definitionQueued").append(`<li>${word.data().definitionQueued}</li>`);
+    $(".highestCorrect").append(`<li>${word.data().highestCorrect}</li>`);
+    $(".totalCorrect").append(`<li>${word.data().totalCorrect}</li>`);
+    $(".totalIncorrect").append(`<li>${word.data().totalIncorrect}</li>`);
+    $(".date").append(`<li>${word.data().lastDateAccessed}</li>`);
   });
 }
 

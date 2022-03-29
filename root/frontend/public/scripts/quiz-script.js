@@ -111,7 +111,7 @@ async function quizWords() {
     let starNumber = (starMap.has(word) ? starMap.get(word) : 0);
     let date = dateObject.getDate() + "/" + dateObject.getMonth() + "/" + dateObject.getYear();
     await updateDoc(doc(wordBank, word), {
-      last_date_accessed: date
+      lastDateAccessed: date
     });
     removeStars();
     addStars(starNumber);
@@ -139,12 +139,12 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
         new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav").play();
         let docSnap = await getDoc(doc(wordBank, word));
         await updateDoc(doc(wordBank, word), {
-          total_correct: docSnap.data().total_correct + 1
+          totalCorrect: docSnap.data().totalCorrect + 1
         });
 
-        if (docSnap.data().highest_correct != 5) {
+        if (docSnap.data().highestCorrect != 5) {
           await updateDoc(doc(wordBank, word), {
-            highest_correct: docSnap.data().highest_correct + 1
+            highestCorrect: docSnap.data().highestCorrect + 1
           });
         }
         setTimeout(() => {
@@ -175,7 +175,7 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
         new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav").play();
         let docSnap = await getDoc(doc(wordBank, word));
         await updateDoc(doc(wordBank, word), {
-          total_incorrect: docSnap.data().total_incorrect + 1
+          totalIncorrect: docSnap.data().totalIncorrect + 1
         });
         setTimeout(() => {
           $(this).css("background-color", "white");
