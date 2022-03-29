@@ -142,7 +142,7 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
           totalCorrect: docSnap.data().totalCorrect + 1
         });
 
-        if (docSnap.data().highestCorrect != 5) {
+        if (docSnap.data().highestCorrect !== 5) {
           await updateDoc(doc(wordBank, word), {
             highestCorrect: docSnap.data().highestCorrect + 1
           });
