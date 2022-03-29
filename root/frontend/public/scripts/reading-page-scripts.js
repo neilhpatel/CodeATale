@@ -330,7 +330,7 @@ function updatePageText(chapter, page, modNums) {
                 });
               } else {
                 await updateDoc(doc(wordBank, modWord), {
-                  definitionqueued: true
+                  definitionQueued: true
                 });
               }
             });
