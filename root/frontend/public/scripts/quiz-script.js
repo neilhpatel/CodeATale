@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
-import { getFirestore, collection, doc, getDoc, setDoc, getDocs, where, query} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
+import { getFirestore, collection, doc, getDoc, setDoc, updateDoc, getDocs, where, query} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -22,8 +22,15 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
+const dateObject = new Date();
 let starMap = new Map(JSON.parse(sessionStorage.getItem("starMap")));
-if (starMap === null) { starMap = new Map(); }
+if (starMap === null) { 
+  starMap = new Map();
+  sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
+}
+const username = "mtl10";
+
+let wordBank = collection(db, "Users", username, "wordBank");
 let quizIndex = 0;
 let queue = JSON.parse(sessionStorage.getItem("queue"));
 
@@ -102,6 +109,10 @@ async function quizWords() {
     let quizzableWords = wordQuerySnapshot.docs;
     let answers = [];
     let starNumber = (starMap.has(word) ? starMap.get(word) : 0);
+    let date = dateObject.getDate() + "/" + dateObject.getMonth() + "/" + dateObject.getYear();
+    await updateDoc(doc(wordBank, word), {
+      last_date_accessed: date
+    });
     removeStars();
     addStars(starNumber);
 
@@ -118,14 +129,24 @@ async function repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords)
   quizHelper(answers, word, wordSnap, blockedWords, quizzableWords);
 }
 
-function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords) {
+async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords) {
   let i = 0;
   $(".quiz-option").each(function() {
     $(this).html(answers[parseInt(i, 10)].id);
     if (answers[parseInt(i, 10)].id === word) {
-      $(this).off("click").click(function() {
+      $(this).off("click").click(async function() {
         $(this).css("background-color", "lime");
         new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav").play();
+        let docSnap = await getDoc(doc(wordBank, word));
+        await updateDoc(doc(wordBank, word), {
+          total_correct: docSnap.data().total_correct + 1
+        });
+
+        if (docSnap.data().highest_correct != 5) {
+          await updateDoc(doc(wordBank, word), {
+            highest_correct: docSnap.data().highest_correct + 1
+          });
+        }
         setTimeout(() => {
           $(this).css("background-color", "white");
           let starNumber = (starMap.has(word) ? starMap.get(word) : 0);
@@ -149,9 +170,13 @@ function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords) {
         }, 1000);
       });
     } else {
-      $(this).off("click").click(function() {
+      $(this).off("click").click(async function() {
         $(this).css("background-color", "red");
         new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav").play();
+        let docSnap = await getDoc(doc(wordBank, word));
+        await updateDoc(doc(wordBank, word), {
+          total_incorrect: docSnap.data().total_incorrect + 1
+        });
         setTimeout(() => {
           $(this).css("background-color", "white");
           starMap.set(word, 0);
