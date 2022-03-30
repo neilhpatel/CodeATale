@@ -24,8 +24,6 @@ class DefParser():
         startInd = 0
         endInd = 0
         textInd = 0
-        newlineCounts = 0
-        readyToParse = True
         # Get rid of tab characters in parsed document
         self.text = self.text.replace("\t", "")
 
