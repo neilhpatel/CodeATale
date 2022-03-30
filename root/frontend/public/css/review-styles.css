@@ -13,7 +13,6 @@
   height: 100%;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 100fr;
-  
   grid-gap: 0;
   text-align: center;
   padding: 0 2vw;
