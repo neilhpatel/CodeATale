@@ -48,7 +48,6 @@ class DefParser():
                 childWords = []
                 sightWord = False
                 blockedQuizOptions = ""
-                readyToParse = False
 
                 lineInd = 0
                 # parse the current word
