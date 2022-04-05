@@ -1,5 +1,6 @@
 // This code only fires once per session and is just 
 // here to setup chapterNum and bookmarks in the sessionStorage.
+// This will reset session storage information.
 if (!sessionStorage.getItem("firstLoad")) {
     sessionStorage.setItem("firstLoad", "1");
     sessionStorage.setItem("chptNum", "");
@@ -58,11 +59,11 @@ let chptArr = [
 
 let chapterStartPageNumber = [1, 7, 24, 34, 46, 58, 69, 84, 93, 102, 114, 125, 142, 150, 159, 172, 181, 192, 209, 222, 233, 240];
 
-
+// Loop for each chapter and create a chapter-box component
 for (let i = 1; i <= 21; i++) {
     let chapterProgress = sessionStorage.getItem(`progress-ch-${i}`);
-    // toFixed converts the number into one with 2 decimal places
-    // but it outputs a string, so + is used to convert the string to a number
+    
+    // ~~ Converts a float into an int by flipping the bits twice
     let percentComplete = ~~ (100 * (chapterProgress  / (chapterStartPageNumber[parseInt(i, 10)] - chapterStartPageNumber[parseInt(i-1, 10)])));
     
     let newChapter = $(`
@@ -86,7 +87,7 @@ for (let i = 1; i <= 21; i++) {
 // Chapter Select Buttons
 const chapterButtons = $(".chapter-button");
 
-
+// Add click functionality for each chapter select button
 chapterButtons.each(function(i) {
     $(this).click(function() {
         let chapterNum = parseInt($(this).attr("id"), 10);
@@ -101,6 +102,7 @@ chapterButtons.each(function(i) {
 // Chapter Image Buttons
 const imgButtons = $(".img-button");
 
+// Add click functionality for each gallery button
 imgButtons.each(function(i) {
     $(this).click(function() {
         let chapterNum = parseInt($(this).attr("id"), 10);

@@ -3,6 +3,7 @@ $("document").ready(function() {
     const numOfImages = new Map(); // Hardcoding the number of images per chapter to a map
     const captions = new Map(); // Hardcoding the captions of every image
     
+    // The order for .set is .set("chapterNum", "Number of Images")
     numOfImages.set(1, 2);
     numOfImages.set(2, 3);
     numOfImages.set(3, 4);
@@ -24,7 +25,6 @@ $("document").ready(function() {
     numOfImages.set(19, 2);
     numOfImages.set(20, 2);
     numOfImages.set(21, 4);
-
 
     captions.set("img1_2", "“And she never came to see him any more”");
     captions.set("img2_2", "“He could see as well as ever”");
@@ -56,7 +56,8 @@ $("document").ready(function() {
     captions.set("img21_2", "“The Doctor sat in a chair in front”");
     captions.set("img21_3", "“He began running round the garden like a crazy thing”");
 
-    $("#gal-header").text(`Chapter ${num} Pictures`); // Sets the header to the chapter number
+    // Header
+    $("#gal-header").text(`Chapter ${num} Pictures`);
 
     let i = 1;
     while (i < numOfImages.get(parseInt(sessionStorage.getItem("chptNum"), 10)) + 1) {
@@ -74,6 +75,7 @@ $("document").ready(function() {
 
     // Modify the slidshow settings here
     $(".slideshow").slick({
+        // Adds next and previous transition arrows
         arrows: true,
         prevArrow: "<i class='fas fa-arrow-left prevArrowBtn' title='Previous Picture'></i>",
         nextArrow: "<i class='fas fa-arrow-right nextArrowBtn' title='Next Picture'></i>",

@@ -4,7 +4,6 @@
     left: 50%;
     transform: translate(-50%);
     color:rgb(73, 73, 73);
-    white-space: nowrap;
     font-size: 6vh;
 }
 
@@ -15,7 +14,6 @@
   bottom: 1%;
   transform: translate(-50%);
   color:rgb(73, 73, 73);
-  white-space: nowrap;
   font-size: 5vh;
 }
 
@@ -31,15 +29,6 @@
   font-size: 4vmin;
   line-height: 5vmin;
   margin: 0 2vh;
-}
-
-/* Images */
-img {
-  display: block;
-  margin: auto;
-  height: 20vh;
-  padding: 0.5em 0;
-  transform: translateY(7vh);
 }
 
 /* Next and Previous Page */
@@ -66,18 +55,9 @@ img {
   right: 15%;
 }
 
-.highlight {
-  user-select: none;
-  cursor: pointer;
-}
-
-#modal-words {
-  user-select: none;
-  cursor: pointer;
-}
-
-#modal-def {
-  user-select: none;
+/* Show finger pointer when hovering over certain elements */
+#modal-words, #modal-def, .highlight {
+  user-select: none; /* Prevents the user from highlighting the word by dragging */
   cursor: pointer;
 }
 
@@ -91,7 +71,6 @@ img {
 }
 
 /* Audio */
-
 audio {
   position: absolute;
   display: flex;
