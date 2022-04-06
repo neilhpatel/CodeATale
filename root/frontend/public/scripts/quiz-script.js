@@ -109,7 +109,7 @@ async function quizWords() {
     let quizzableWords = wordQuerySnapshot.docs;
     let answers = [];
     let starNumber = (starMap.has(word) ? starMap.get(word) : 0);
-    let date = dateObject.getDate() + "/" + dateObject.getMonth() + "/" + dateObject.getYear();
+    let date = 1 + dateObject.getMonth() + "/" + dateObject.getDate() + "/" + dateObject.getFullYear();
     await updateDoc(doc(wordBank, word), {
       lastDateAccessed: date
     });

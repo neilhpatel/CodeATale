@@ -28,7 +28,7 @@ let wordBankCollection = collection(db, "Users", username, "wordBank");
 
 async function populateReviewScreen() {
   let wordBankSnapshot = await getDocs(wordBankCollection);
-   let wordBank = wordBankSnapshot.docs;
+  let wordBank = wordBankSnapshot.docs;
    
   wordBank.forEach( (word) => {
     $(".words").append(`<li>${word.id}</li>`);
