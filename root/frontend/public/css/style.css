@@ -8,7 +8,13 @@ body {
     background-color: #AFEEEE;
 }
 
-/* Scrollbar */
+/* Scrollbar styles for Firefox */
+* {
+    scrollbar-color: rgb(224, 38, 69) white;
+    scrollbar-width: auto;
+}
+
+/* Scrollbar styles for Chrome, Edge, and Safari */
 body::-webkit-scrollbar {
     width: 20px;
 }
@@ -24,7 +30,6 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover {
     background: rgb(194, 0, 0);
 }
-
 
 /* Navigation Bar */
 #navbar {
@@ -92,9 +97,12 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 #bookmark-modal-container {
+    display: grid;
+    padding: 0.5rem;
+    grid-template-columns: 5fr 1fr;
+    grid-gap: 0.5rem;
     max-width: 9vw;
     height: 30vh;
-    padding: 1vh 0;
     border: 3px solid black;
     background-color: #F5E5BA;
     text-decoration: underline;
@@ -104,13 +112,26 @@ body::-webkit-scrollbar-thumb:hover {
     border-radius: 3px;
 }
 
+#bookmark-modal-container * {
+    place-self: center center;
+}
+
+#bookmark-modal-container p {
+    grid-column: span 2;
+}
+
 #bookmark-modal-container button {
     font-size: 0.95vw;
 }
 
+#bookmark-modal-container {
+    scrollbar-color: grey white;
+    scrollbar-width: thin;
+}
+
 /* Bookmark's Scrollbar's Width */
 #bookmark-modal-container::-webkit-scrollbar, .main-text::-webkit-scrollbar {
-    width: 4px;
+    width: 8px;
 }
 
 /* Bookmark's Scrollbar's Track */
@@ -130,10 +151,13 @@ body::-webkit-scrollbar-thumb:hover {
 
 /* Add a new bookmark and current bookmark */
 /* Note: newBookmark refers to any bookmark that has been added */
+#add-bookmark {
+    grid-column: span 2;
+}
+
 #add-bookmark, .newBookmark {
+    padding: 0.5rem;
     border: none;
-    padding: 8px;
-    margin: 0.5em;
     border-radius: 10px;
     background-color: rgb(168, 255, 29);
     box-shadow: -4px 4px 0 black;
@@ -169,15 +193,11 @@ body::-webkit-scrollbar-thumb:hover {
     transform: translate(-4px, 4px);
 }
 
-/* Delete bookmark */
 .bookmarkDel {
-    position: relative;
-    top: 2%;
-    padding: 0px 2px;
+    padding: 0.75rem 0.1rem;
     border: none;
     background-color:hsl(27, 100%, 50%);
     border-radius: 3px;
-    height: 4vh;
     box-shadow: -3px 3px 0 black;
     transition: ease-in-out 150ms;
 }
