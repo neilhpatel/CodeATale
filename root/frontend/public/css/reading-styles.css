@@ -56,7 +56,9 @@
 }
 
 /* Show finger pointer when hovering over certain elements */
-#modal-words, #modal-def, .highlight {
+#modal-words,
+#modal-def,
+.highlight {
   user-select: none; /* Prevents the user from highlighting the word by dragging */
   cursor: pointer;
 }

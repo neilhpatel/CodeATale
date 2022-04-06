@@ -64,8 +64,8 @@
   transform: rotate(-45deg);
 }
 
-/* Quiz Items */
-/* Only effects the definition modal */
+/* Quiz Items 
+   Only effects the definition modal */
 .def-quiz-container {
   position: absolute;
   top: 0;
