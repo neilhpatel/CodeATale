@@ -160,6 +160,10 @@ function defModal(word, wordSnap, modWord) {
   //let modWord = word.toLowerCase().replace(/[^a-z0-9’-]+/gi, ""); // Keeps all alphanumeric characters as well as the special apostrophe // Keeping this just in case we need to use the replace feature again.
   let derivativeWords = [];
   let definitionAudio = document.createElement("audio");
+  let firstLetter = modWord.charAt(0).toUpperCase();
+  let url = "https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/" + firstLetter + "/" + modWord + "%2B.mp3";
+  definitionAudio.src = url;
+  definitionAudio.play();
   wordSnap.data().derivative_words.forEach((derivative) => {
     // Need to remove the semicolon if it's the last derivative word
     derivativeWords.push(`<span class="highlight-definition">${derivative}</span>`);
@@ -174,9 +178,6 @@ function defModal(word, wordSnap, modWord) {
   });
 
   $("#modal-def").off("click").click(function () {
-    let firstLetter = word.charAt(0).toUpperCase();
-    let url = "https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/" + firstLetter + "/" + word + "%2B.mp3";
-    definitionAudio.src = url;
     definitionAudio.play();
   });
 
