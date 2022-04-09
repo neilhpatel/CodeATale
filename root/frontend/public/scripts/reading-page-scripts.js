@@ -338,7 +338,7 @@ function updatePageText(chapter, page, modNums) {
                           });
                         }
                         clicks = 0;
-                      } else if (clicks === 2) {
+                      } else {
                         defModal(word, wordSnap, modWord);
                         let wordRef = doc(wordBank, modWord);
                         let wordDoc = await getDoc(wordRef);
