@@ -168,10 +168,14 @@ function defModal(word, wordSnap, modWord) {
   definitionAudio.src = url;
   definitionAudio.play();
   $("#modal-derivative").empty();
+  let length = 0;
   wordSnap.data().derivative_words.forEach((derivative) => {
     // Need to remove the semicolon if it's the last derivative word
+    length++;
     $("#modal-derivative").append(`<span class="highlight-definition">${derivative}</span>`);
-    $("#modal-derivative").append("; ");
+    if (length !== wordSnap.data().derivative_words.length) {
+      $("#modal-derivative").append("; ");
+    }
   });
   $("#modal-words").text(wordSnap.data().parent_word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
   $("#modal-def").empty();
