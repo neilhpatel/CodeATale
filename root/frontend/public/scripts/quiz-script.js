@@ -23,11 +23,6 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
 const dateObject = new Date();
-let starMap = new Map(JSON.parse(sessionStorage.getItem("starMap")));
-if (starMap === null) { 
-  starMap = new Map();
-  sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
-}
 const username = "mtl10";
 
 let wordBank = collection(db, "Users", username, "wordBank");
@@ -104,11 +99,12 @@ async function quizWords() {
     let word = queue[parseInt(quizIndex, 10)];
     let blockedWords = new Set();
     let wordSnap = await getDoc(doc(db, word.charAt(0), word));
+    let wordBankSnap = await getDoc(doc(wordBank, word));
     let wordQuery = query(collection(db, word.charAt(0)), where("definition", "!=", ""));
     let wordQuerySnapshot = await getDocs(wordQuery);
     let quizzableWords = wordQuerySnapshot.docs;
     let answers = [];
-    let starNumber = (starMap.has(word) ? starMap.get(word) : 0);
+    let starNumber = wordBankSnap.data().starNumber;
     let date = 1 + dateObject.getMonth() + "/" + dateObject.getDate() + "/" + dateObject.getFullYear();
     await updateDoc(doc(wordBank, word), {
       lastDateAccessed: date
@@ -141,30 +137,33 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
         await updateDoc(doc(wordBank, word), {
           totalCorrect: docSnap.data().totalCorrect + 1
         });
-
+        if (docSnap.data().starNumber + 1 !== 5) {
+          await updateDoc(doc(wordBank, word), {
+            starNumber: docSnap.data().starNumber + 1
+          });
+        } else {
+          await updateDoc(doc(wordBank, word), {
+            starNumber: 0
+          });
+        }
         if (docSnap.data().highestCorrect !== 5) {
           await updateDoc(doc(wordBank, word), {
             highestCorrect: docSnap.data().highestCorrect + 1
           });
         }
+        let updatedDocSnap = await getDoc(doc(wordBank, word));
         setTimeout(() => {
           $(this).css("background-color", "white");
-          let starNumber = (starMap.has(word) ? starMap.get(word) : 0);
-          starMap.set(word, starNumber + 1);
-          addStars(starNumber + 1);
-          
-          sessionStorage.setItem("queue", JSON.stringify(queue));
-          if (starNumber + 1 === 5) {
+          let starNumber = updatedDocSnap.data().starNumber;
+          addStars(starNumber);
+          if (starNumber === 0) {
             //console.log("Congratulations, you've mastered the word!");
             if (quizIndex === queue.length - 1) {
               quizIndex--;
             }
             queue.splice(queue.indexOf(word), 1);
-            starMap.set(word, 0);
-            sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
             quizWords();
           } else {
-            sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
             repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords);
           }
         }, 1000);
@@ -175,12 +174,11 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
         new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav").play();
         let docSnap = await getDoc(doc(wordBank, word));
         await updateDoc(doc(wordBank, word), {
-          totalIncorrect: docSnap.data().totalIncorrect + 1
+          totalIncorrect: docSnap.data().totalIncorrect + 1,
+          starNumber: 0
         });
         setTimeout(() => {
           $(this).css("background-color", "white");
-          starMap.set(word, 0);
-          sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
           removeStars();
         }, 1000);
       });

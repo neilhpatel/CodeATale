@@ -319,31 +319,42 @@ function updatePageText(chapter, page, modNums) {
             wordSnap = await getDoc(wordDoc);
           }
           if (wordSnap.data().definition !== "") {
-            
-            $(this).off("dblclick").dblclick(async function () {
-              defModal(word, wordSnap, modWord);
-              let wordRef = doc(wordBank, modWord);
-              let wordDoc = await getDoc(wordRef);
-              if (!wordDoc.exists()) {
-                await setDoc(doc(wordBank, modWord), {
-                  definitionQueued: false, highestCorrect: 0, totalCorrect: 0,
-                  totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken"
-                });
-              } else {
-                await updateDoc(doc(wordBank, modWord), {
-                  definitionQueued: true
-                });
-              }
-            });
-            $(this).off("click").click(async function () {
-              playWordAudio(modWord);
-              let wordRef = doc(wordBank, modWord);
-              let wordDoc = await getDoc(wordRef);
-              if (!wordDoc.exists()) {
-                await setDoc(doc(wordBank, modWord), {
-                  definitionQueued: false, highestCorrect: 0, totalCorrect: 0,
-                  totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken"
-                });
+            $(this).off().click(function(event) {
+              if (event.detail === 1) {
+                  let clicks = 0;
+                  clicks++;
+                  $(this).one("click", function() {
+                      clicks++;
+                  });
+                  setTimeout(async function() {
+                      if (clicks === 1) {
+                        playWordAudio(modWord);
+                        let wordRef = doc(wordBank, modWord);
+                        let wordDoc = await getDoc(wordRef);
+                        if (!wordDoc.exists()) {
+                          await setDoc(doc(wordBank, modWord), {
+                            definitionQueued: false, highestCorrect: 0, totalCorrect: 0,
+                            totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken", starNumber: 0
+                          });
+                        }
+                        clicks = 0;
+                      } else if (clicks === 2) {
+                        defModal(word, wordSnap, modWord);
+                        let wordRef = doc(wordBank, modWord);
+                        let wordDoc = await getDoc(wordRef);
+                        if (!wordDoc.exists()) {
+                          await setDoc(doc(wordBank, modWord), {
+                            definitionQueued: false, highestCorrect: 0, totalCorrect: 0,
+                            totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken", starNumber: 0
+                          });
+                        } else {
+                          await updateDoc(doc(wordBank, modWord), {
+                            definitionQueued: true
+                          });
+                        }
+                        clicks = 0;
+                      }
+                  }, 400);
               }
             });
           } else {
