@@ -162,20 +162,21 @@ function playWordAudio(word) {
 let modal = $("#modal").plainModal({ duration: 150 });
 function defModal(word, wordSnap, modWord) {
   //let modWord = word.toLowerCase().replace(/[^a-z0-9’-]+/gi, ""); // Keeps all alphanumeric characters as well as the special apostrophe // Keeping this just in case we need to use the replace feature again.
-  let derivativeWords = [];
   let definitionAudio = document.createElement("audio");
   let firstLetter = modWord.charAt(0).toUpperCase();
   let url = "https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/" + firstLetter + "/" + modWord + "%2B.mp3";
   definitionAudio.src = url;
   definitionAudio.play();
+  $("#modal-derivative").empty();
   wordSnap.data().derivative_words.forEach((derivative) => {
     // Need to remove the semicolon if it's the last derivative word
-    derivativeWords.push(`<span class="highlight-definition">${derivative}</span>`);
-    derivativeWords.push("; ");
+    $("#modal-derivative").append(`<span class="highlight-definition">${derivative}</span>`);
+    $("#modal-derivative").append("; ");
   });
   $("#modal-words").text(wordSnap.data().parent_word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
-  $("#modal-def").html(`<span class="highlight-definition">${wordSnap.data().definition}</span>`);
-  $("#modal-derivative").html(derivativeWords);
+  $("#modal-def").empty();
+  $("#modal-def").append(`<span class="highlight-definition">${wordSnap.data().definition}</span>`);
+  
 
   $("#modal-words").off("click").click(function () {
     playWordAudio(word);
@@ -240,6 +241,7 @@ function updatePageText(chapter, page, modNums) {
   fetch("../../assets/json_files/parsedPages.json")
     .then((Response) => Response.json())
     .then((data) => {
+      $(".main-text").empty();
       // Either increases or decreases the chapter/page numbers depending
       // on which button was pressed.
       modNums(chapter, page);
@@ -253,16 +255,15 @@ function updatePageText(chapter, page, modNums) {
       page = sessionStorage.getItem("pageNum");
 
       // Sets that chapter and page number
-      $("#reading-heading").html(`Chapter ${chapter}`);
-      $(".page-number").html(`Page ${page}`);
+      $("#reading-heading").text(`Chapter ${chapter}`);
+      $(".page-number").text(`Page ${page}`);
 
       let str = data[parseInt(chapter, 10)][parseInt(page, 10)];
-      let arr = [];
       // Parses through every word to make sure only words in database get highlighted (and without grammar syntax)
       str.forEach((element) => {
         let word = [];
         let normalWord = true;
-        arr.push(" ");
+        $(".main-text").append(" ");
         for (let i = 0; i < element.length; i++) {
           if (specialSet.has(element.charAt(i))) {
             // Can"t tell between contraction and quote so this if statement checks to see which one it is
@@ -275,15 +276,14 @@ function updatePageText(chapter, page, modNums) {
             }
             // Pushes word onto the arr if the word array is filled with something
             if (word.length !== 0) {
-              arr.push(`<span class="isWord">${word.join("")}</span>`);
+              $(".main-text").append(`<span class="isWord">${word.join("")}</span>`);
               word = [];
             }
-
             // This just checks to see if a newline character exists
             if (element.charAt(i) === "\n") {
-              arr.push("<br>");
+              $(".main-text").append("<br>");
             } else {
-              arr.push(element.charAt(i));
+              $(".main-text").append(element.charAt(i));
             }
             normalWord = false;
           } else {
@@ -291,17 +291,15 @@ function updatePageText(chapter, page, modNums) {
             word.push(element.charAt(i));
             // If it's at the end of the word (element), makes the word isWord only if the word is not a normal word
             if (i === element.length - 1 && normalWord === false) {
-              arr.push(`<span class="isWord">${word.join("")}</span>`);
+              $(".main-text").append(`<span class="isWord">${word.join("")}</span>`);
             }
           }
         }
         // If normalWord it pushes onto the arr normally with isWord class
         if (normalWord) {
-          arr.push(`<span class="isWord">${word.join("")}</span>`);
+          $(".main-text").append(`<span class="isWord">${word.join("")}</span>`);
         }
       });
-      
-      $(".main-text").html(arr);
 
       // Removes highlighting from word if it's not in the database and also adds click-on functionality for those words that are in the database.
       $(".isWord").each(async function () {

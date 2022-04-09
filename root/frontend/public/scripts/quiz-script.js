@@ -31,7 +31,8 @@ let queue = JSON.parse(sessionStorage.getItem("queue"));
 
 let modal = $("#modal").plainModal({ duration: 150 }); // The number refers to the time to fade in
 async function defModal() {
-  $("#modal-text").html("<p>Each time you answer the question correctly for a given word you gain a <span class='gold'>gold star</span>. If you get a question wrong all <span class='gold'>gold stars</span> become <span class='silver'>silver</span>. If you correctly answer the quiz for <b>this word</b> 5 times in a row you get the maximum number of stars (5).</p>");
+  $("#modal-text").empty();
+  $("#modal-text").append("<p>Each time you answer the question correctly for a given word you gain a <span class='gold'>gold star</span>. If you get a question wrong all <span class='gold'>gold stars</span> become <span class='silver'>silver</span>. If you correctly answer the quiz for <b>this word</b> 5 times in a row you get the maximum number of stars (5).</p>");
   modal = $("#modal").plainModal("open");
 }
 
@@ -162,6 +163,7 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
               quizIndex--;
             }
             queue.splice(queue.indexOf(word), 1);
+            sessionStorage.setItem("queue", JSON.stringify(queue));
             quizWords();
           } else {
             repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords);
@@ -190,7 +192,7 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
 function emptyScreen() {
   $("#quiz-def").text("No words in queue!");
   $(".quiz-option").each(function() {
-    $(this).off().html("");
+    $(this).off().empty();
   });
   removeStars();
 }
