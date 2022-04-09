@@ -130,7 +130,7 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
   $(".quiz-option").each(function() {
     $(this).html(answers[parseInt(i, 10)].id);
     if (answers[parseInt(i, 10)].id === word) {
-      $(this).off("click").click(async function() {
+      $(this).off().one("click", async function() {
         $(this).css("background-color", "lime");
         new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav").play();
         let docSnap = await getDoc(doc(wordBank, word));
@@ -169,7 +169,7 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
         }, 1000);
       });
     } else {
-      $(this).off("click").click(async function() {
+      $(this).off().one("click", async function() {
         $(this).css("background-color", "red");
         new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav").play();
         let docSnap = await getDoc(doc(wordBank, word));
