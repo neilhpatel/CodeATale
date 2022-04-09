@@ -1,8 +1,11 @@
+// =============================
 // Navigation bar custom element
+// =============================
 class Navbar extends HTMLElement {
     constructor() {
         super();
 
+        // Create the HTML for the element
         this.innerHTML = `
         <nav id="navbar">
             <i class="fas fa-home" id="home-i" title="Home"></i>
@@ -13,6 +16,8 @@ class Navbar extends HTMLElement {
             <i class="fas fa-sign-out-alt" id="exit-i" title="Exit"></i>
         </nav>
         `;
+
+        // Add click effects
         $("nav #home-i").click(function() {
             setTimeout(() => {window.location.href = "index.html";}, 250); 
         });
@@ -29,10 +34,14 @@ class Navbar extends HTMLElement {
 }
 customElements.define("left-navbar", Navbar);
 
+// =============================
+// Stars custom element
+// =============================
 class Stars extends HTMLElement {
     constructor() {
         super();
 
+        // Create the HTML for the element
         this.innerHTML = `
         <div id="stars-container">
             <div id="stars">
@@ -53,11 +62,14 @@ class Stars extends HTMLElement {
 }
 customElements.define("stars-bar", Stars);
 
+// =============================
 // Bookmark custom element
+// =============================
 class Bookmark extends HTMLElement {
     constructor() {
         super();
 
+        // Create the HTML for the element
         this.innerHTML = `
             <section class="bookmark">
                 <button type="button" class="fas fa-bookmark" id="bookmark-button" title="Bookmark"></button>
@@ -88,8 +100,6 @@ class Bookmark extends HTMLElement {
             newBookMarkDel.attr("type", "button");
             newBookMarkDel.attr("class", "bookmarkDel");
 
-            
-
             // Removes the bookmark from the list of bookmarks when the X is clicked
             // (this list pervents the user from making multiple bookmarks for the same page)
             newBookMarkDel.click(() => {
@@ -110,7 +120,6 @@ class Bookmark extends HTMLElement {
             bookmarkModal.append(newBookMark);
             bookmarkModal.append(newBookMarkDel);
             
-
             const pageNumText = $(document.createElement("span"));
             pageNumText.html("Page " + pageNum);
             
@@ -172,6 +181,7 @@ class Bookmark extends HTMLElement {
             addBookmarkHelper(alreadyAdded, onReadingPage);
         });
 
+        // Popup modal to display the bookmark
         let modal = $("#bookmark-modal-container").plainModal({ duration: 150, offset: () => {
                 // Fit the position to a button.
                 var btnOffset = $("#bookmark-button").offset(), win = $(window);

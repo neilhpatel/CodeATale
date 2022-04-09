@@ -8,7 +8,13 @@ body {
     background-color: #AFEEEE;
 }
 
-/* Scrollbar */
+/* Scrollbar styles for Firefox */
+* {
+    scrollbar-color: rgb(224, 38, 69) white;
+    scrollbar-width: auto;
+}
+
+/* Scrollbar styles for Chrome, Edge, and Safari */
 body::-webkit-scrollbar {
     width: 20px;
 }
@@ -24,7 +30,6 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover {
     background: rgb(194, 0, 0);
 }
-
 
 /* Navigation Bar */
 #navbar {
@@ -42,6 +47,7 @@ body::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(0deg, rgba(40,255,0,1) 0%, rgba(102,224,255,1) 25%, rgba(220,41,226,1) 50%, rgba(233,82,98,1) 75%, rgba(224,255,0,1) 100%);
 }
 
+/* Navigation bar icons */
 #navbar i {
     margin: 0.5em 0.25em;
 
@@ -54,6 +60,7 @@ body::-webkit-scrollbar-thumb:hover {
     text-shadow: 0 0 5px rgb(255, 255, 255);
 }
 
+/* Horizontal line in the bookmark (below the home button) */
 .line {
     border: 1px solid rgb(66, 66, 66);
     background-color: rgb(66, 66, 66);
@@ -90,9 +97,12 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 #bookmark-modal-container {
+    display: grid;
+    padding: 0.5rem;
+    grid-template-columns: 5fr 1fr;
+    grid-gap: 0.5rem;
     max-width: 9vw;
     height: 30vh;
-    padding: 1vh 0;
     border: 3px solid black;
     background-color: #F5E5BA;
     text-decoration: underline;
@@ -102,37 +112,56 @@ body::-webkit-scrollbar-thumb:hover {
     border-radius: 3px;
 }
 
+#bookmark-modal-container * {
+    place-self: center center;
+}
+
+#bookmark-modal-container p {
+    grid-column: span 2;
+}
+
 #bookmark-modal-container button {
     font-size: 0.95vw;
 }
 
-/* width */
-#bookmark-modal-container::-webkit-scrollbar, .main-text::-webkit-scrollbar {
-    width: 4px;
+#bookmark-modal-container {
+    scrollbar-color: grey white;
+    scrollbar-width: thin;
 }
 
-/* Track */
+/* Bookmark's Scrollbar's Width */
+#bookmark-modal-container::-webkit-scrollbar, .main-text::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Bookmark's Scrollbar's Track */
 #bookmark-modal-container::-webkit-scrollbar-track, .main-text::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
-/* Handle */
+/* Bookmark's Scrollbar's Handle */
 #bookmark-modal-container::-webkit-scrollbar-thumb, .main-text::-webkit-scrollbar-thumb {
     background: #888;
 }
 
-/* Handle on hover */
+/* Bookmark's Scrollbar's Handle on hover */
 #bookmark-modal-container::-webkit-scrollbar-thumb:hover, .main-text::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
+/* Add a new bookmark and current bookmark */
+/* Note: newBookmark refers to any bookmark that has been added */
+#add-bookmark {
+    grid-column: span 2;
+}
+
 #add-bookmark, .newBookmark {
+    padding: 0.5rem;
     border: none;
-    padding: 8px;
-    margin: 0.5em;
     border-radius: 10px;
     background-color: rgb(168, 255, 29);
     box-shadow: -4px 4px 0 black;
+    transition: ease-in-out 150ms;
 }
 
 #add-bookmark:hover {
@@ -165,14 +194,12 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .bookmarkDel {
-    position: relative;
-    top: 2%;
-    padding: 0px 2px;
+    padding: 0.75rem 0.1rem;
     border: none;
     background-color:hsl(27, 100%, 50%);
     border-radius: 3px;
-    height: 4vh;
     box-shadow: -3px 3px 0 black;
+    transition: ease-in-out 150ms;
 }
 
 .bookmarkDel:active {
