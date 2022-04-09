@@ -348,7 +348,7 @@ function updatePageText(chapter, page, modNums) {
                         let wordDoc = await getDoc(wordRef);
                         if (!wordDoc.exists()) {
                           await setDoc(doc(wordBank, modWord), {
-                            definitionQueued: false, highestCorrect: 0, totalCorrect: 0,
+                            definitionQueued: true, highestCorrect: 0, totalCorrect: 0,
                             totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken", starNumber: 0
                           });
                         } else {
