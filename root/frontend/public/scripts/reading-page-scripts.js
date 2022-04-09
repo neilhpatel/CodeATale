@@ -351,7 +351,7 @@ function updatePageText(chapter, page, modNums) {
                             definitionQueued: true, highestCorrect: 0, totalCorrect: 0,
                             totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken", starNumber: 0
                           });
-                        } else {
+                        } else if (!wordDoc.data().definitionQueued) {
                           await updateDoc(doc(wordBank, modWord), {
                             definitionQueued: true
                           });
