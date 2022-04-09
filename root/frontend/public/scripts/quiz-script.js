@@ -86,9 +86,7 @@ function addStars(starNumber) {
 }
 
 function removeStars() {
-  $("img").each(function () {
-    $(this).attr("src", "../../assets/Stars/Silver-Star-Blank.png");
-  });
+  $("img").attr("src", "../../assets/Stars/Silver-Star-Blank.png");
 }
 
 async function quizWords() {
@@ -132,6 +130,7 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
     $(this).html(answers[parseInt(i, 10)].id);
     if (answers[parseInt(i, 10)].id === word) {
       $(this).off().one("click", async function() {
+        $("button").off();
         $(this).css("background-color", "lime");
         new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav").play();
         let docSnap = await getDoc(doc(wordBank, word));
@@ -172,6 +171,7 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
       });
     } else {
       $(this).off().one("click", async function() {
+        $("button").off();
         $(this).css("background-color", "red");
         new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav").play();
         let docSnap = await getDoc(doc(wordBank, word));
@@ -182,6 +182,7 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
         setTimeout(() => {
           $(this).css("background-color", "white");
           removeStars();
+          repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords);
         }, 1000);
       });
     }
@@ -191,9 +192,7 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
 
 function emptyScreen() {
   $("#quiz-def").text("No words in queue!");
-  $(".quiz-option").each(function() {
-    $(this).off().empty();
-  });
+  $(".quiz-option").off().empty();
   removeStars();
 }
 
