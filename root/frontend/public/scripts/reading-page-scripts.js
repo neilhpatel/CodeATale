@@ -275,7 +275,7 @@ function updatePageText(chapter, page, modNums) {
             }
             // Pushes word onto the arr if the word array is filled with something
             if (word.length !== 0) {
-              arr.push(`<span class="highlight">${word.join("")}</span>`);
+              arr.push(`<span class="isWord">${word.join("")}</span>`);
               word = [];
             }
 
@@ -289,29 +289,30 @@ function updatePageText(chapter, page, modNums) {
           } else {
             // If the letter is not a special character, it will push the letter onto the word array
             word.push(element.charAt(i));
-            // If it"s at the end of the word (element), makes the word highlightable only if the word is not a normal word
+            // If it's at the end of the word (element), makes the word isWord only if the word is not a normal word
             if (i === element.length - 1 && normalWord === false) {
-              arr.push(`<span class="highlight">${word.join("")}</span>`);
+              arr.push(`<span class="isWord">${word.join("")}</span>`);
             }
           }
         }
-        // If normalWord it pushes onto the arr normally with highlights
+        // If normalWord it pushes onto the arr normally with isWord class
         if (normalWord) {
-          arr.push(`<span class="highlight">${word.join("")}</span>`);
+          arr.push(`<span class="isWord">${word.join("")}</span>`);
         }
       });
       
       $(".main-text").html(arr);
 
       // Removes highlighting from word if it's not in the database and also adds click-on functionality for those words that are in the database.
-      $(".highlight").each(async function () {
+      $(".isWord").each(async function () {
         let word = $(this).text();
         let modWord = word.toLowerCase();
         let wordDoc = doc(db, modWord.charAt(0), modWord);
         let wordSnap = await getDoc(wordDoc);
         
         if (!wordSnap.exists()) {
-          $(this).removeClass("highlight");
+          $(this).removeClass("isWord");
+          $(this).addClass("highlight")
         } else {
           if (wordSnap.data().parent_word !== modWord) {
             modWord = wordSnap.data().parent_word;
