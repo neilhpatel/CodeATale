@@ -41,9 +41,9 @@ def splitChapterAudioToPages():
         if chapterAudioFile in files:
             chapterAudio = AudioSegment.from_mp3(chapterAudioDirectory + "/" + chapterAudioFile)
             pageTimeStamps = timeStamps[chapterNumber]
-            for i in range(len(pageTimeStamps)):
-                start = pageTimeStamps[i][0] * 1000 # Works in milliseconds
-                end = pageTimeStamps[i][1] * 1000
+            for i, page in enumerate(pageTimeStamps):
+                start = page[0] * 1000 # Works in milliseconds
+                end = page[1] * 1000
                 newAudio = chapterAudio[start:end]
                 filePath = chapterAudioDirectory + "/C" + str(chapterNumber) + "/Chapter"+ str(chapterNumber) + "_Page" + str(pageNumber) + ".mp3"
 
