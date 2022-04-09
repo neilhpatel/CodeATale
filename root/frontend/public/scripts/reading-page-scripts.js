@@ -312,7 +312,6 @@ function updatePageText(chapter, page, modNums) {
         
         if (!wordSnap.exists()) {
           $(this).removeClass("isWord");
-          $(this).addClass("highlight")
         } else {
           if (wordSnap.data().parent_word !== modWord) {
             modWord = wordSnap.data().parent_word;
@@ -320,6 +319,8 @@ function updatePageText(chapter, page, modNums) {
             wordSnap = await getDoc(wordDoc);
           }
           if (wordSnap.data().definition !== "") {
+            $(this).removeClass("isWord");
+            $(this).addClass("highlight");
             $(this).off().click(function(event) {
               if (event.detail === 1) {
                   let clicks = 0;
@@ -359,7 +360,7 @@ function updatePageText(chapter, page, modNums) {
               }
             });
           } else {
-            $(this).removeClass("highlight");
+            $(this).removeClass("isWord");
           }
         }
       });
