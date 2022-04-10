@@ -152,7 +152,7 @@ function checkArrows() {
 //it simply doesn't play audio for the word. In the future, determine if a word exists in the database before playing audio.
 function playWordAudio(word) {
   let firstLetter = word.charAt(0);
-  let url = "https://words-and-definitons.s3.amazonaws.com/words/" + firstLetter + "/" + word + ".mp3";
+  let url = "https://brainy-literacy-assets.s3.amazonaws.com/audio/words/" + firstLetter + "/" + word + ".mp3";
   let audioObj = document.createElement("audio");
   audioObj.src = url;
   audioObj.play();
@@ -178,8 +178,8 @@ function defModal(word, wordSnap, modWord) {
   });
 
   $("#modal-def").off("click").click(function () {
-    let firstLetter = word.charAt(0);
-    let url = "https://words-and-definitons.s3.amazonaws.com/definitions/" + firstLetter + "/" + word + ".mp3";
+    let firstLetter = word.charAt(0).toUpperCase();
+    let url = "https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/" + firstLetter + "/" + word + "%2B.mp3";
     definitionAudio.src = url;
     definitionAudio.play();
   });
