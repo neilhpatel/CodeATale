@@ -57,7 +57,7 @@ html {
   display: block;
   z-index: -10;
   transform: translate(48%, -100%) scale(20%, 96%);
-  background-color: #FC0B03;
+  background-color: #fc0b03;
   transition: background-color 0.5s, transform 0.5s;
 }
 
@@ -132,9 +132,9 @@ html {
 
 /* At 100% completion change to "gold" */
 .chapter-box .percent100 {
-  background-image: linear-gradient(to right, red,orange,yellow,rgb(51, 255, 51),rgb(0, 204, 255),rgb(255, 4, 188)); 
+  background-image: linear-gradient(to right,  red, orange, yellow, rgb(51, 255, 51), rgb(0, 204, 255), rgb(255, 4, 188));
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;  
+  -webkit-text-fill-color: transparent;
   animation: move 1000s linear infinite;
 }
 

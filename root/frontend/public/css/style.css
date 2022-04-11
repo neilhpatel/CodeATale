@@ -1,203 +1,203 @@
 /* General */
 * {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-    background-color: #AFEEEE;
+  background-color: #AFEEEE;
 }
 
 /* Scrollbar styles for Firefox */
 * {
-    scrollbar-color: rgb(224, 38, 69) white;
-    scrollbar-width: auto;
+  scrollbar-color: rgb(224, 38, 69) white;
+  scrollbar-width: auto;
 }
 
 /* Scrollbar styles for Chrome, Edge, and Safari */
 body::-webkit-scrollbar {
-    width: 20px;
+  width: 20px;
 }
 
 body::-webkit-scrollbar-track {
-    background: #f1f1f1;
+  background: #f1f1f1;
 }
 
 body::-webkit-scrollbar-thumb {
-    background: rgb(224, 38, 69);
+  background: rgb(224, 38, 69);
 }
 
 body::-webkit-scrollbar-thumb:hover {
-    background: rgb(194, 0, 0);
+  background: rgb(194, 0, 0);
 }
 
 /* Navigation Bar */
 #navbar {
-    position: fixed;
-    display: flex;
-    min-width: 10vw;
-    min-height: 90vh;
-    flex-direction: column;
-    font-size: 5vw;
-    border-right: 3px solid black;
-    border-bottom: 3px solid black;
-    text-align: center;
+  position: fixed;
+  display: flex;
+  min-width: 10vw;
+  min-height: 90vh;
+  flex-direction: column;
+  font-size: 5vw;
+  border-right: 3px solid black;
+  border-bottom: 3px solid black;
+  text-align: center;
 
-    background: rgb(40,255,0);
-    background: linear-gradient(0deg, rgba(40,255,0,1) 0%, rgba(102,224,255,1) 25%, rgba(220,41,226,1) 50%, rgba(233,82,98,1) 75%, rgba(224,255,0,1) 100%);
+  background: rgb(40,255,0);
+  background: linear-gradient(0deg, rgba(40,255,0,1) 0%, rgba(102,224,255,1) 25%, rgba(220,41,226,1) 50%, rgba(233,82,98,1) 75%, rgba(224,255,0,1) 100%);
 }
 
 /* Navigation bar icons */
 #navbar i {
-    margin: 0.5em 0.25em;
+  margin: 0.5em 0.25em;
 
-    cursor: pointer;
-    transition: transform 0.5s;
+  cursor: pointer;
+  transition: transform 0.5s;
 }
 
 #navbar i:hover {
-    transform: scale(125%);
-    text-shadow: 0 0 5px rgb(255, 255, 255);
+  transform: scale(125%);
+  text-shadow: 0 0 5px rgb(255, 255, 255);
 }
 
 /* Horizontal line in the bookmark (below the home button) */
 .line {
-    border: 1px solid rgb(66, 66, 66);
-    background-color: rgb(66, 66, 66);
-    max-width: 1em;
-    margin: 0 25%;
+  border: 1px solid rgb(66, 66, 66);
+  background-color: rgb(66, 66, 66);
+  max-width: 1em;
+  margin: 0 25%;
 }
 
 /* Bookmark */
 .bookmark {
-    position: fixed;
-    right: 4.5%;
-    top: 10%;
+  position: fixed;
+  right: 4.5%;
+  top: 10%;
 }
 
 .fa-bookmark {
-    font-size: 5vw;
-    background-color: rgba(0, 0, 0, 0.0);
-    border: none;
-    cursor: pointer;
-    text-shadow: 5px 5px 5px red;
-    transition: transform 0.1s;
+  font-size: 5vw;
+  background-color: rgba(0, 0, 0, 0.0);
+  border: none;
+  cursor: pointer;
+  text-shadow: 5px 5px 5px red;
+  transition: transform 0.1s;
 }
 
 .fa-bookmark:active {
-    text-shadow: none;
-    transform: translate(5px, 5px);
-    color: rgb(66, 66, 66);
+  text-shadow: none;
+  transform: translate(5px, 5px);
+  color: rgb(66, 66, 66);
 }
 
 #bookmark-modal-container {
-    position: fixed;
-    padding: 0.5rem;
-    max-width: 9vw;
-    height: 30vh;
-    overflow: auto;
-    border: 3px solid black;
-    background-color: #F5E5BA;
-    text-align: center;
-    transition: 300ms ease-in-out;
-    scrollbar-color: grey white;
-    scrollbar-width: thin;
-    left: 90.5% !important;
-    top: 22% !important;
+  position: fixed;
+  padding: 0.5rem;
+  max-width: 9vw;
+  height: 30vh;
+  overflow: auto;
+  border: 3px solid black;
+  background-color: #F5E5BA;
+  text-align: center;
+  transition: 300ms ease-in-out;
+  scrollbar-color: grey white;
+  scrollbar-width: thin;
+  left: 90.5% !important;
+  top: 22% !important;
 }
 
 #bookmark-modal-container * {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 .bookmark-header {
-    margin: 0.25rem;
+  margin: 0.25rem;
 }
 
 .bookmark-list {
-    display: grid;
-    margin: 0 2.25rem;
-    max-width: 6.5vw;
-    margin: 1rem auto;
-    grid-gap: 0.75rem 0.25rem;
-    grid-template-columns: 8fr 1fr;
+  display: grid;
+  margin: 0 2.25rem;
+  max-width: 6.5vw;
+  margin: 1rem auto;
+  grid-gap: 0.75rem 0.25rem;
+  grid-template-columns: 8fr 1fr;
 }
 
 /* Bookmark's Scrollbar's Width */
 #bookmark-modal-container::-webkit-scrollbar, .main-text::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 /* Bookmark's Scrollbar's Track */
 #bookmark-modal-container::-webkit-scrollbar-track, .main-text::-webkit-scrollbar-track {
-    background: #f1f1f1;
+  background: #f1f1f1;
 }
 
 /* Bookmark's Scrollbar's Handle */
 #bookmark-modal-container::-webkit-scrollbar-thumb, .main-text::-webkit-scrollbar-thumb {
-    background: #888;
+  background: #888;
 }
 
 /* Bookmark's Scrollbar's Handle on hover */
 #bookmark-modal-container::-webkit-scrollbar-thumb:hover, .main-text::-webkit-scrollbar-thumb:hover {
-    background: #555;
+  background: #555;
 }
 
 /* Add a new bookmark and current bookmark */
 /* Note: newBookmark refers to any bookmark that has been added */
 #add-bookmark, .newBookmark {
-    padding: 0.5rem;
-    border: none;
-    border-radius: 10px;
-    background-color: rgb(168, 255, 29);
-    box-shadow: -4px 4px 0 black;
-    transition: ease-in-out 150ms;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(168, 255, 29);
+  box-shadow: -4px 4px 0 black;
+  transition: ease-in-out 150ms;
 }
 
 #add-bookmark:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .newBookmark span {
-    font-size: 1vmin;
-    display: block;
+  font-size: 1vmin;
+  display: block;
 }
 
 .newBookmark:active {
-    background-color: rgb(149, 207, 55);
-    box-shadow: none;
-    transform: translate(-4px, 4px);
+  background-color: rgb(149, 207, 55);
+  box-shadow: none;
+  transform: translate(-4px, 4px);
 }
 
 .newBookmark:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #add-bookmark {
-    background-color: rgb(104, 243, 229);
+  background-color: rgb(104, 243, 229);
 }
 
 #add-bookmark:active {
-    background-color: rgb(127, 202, 195);
-    box-shadow: none;
-    transform: translate(-4px, 4px);
+  background-color: rgb(127, 202, 195);
+  box-shadow: none;
+  transform: translate(-4px, 4px);
 }
 
 .bookmarkDel {
-    padding: 0.75rem 0.1rem;
-    border: none;
-    background-color:hsl(27, 100%, 50%);
-    border-radius: 3px;
-    box-shadow: -3px 3px 0 black;
-    transition: ease-in-out 150ms;
+  padding: 0.75rem 0.1rem;
+  border: none;
+  background-color:hsl(27, 100%, 50%);
+  border-radius: 3px;
+  box-shadow: -3px 3px 0 black;
+  transition: ease-in-out 150ms;
 }
 
 .bookmarkDel:active {
-    background-color: hsl(27, 79%, 49%);
-    box-shadow: none;
-    transform: translate(-3px, 3px);
+  background-color: hsl(27, 79%, 49%);
+  box-shadow: none;
+  transform: translate(-3px, 3px);
 }
 
 .bookmarkDel:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
