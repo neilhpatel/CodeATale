@@ -116,7 +116,6 @@ body::-webkit-scrollbar-thumb:hover {
 
 .bookmark-list {
   display: grid;
-  margin: 0 2.25rem;
   max-width: 6.5vw;
   margin: 1rem auto;
   grid-gap: 0.75rem 0.25rem;
