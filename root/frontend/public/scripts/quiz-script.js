@@ -136,7 +136,9 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
     if (answers[parseInt(i, 10)].id === word) {
       $(this).off("click").click(async function() {
         $(this).css("background-color", "lime");
-        new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav").play();
+        var audio = new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav");
+        audio.volume = 0.1;
+        audio.play();
         let docSnap = await getDoc(doc(wordBank, word));
         await updateDoc(doc(wordBank, word), {
           totalCorrect: docSnap.data().totalCorrect + 1
@@ -172,7 +174,9 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
     } else {
       $(this).off("click").click(async function() {
         $(this).css("background-color", "red");
-        new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav").play();
+        var audio = new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav");
+        audio.volume = 0.1;
+        audio.play();
         let docSnap = await getDoc(doc(wordBank, word));
         await updateDoc(doc(wordBank, word), {
           totalIncorrect: docSnap.data().totalIncorrect + 1

@@ -71,14 +71,8 @@ body::-webkit-scrollbar-thumb:hover {
 /* Bookmark */
 .bookmark {
     position: fixed;
-    right: 5%;
+    right: 4.5%;
     top: 10%;
-}
-
-@media screen and (max-width: 1400px) {
-    .bookmark {
-        right: 2%;
-    }
 }
 
 .fa-bookmark {
@@ -97,36 +91,36 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 #bookmark-modal-container {
-    display: grid;
+    position: fixed;
     padding: 0.5rem;
-    grid-template-columns: 5fr 1fr;
-    grid-gap: 0.5rem;
     max-width: 9vw;
     height: 30vh;
+    overflow: auto;
     border: 3px solid black;
     background-color: #F5E5BA;
-    text-decoration: underline;
     text-align: center;
-    overflow: auto;
     transition: 300ms ease-in-out;
-    border-radius: 3px;
+    scrollbar-color: grey white;
+    scrollbar-width: thin;
+    left: 90.5% !important;
+    top: 22% !important;
 }
 
 #bookmark-modal-container * {
-    place-self: center center;
+    font-size: 1rem;
 }
 
-#bookmark-modal-container p {
-    grid-column: span 2;
+.bookmark-header {
+    margin: 0.25rem;
 }
 
-#bookmark-modal-container button {
-    font-size: 0.95vw;
-}
-
-#bookmark-modal-container {
-    scrollbar-color: grey white;
-    scrollbar-width: thin;
+.bookmark-list {
+    display: grid;
+    margin: 0 2.25rem;
+    max-width: 6.5vw;
+    margin: 1rem auto;
+    grid-gap: 0.75rem 0.25rem;
+    grid-template-columns: 8fr 1fr;
 }
 
 /* Bookmark's Scrollbar's Width */
@@ -151,10 +145,6 @@ body::-webkit-scrollbar-thumb:hover {
 
 /* Add a new bookmark and current bookmark */
 /* Note: newBookmark refers to any bookmark that has been added */
-#add-bookmark {
-    grid-column: span 2;
-}
-
 #add-bookmark, .newBookmark {
     padding: 0.5rem;
     border: none;
