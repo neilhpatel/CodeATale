@@ -29,6 +29,8 @@ let wordBank = collection(db, "Users", username, "wordBank");
 let userRef = doc(db, "Users", username);
 let quizIndex = 0;
 
+// We know we can hide the prevButton immediately because the quiz always starts at index 0
+$("#prevPg").hide();
 
 let modal = $("#modal").plainModal({ duration: 150 }); // The number refers to the time to fade in
 async function defModal() {
