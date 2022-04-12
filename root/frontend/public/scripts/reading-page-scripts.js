@@ -214,7 +214,7 @@ function defModal(word, wordSnap, modWord) {
     if (!queue.includes(modWord)) {
       queue.push(modWord);
       await updateDoc(userRef, {
-        queue: queue
+        queue
       });
       if ($("#queue-msg").hasClass("queue-msg-show") === false) {
         $("#queue-msg").text("Word added to quiz queue!");
