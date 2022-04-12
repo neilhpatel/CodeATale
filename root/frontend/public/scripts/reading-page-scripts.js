@@ -203,7 +203,7 @@ function defModal(word, wordSnap, modWord) {
       queue.splice(queue.indexOf(modWord), 1);
       queue.unshift(modWord);
       await updateDoc(userRef, {
-        queue: queue
+        queue
       });
       // console.log(queue);
       window.location.href = "quiz.html";
