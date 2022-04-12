@@ -6,21 +6,23 @@
 /* Header */
 #quiz-header {
   font-size: 5vh;
-  color: rgb(24, 113, 255);
+  color: rgb(73, 73, 73);
   margin: 0 11vw;
+  text-align: center;
 }
 
 /* Definition */
 #quiz-def {
   position: absolute;
-  font-size: 2vmax;
+  font-size: 3vmin;
   left: 50%;
   transform: translate(-50%);
   text-align: center;
-  margin: 1vmin;
-  color: rgb(66, 0, 221);
+  margin: 2vmin;
+  padding: 1vmin 2vmin;
+  color: rgb(76, 0, 255);
   border-radius: 10px;
-  background-color: rgb(125, 255, 238);
+  background-color: rgba(151, 255, 250, 0.571);
   box-shadow: 0 8px 4px -4px rgb(104, 104, 104);
 }
 
@@ -50,11 +52,13 @@
 
 /* Help Modal Text Styles */
 #modal-text .gold {
-  color: rgb(255, 215, 0);
+  color: rgb(233, 211, 87);
+  text-decoration: underline;
 }
 
 #modal-text .silver {
-  color: rgb(192, 192, 192);
+  color: rgb(173, 173, 173);
+  text-decoration: underline;
 }
 
 /* Stars */
@@ -67,7 +71,7 @@
 #stars {
   width: 15vw;
   height: 5vh;
-  background-color: rgb(65, 249, 255);
+  background-color: rgba(76, 0, 255, 0.214);
   border-radius: 50px;
   border: 3px black solid;
   overflow: hidden;
@@ -108,24 +112,24 @@
   font-size: 4vmin;
   color: black;
   box-shadow:
-    1px 0 0 #1976d2,
-    0 1px 0 #1976d2,
-    2px 1px 0 #1976d2,
-    1px 2px 0 #1976d2,
-    3px 2px 0 #1976d2,
-    2px 3px 0 #1976d2,
-    4px 3px 0 #1976d2,
-    3px 4px 0 #1976d2,
-    5px 4px 0 #1976d2,
-    4px 5px 0 #1976d2,
-    6px 5px 0 #1976d2,
-    5px 6px 0 #1976d2,
-    7px 6px 0 #1976d2,
-    6px 7px 0 #1976d2,
-    8px 7px 0 #1976d2,
-    7px 8px 0 #1976d2,
-    9px 8px 0 #1976d2,
-    8px 9px 0 #1976d2;
+    1px 0 0 rgb(76, 0, 255),
+    0 1px 0 rgb(76, 0, 255),
+    2px 1px 0 rgb(76, 0, 255),
+    1px 2px 0 rgb(76, 0, 255),
+    3px 2px 0 rgb(76, 0, 255),
+    2px 3px 0 rgb(76, 0, 255),
+    4px 3px 0 rgb(76, 0, 255),
+    3px 4px 0 rgb(76, 0, 255),
+    5px 4px 0 rgb(76, 0, 255),
+    4px 5px 0 rgb(76, 0, 255),
+    6px 5px 0 rgb(76, 0, 255),
+    5px 6px 0 rgb(76, 0, 255),
+    7px 6px 0 rgb(76, 0, 255),
+    6px 7px 0 rgb(76, 0, 255),
+    8px 7px 0 rgb(76, 0, 255),
+    7px 8px 0 rgb(76, 0, 255),
+    9px 8px 0 rgb(76, 0, 255),
+    8px 9px 0 rgb(76, 0, 255);
   transition: 100ms ease-in-out;
 }
 
@@ -140,32 +144,7 @@
 
 #quiz-description {
   font-size: 4vh;
-  color: rgb(24, 113, 255);
-}
-
-/* Queue (Currently this is not being used by the quiz-script.js file) */
-#queue,
-#queue-style-elem {
-  position: absolute;
-  display: block;
-  right: 0;
-  top: 45%;
-  transform: translate(0, -50%);
-  background-color: rgb(255, 255, 255);
-  width: 4vw;
-  height: 45vh;
-  border-radius: 10px 0 0 10px; /* Top-Left, Top-Right, Bottom-Right, Bottom-Left */
-  border-left: 3px black solid;
-  border-top: 3px black solid;
-  border-bottom: 3px black solid;
-}
-
-#queue-style-elem {
-  background-color: rgb(24, 113, 255);
-  right: 1vw;
-  height: 20vh;
-  z-index: -10;
-  border-radius: 0;
+  color: rgb(113, 113, 113);
 }
 
 /* Next and Previous Page */

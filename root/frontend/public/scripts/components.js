@@ -74,8 +74,9 @@ class Bookmark extends HTMLElement {
             <section class="bookmark">
                 <button type="button" class="fas fa-bookmark" id="bookmark-button" title="Bookmark"></button>
                 <div id="bookmark-modal-container">
-                    <p>Select Bookmark</p>
+                    <p class="bookmark-header">Select Bookmark</p>
                     <button type="button" id="add-bookmark">Add Page</button>
+                    <div class="bookmark-list"></div>
                 </div>
             </section>
         `;
@@ -115,7 +116,7 @@ class Bookmark extends HTMLElement {
                 sessionStorage.setItem("bookmarks", newBookmarkList);
             });
 
-            const bookmarkModal = $("#bookmark-modal-container");
+            const bookmarkModal = $(".bookmark-list");
 
             bookmarkModal.append(newBookMark);
             bookmarkModal.append(newBookMarkDel);
@@ -178,7 +179,7 @@ class Bookmark extends HTMLElement {
             if (window.location.href.substring(window.location.href.length - 17, window.location.href.length) === "reading-page.html") {
                 onReadingPage = true;
             }
-            addBookmarkHelper(alreadyAdded, onReadingPage);
+            setTimeout(() => {addBookmarkHelper(alreadyAdded, onReadingPage);}, 150); // Adds a delay so the button can be seen being pressed down
         });
 
         // Popup modal to display the bookmark
