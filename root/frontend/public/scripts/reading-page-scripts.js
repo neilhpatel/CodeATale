@@ -195,7 +195,7 @@ function defModal(word, wordSnap, modWord) {
     if (!queue.includes(modWord)) {
       queue.unshift(modWord);
       await updateDoc(userRef, {
-        queue: queue
+        queue
       });
       // console.log(queue);
       window.location.href = "quiz.html";

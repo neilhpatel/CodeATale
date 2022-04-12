@@ -118,7 +118,6 @@ async function quizWords() {
 
     quizHelper(answers, word, wordSnap, blockedWords, quizzableWords);
   }
-  console.log(queue);
 }
 
 async function repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords) {
@@ -165,7 +164,7 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
             }
             queue.splice(queue.indexOf(word), 1);
             await updateDoc(userRef, {
-              queue: queue
+              queue
             });
             quizWords();
           } else {
@@ -178,7 +177,6 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
         $("button").off();
         $(this).css("background-color", "red");
         new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav").play();
-        let docSnap = await getDoc(doc(wordBank, word));
         await updateDoc(doc(wordBank, word), {
           totalIncorrect: increment(1),
           starNumber: 0
