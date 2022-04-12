@@ -206,11 +206,13 @@ function emptyScreen() {
 }
 
 $("#prevPg").off("click").click(function () {
+  $("button").off();
   quizIndex--;
   quizWords();
 });
 
 $("#nextPg").off("click").click(function () {
+  $("button").off();
   quizIndex++;
   quizWords();
 });
