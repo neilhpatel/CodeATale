@@ -25,6 +25,7 @@ const db = getFirestore(app);
 const username = "mtl10";
 
 const wordBank = collection(db, "Users", username, "wordBank");
+const userRef = doc(db, "Users", username);
 
 let chapterStartPageNumber = [1, 7, 24, 34, 46, 58, 69, 84, 93, 102, 114, 125, 142, 150, 159, 172, 181, 192, 209, 222, 233, 240];
 
@@ -190,29 +191,31 @@ function defModal(word, wordSnap, modWord) {
     definitionAudio.play();
   });
 
-  $("#b1").off("click").click(function() {
-    let queue = JSON.parse(sessionStorage.getItem("queue"));
-    if (queue === null) { queue = []; }
+  $("#b1").off("click").click(async function() {
     if (!queue.includes(modWord)) {
       queue.unshift(modWord);
-      sessionStorage.setItem("queue", JSON.stringify(queue));
+      await updateDoc(userRef, {
+        queue: queue
+      });
       // console.log(queue);
       window.location.href = "quiz.html";
     } else {
       queue.splice(queue.indexOf(modWord), 1);
       queue.unshift(modWord);
-      sessionStorage.setItem("queue", JSON.stringify(queue));
+      await updateDoc(userRef, {
+        queue: queue
+      });
       // console.log(queue);
       window.location.href = "quiz.html";
     }
   });
 
-  $("#b2").off("mousedown").mousedown(function() {
-    let queue = JSON.parse(sessionStorage.getItem("queue"));
-    if (queue === null) { queue = []; }
+  $("#b2").off("mousedown").mousedown(async function() {
     if (!queue.includes(modWord)) {
       queue.push(modWord);
-      sessionStorage.setItem("queue", JSON.stringify(queue));
+      await updateDoc(userRef, {
+        queue: queue
+      });
       if ($("#queue-msg").hasClass("queue-msg-show") === false) {
         $("#queue-msg").text("Word added to quiz queue!");
         $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
@@ -398,3 +401,6 @@ nextPage.click(() => {
 // --- Audio ---
 // -------------
 $("#audio-bar")[0].volume = 0.1;
+
+let userDoc = await getDoc(userRef);
+let queue = userDoc.data().queue;

@@ -1,3 +1,27 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
+import { getFirestore, collection, doc, getDoc, setDoc, updateDoc, getDocs, where, query, increment} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyC2lfp2oGwlyluipIjXCt0ueQKXkq_UudA",
+  authDomain: "junior-design-178a4.firebaseapp.com",
+  databaseURL: "https://junior-design-178a4-default-rtdb.firebaseio.com",
+  projectId: "junior-design-178a4",
+  storageBucket: "junior-design-178a4.appspot.com",
+  messagingSenderId: "503927178988",
+  appId: "1:503927178988:web:343b4404b93c44c24787c9",
+  measurementId: "G-SVL212L9YP",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore(app);
+
 // This code only fires once per session and is just 
 // here to setup chapterNum and bookmarks in the sessionStorage.
 // This will reset session storage information.
@@ -12,6 +36,8 @@ if (!sessionStorage.getItem("firstLoad")) {
         sessionStorage.setItem(`progress-ch-${i}`, "0");
     }
 }
+
+const username = "mtl10";
 
 let chptArr = [
 "Puddleby",
@@ -110,3 +136,18 @@ imgButtons.each(function(i) {
         window.location.href = "gallery.html";
     });
 });
+
+async function checkAccount() {
+    let dummyQueue = [];
+    let userDoc = await getDoc(doc(db, "Users", username));
+    if (!userDoc.exists()) {
+        await setDoc(doc(db, "Users", username), {
+            queue: dummyQueue
+        });
+        await setDoc(doc(db, "Users", username, "wordBank", "placeholder"), {
+            dummyData: true
+        });
+    }
+}
+
+checkAccount();
