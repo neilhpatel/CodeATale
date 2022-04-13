@@ -26,7 +26,6 @@ timeStamps = [
     [[0, 48], [48, 88], [88, 133], [133, 177], [177, 215], [215, 253], [253, 274]] #C21
 ]
 
-#Need the line below because some chapters may be missing pages/audio so after each chapter, reset the starting page number
 chapterStartPageNumber = [0, 1, 7, 24, 34, 46, 58, 69, 84, 93, 102, 114, 125, 142, 150, 159, 172, 181, 192, 209, 222, 233, 240]
 
 def splitChapterAudioToPages():

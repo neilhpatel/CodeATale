@@ -11,7 +11,7 @@
 
       <!-- Scripts -->
       <script defer src="../scripts/components.js"></script>
-      <script defer src="../scripts/review-script.js"></script>
+      <script defer type="module" src="../scripts/review-script.js"></script>
 
       <!-- Fonts/Icons -->
       <script src="https://kit.fontawesome.com/374700cf0d.js" crossorigin="anonymous"></script>
@@ -30,46 +30,59 @@
       
       <div class="grid-page-container">
 
+        <!-- Page Header -->
         <h1 class="header">Review</h1>
 
-        <p class="item-title">Accessed</p>
+        <!-- Column Headers -->
+        <p class="item-title item-container">Word</p>
+        <p class="item-title item-container">Definition Queued</p>
+        <p class="item-title item-container">Highest Score</p>
+        <p class="item-title item-container">Total Correct</p>
+        <p class="item-title item-container">Total Incorrect</p>
+        <p class="item-title last-title item-container">Date Last Accessed</p>
 
-        <p class="item-title middle-title">Highest Score</p>
-
-        <p class="item-title last-title">Date Last Accessed</p>
-
+        <!-- Words Column -->
         <div class="item-container">
           <ul class="words">
-            <li>housekeeper</li>
-            <li>faith</li>
-            <li>run</li>
-            <li>crazy</li>
-            <li>faith</li>
-            <li>housekeeper</li>
+            
           </ul>
         </div>
         
+        <!-- If the Definition was Queued Column -->
         <div class="item-container middle-item">
-          <ul>
-            <stars-bar></stars-bar>
-            <stars-bar></stars-bar>
-            <stars-bar></stars-bar>
-            <stars-bar></stars-bar>
-            <stars-bar></stars-bar>
-            <stars-bar></stars-bar>
+          <ul class="definitionQueued">
+            
           </ul>
         </div>
         
+        <!-- Highest Number of Correct Answers in a Row Column -->
+        <div class="item-container">
+          <ul class="highestCorrect">
+            
+          </ul>
+        </div>
+
+        <!-- Total Number of Times Correct Column -->
+        <div class="item-container">
+          <ul class="totalCorrect">
+            
+          </ul>
+        </div>
+
+        <!-- Total Number of Times Incorrect Column -->
+        <div class="item-container">
+          <ul class="totalIncorrect">
+            
+          </ul>
+        </div>
+
+        <!-- Date Last Seen Column -->
         <div class="item-container">
           <ul class="date">
-            <li>10/20/2022</li>
-            <li>13/20/2022</li>
-            <li>14/20/2022</li>
-            <li>17/20/2022</li>
-            <li>17/20/2022</li>
-            <li>17/20/2022</li>
+            
           </ul>
         </div>
+
       </div>
     </main>
   </body>

@@ -1,56 +1,52 @@
+/* Heading */
 .header {
   position: relative;
   font-size: 8vh;
   color: (37, 37, 37);
-  grid-column: 1/ 4;
+  grid-column: 1/ 7;
 }
 
+/* Container for all of the rows and columns */
 .grid-page-container {
   position: absolute;
   display: grid;
   left: 10vw;
   right: 0;
   height: 100%;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 10fr;
-  grid-gap: 0;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 100fr;
   text-align: center;
   padding: 0 2vw;
 }
 
+/* Each element of the grid is an item-container */
+.item-container {
+  place-self: auto center;
+  width: 13vw;
+}
+
+/* Title for each item (shown at the top of each column) */
 .item-title {
   border: 4px solid black;
   border-radius: 15px;
   background-color: rgb(212, 253, 136);
-  width: 28vw;
   margin: 1vmin 0.5vmin;
   padding: 1vmin 0;
   max-height: 5vh;
-  font-size: 2vw;
+  font-size: 2.5vmin;
 }
 
+/* Lists */
 ul {
   border: 4px solid black;
   border-radius: 15px;
-  margin: 0 0.5vmin;
   background-color: rgba(100, 216, 65, 0.527);
-  min-height: 50vh;
+  min-height: 80vh;
 }
 
 li {
   list-style-type: none;
-  font-size: 2rem;
-  margin: 3rem 0;
-  min-height: 5vh;
-}
-
-/* Stars */
-
-#stars img {
-  width: 2vw;
-}
-
-#stars {
+  font-size: 2.5vmin;
   margin: 3rem 0;
   min-height: 5vh;
 }
