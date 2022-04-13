@@ -44,7 +44,7 @@ class DefParser():
 
                 lineInd = 0
                 # parse the current word
-                while line[lineInd].isalpha() or line[lineInd] == '-':
+                while line[lineInd].isalpha() or line[lineInd] == '-' or line[lineInd] == '\'':
                     word += line[lineInd]
                     lineInd += 1
                 word = word.lower()

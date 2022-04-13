@@ -1,42 +1,82 @@
+// =============================
 // Navigation bar custom element
+// =============================
 class Navbar extends HTMLElement {
     constructor() {
         super();
 
+        // Create the HTML for the element
         this.innerHTML = `
         <nav id="navbar">
             <i class="fas fa-home" id="home-i" title="Home"></i>
             <hr class="line">
             <i class="fas fa-arrow-alt-circle-left" id="back-i" title="Back"></i>
-            <i class="fa-solid fa-school" title="Review"></i>
+            <i class="fa-solid fa-school" id="review-i" title="Review"></i>
             <i class="far fa-lightbulb" id="quiz-i" title="Quiz"></i>
             <i class="fas fa-sign-out-alt" id="exit-i" title="Exit"></i>
         </nav>
         `;
+
+        // Add click effects
         $("nav #home-i").click(function() {
-            window.location.href = "index.html";
+            setTimeout(() => {window.location.href = "index.html";}, 250); 
         });
         $("nav #back-i").click(function() {
             history.back();
         });
         $("nav #quiz-i").click(function() {
-            window.location.href = "quiz.html";
+            setTimeout(() => {window.location.href = "quiz.html";}, 250); 
+        });
+        $("nav #review-i").click(function() {
+            setTimeout(() => {window.location.href = "review.html";}, 250); 
         });
     }
 }
 customElements.define("left-navbar", Navbar);
 
+// =============================
+// Stars custom element
+// =============================
+class Stars extends HTMLElement {
+    constructor() {
+        super();
+
+        // Create the HTML for the element
+        this.innerHTML = `
+        <div id="stars-container">
+            <div id="stars">
+                <img src="../../assets/Stars/Silver-Star-Blank.png" id="star1" alt="First star">
+            
+                <img src="../../assets/Stars/Silver-Star-Blank.png" id="star2" alt="Second star">
+            
+                <img src="../../assets/Stars/Silver-Star-Blank.png" id="star3" alt="Third star">
+            
+                <img src="../../assets/Stars/Silver-Star-Blank.png" id="star4" alt="Fourth star">
+            
+                <img src="../../assets/Stars/Silver-Star-Blank.png" id="star5" alt="Fifth star">
+                    
+            </div>
+        </div>
+        `;
+    }
+}
+customElements.define("stars-bar", Stars);
+
+// =============================
 // Bookmark custom element
+// =============================
 class Bookmark extends HTMLElement {
     constructor() {
         super();
 
+        // Create the HTML for the element
         this.innerHTML = `
             <section class="bookmark">
                 <button type="button" class="fas fa-bookmark" id="bookmark-button" title="Bookmark"></button>
                 <div id="bookmark-modal-container">
-                    <p>Select Bookmark</p>
+                    <p class="bookmark-header">Select Bookmark</p>
                     <button type="button" id="add-bookmark">Add Page</button>
+                    <div class="bookmark-list"></div>
                 </div>
             </section>
         `;
@@ -61,8 +101,6 @@ class Bookmark extends HTMLElement {
             newBookMarkDel.attr("type", "button");
             newBookMarkDel.attr("class", "bookmarkDel");
 
-            
-
             // Removes the bookmark from the list of bookmarks when the X is clicked
             // (this list pervents the user from making multiple bookmarks for the same page)
             newBookMarkDel.click(() => {
@@ -78,12 +116,11 @@ class Bookmark extends HTMLElement {
                 sessionStorage.setItem("bookmarks", newBookmarkList);
             });
 
-            const bookmarkModal = $("#bookmark-modal-container");
+            const bookmarkModal = $(".bookmark-list");
 
             bookmarkModal.append(newBookMark);
             bookmarkModal.append(newBookMarkDel);
             
-
             const pageNumText = $(document.createElement("span"));
             pageNumText.html("Page " + pageNum);
             
@@ -142,9 +179,10 @@ class Bookmark extends HTMLElement {
             if (window.location.href.substring(window.location.href.length - 17, window.location.href.length) === "reading-page.html") {
                 onReadingPage = true;
             }
-            addBookmarkHelper(alreadyAdded, onReadingPage);
+            setTimeout(() => {addBookmarkHelper(alreadyAdded, onReadingPage);}, 150); // Adds a delay so the button can be seen being pressed down
         });
 
+        // Popup modal to display the bookmark
         let modal = $("#bookmark-modal-container").plainModal({ duration: 150, offset: () => {
                 // Fit the position to a button.
                 var btnOffset = $("#bookmark-button").offset(), win = $(window);

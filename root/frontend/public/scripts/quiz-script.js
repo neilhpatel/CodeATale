@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
-import { getFirestore, collection, doc, getDoc, setDoc, getDocs, where, query} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
+import { getFirestore, collection, doc, getDoc, setDoc, updateDoc, getDocs, where, query} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -22,14 +22,17 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
-let starMap = new Map(JSON.parse(sessionStorage.getItem("starMap")));
-if (starMap === null) { starMap = new Map(); }
+const dateObject = new Date();
+const username = "mtl10";
+
+let wordBank = collection(db, "Users", username, "wordBank");
 let quizIndex = 0;
 let queue = JSON.parse(sessionStorage.getItem("queue"));
 
 let modal = $("#modal").plainModal({ duration: 150 }); // The number refers to the time to fade in
 async function defModal() {
-  $("#modal-text").html("<p>Each time you answer the question correctly for a given word you gain a <span class='gold'>gold star</span>. If you get a question wrong all <span class='gold'>gold stars</span> become <span class='silver'>silver</span>. If you correctly answer the quiz for <b>this word</b> 5 times in a row you get the maximum number of stars (5).</p>");
+  $("#modal-text").empty();
+  $("#modal-text").append("<p>Each time you answer the question correctly for a given word you gain a <span class='gold'>gold star</span>. If you get a question wrong all <span class='gold'>gold stars</span> become <span class='silver'>silver</span>. If you correctly answer the quiz for <b>this word</b> 5 times in a row you get the maximum number of stars (5).</p>");
   modal = $("#modal").plainModal("open");
 }
 
@@ -83,9 +86,7 @@ function addStars(starNumber) {
 }
 
 function removeStars() {
-  $("img").each(function () {
-    $(this).attr("src", "../../assets/Stars/Silver-Star-Blank.png");
-  });
+  $("img").attr("src", "../../assets/Stars/Silver-Star-Blank.png");
 }
 
 async function quizWords() {
@@ -97,11 +98,16 @@ async function quizWords() {
     let word = queue[parseInt(quizIndex, 10)];
     let blockedWords = new Set();
     let wordSnap = await getDoc(doc(db, word.charAt(0), word));
+    let wordBankSnap = await getDoc(doc(wordBank, word));
     let wordQuery = query(collection(db, word.charAt(0)), where("definition", "!=", ""));
     let wordQuerySnapshot = await getDocs(wordQuery);
     let quizzableWords = wordQuerySnapshot.docs;
     let answers = [];
-    let starNumber = (starMap.has(word) ? starMap.get(word) : 0);
+    let starNumber = wordBankSnap.data().starNumber;
+    let date = 1 + dateObject.getMonth() + "/" + dateObject.getDate() + "/" + dateObject.getFullYear();
+    await updateDoc(doc(wordBank, word), {
+      lastDateAccessed: date
+    });
     removeStars();
     addStars(starNumber);
 
@@ -118,45 +124,69 @@ async function repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords)
   quizHelper(answers, word, wordSnap, blockedWords, quizzableWords);
 }
 
-function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords) {
+async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords) {
   let i = 0;
   $(".quiz-option").each(function() {
     $(this).html(answers[parseInt(i, 10)].id);
     if (answers[parseInt(i, 10)].id === word) {
-      $(this).off("click").click(function() {
+      $(this).off().one("click", async function() {
+        $("button").off();
         $(this).css("background-color", "lime");
-        new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav").play();
+        var audio = new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav");
+        audio.volume = 0.5;
+        audio.play();
+        let docSnap = await getDoc(doc(wordBank, word));
+        await updateDoc(doc(wordBank, word), {
+          totalCorrect: docSnap.data().totalCorrect + 1
+        });
+        if (docSnap.data().starNumber + 1 !== 5) {
+          await updateDoc(doc(wordBank, word), {
+            starNumber: docSnap.data().starNumber + 1
+          });
+        } else {
+          await updateDoc(doc(wordBank, word), {
+            starNumber: 0
+          });
+        }
+        if (docSnap.data().highestCorrect !== 5) {
+          await updateDoc(doc(wordBank, word), {
+            highestCorrect: docSnap.data().highestCorrect + 1
+          });
+        }
+        let updatedDocSnap = await getDoc(doc(wordBank, word));
         setTimeout(() => {
           $(this).css("background-color", "white");
-          let starNumber = (starMap.has(word) ? starMap.get(word) : 0);
-          starMap.set(word, starNumber + 1);
-          addStars(starNumber + 1);
-          
-          sessionStorage.setItem("queue", JSON.stringify(queue));
-          if (starNumber + 1 === 5) {
+          let starNumber = updatedDocSnap.data().starNumber;
+          addStars(starNumber);
+          if (starNumber === 0) {
             //console.log("Congratulations, you've mastered the word!");
             if (quizIndex === queue.length - 1) {
               quizIndex--;
             }
             queue.splice(queue.indexOf(word), 1);
-            starMap.set(word, 0);
-            sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
+            sessionStorage.setItem("queue", JSON.stringify(queue));
             quizWords();
           } else {
-            sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
             repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords);
           }
         }, 1000);
       });
     } else {
-      $(this).off("click").click(function() {
+      $(this).off().one("click", async function() {
+        $("button").off();
         $(this).css("background-color", "red");
-        new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav").play();
+        var audio = new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav");
+        audio.volume = 0.5;
+        audio.play();
+        let docSnap = await getDoc(doc(wordBank, word));
+        await updateDoc(doc(wordBank, word), {
+          totalIncorrect: docSnap.data().totalIncorrect + 1,
+          starNumber: 0
+        });
         setTimeout(() => {
           $(this).css("background-color", "white");
-          starMap.set(word, 0);
-          sessionStorage.setItem("starMap", JSON.stringify(Array.from(starMap)));
           removeStars();
+          repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords);
         }, 1000);
       });
     }
@@ -166,9 +196,7 @@ function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords) {
 
 function emptyScreen() {
   $("#quiz-def").text("No words in queue!");
-  $(".quiz-option").each(function() {
-    $(this).off().html("");
-  });
+  $(".quiz-option").off().empty();
   removeStars();
 }
 
