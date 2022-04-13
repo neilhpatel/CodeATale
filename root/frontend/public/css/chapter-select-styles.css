@@ -11,7 +11,7 @@ html {
   font-size: 4vw;
   left: 50%;
   transform: translate(-50%);
-  font-family: Libre Caslon Text;
+  font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
 /* Chapter selection boxes */
@@ -50,7 +50,7 @@ html {
   box-shadow: -4px 3px 4px rgba(0, 0, 0, 0.2);
   font-size: 1.75vw;
   cursor: pointer;
-  font-family: Libre Caslon Text;
+  font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
 /* Gallery button */
@@ -103,7 +103,7 @@ html {
   margin: 0.5em;
   font-size: 1.5em;
   font-weight: bold;
-  font-family: Libre Caslon Text;
+  font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
 /* Progress bar */
