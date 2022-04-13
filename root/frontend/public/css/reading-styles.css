@@ -1,11 +1,11 @@
 /* Chapter Heading */
 #reading-heading {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-    color:rgb(73, 73, 73);
-    font-size: 6vh;
-    font-family: Libre Caslon Text;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  color:rgb(73, 73, 73);
+  font-size: 6vh;
+  font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
 /* Page Number */
@@ -16,7 +16,7 @@
   transform: translate(-50%);
   color:rgb(73, 73, 73);
   font-size: 5vh;
-  font-family: Libre Caslon Text;
+  font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
 /* Text block */
