@@ -262,7 +262,7 @@ function updatePageText(chapter, page, modNums) {
       page = sessionStorage.getItem("pageNum");
 
       // Sets that chapter and page number
-  $("#reading-heading").text(`Chapter ${chapter} - ${chptArr[parseInt(chapter, 10)]}`);
+      $("#reading-heading").text(`Chapter ${chapter} - ${chapterTitles[parseInt(chapter, 10)]}`);
       $(".page-number").text(`Page ${page}`);
 
       let str = data[parseInt(chapter, 10)][parseInt(page, 10)];
