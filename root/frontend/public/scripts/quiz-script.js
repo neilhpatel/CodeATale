@@ -210,7 +210,6 @@ $("#nextPg").off("click").click(function () {
   quizWords();
 });
 
-// Does this need to be in the quizWords() function?
 $("#help-btn").off("click").click(function () {
   setTimeout(() => {defModal();}, 50);
 });
