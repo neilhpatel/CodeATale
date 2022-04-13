@@ -1,7 +1,32 @@
+/* Fixes graphical glitch with the stars */
 * {
   overflow: auto;
 }
 
+/* Header */
+#quiz-header {
+  font-size: 5vh;
+  color: rgb(73, 73, 73);
+  margin: 0 11vw;
+  text-align: center;
+}
+
+/* Definition */
+#quiz-def {
+  position: absolute;
+  font-size: 3vmin;
+  left: 50%;
+  transform: translate(-50%);
+  text-align: center;
+  margin: 2vmin;
+  padding: 1vmin 2vmin;
+  color: rgb(76, 0, 255);
+  border-radius: 10px;
+  background-color: rgba(151, 255, 250, 0.571);
+  box-shadow: 0 8px 4px -4px rgb(104, 104, 104);
+}
+
+/* Help Button */
 #help-btn {
   position: absolute;
   left: 50%;
@@ -13,15 +38,30 @@
   border-radius: 50%;
   font-size: 5vmin;
   border: none;
-  box-shadow: -4px 4px 2px black;
-  transition: 50ms ease-in-out;
+  box-shadow:
+    -4px 4px 1px black,
+    -5px 5px 1px black,
+    -6px 6px 1px black;
+  transition: 100ms ease-in-out;
 }
 
 #help-btn:active {
-  transform: translate(-4px, 4px) translate(-50%);
+  transform: translate(-6px, 6px) translate(-50%);
   box-shadow: none;
 }
 
+/* Help Modal Text Styles */
+#modal-text .gold {
+  color: rgb(233, 211, 87);
+  text-decoration: underline;
+}
+
+#modal-text .silver {
+  color: rgb(173, 173, 173);
+  text-decoration: underline;
+}
+
+/* Stars */
 #stars-container {
   position: absolute;
   right: 2%;
@@ -31,14 +71,13 @@
 #stars {
   width: 15vw;
   height: 5vh;
-  background-color: rgb(65, 249, 255);
+  background-color: rgba(76, 0, 255, 0.214);
   border-radius: 50px;
   border: 3px black solid;
   overflow: hidden;
 }
 
-#stars-container #stars-text {
-  position: relative;
+#stars-text {
   text-align: center;
   font-size: 3vmin;
   font-weight: bold;
@@ -53,38 +92,81 @@
   justify-content: center;
 }
 
-#stars .grey {
-  opacity: 0.2;
-}
-
-#modal-text .gold {
-  color: rgb(255, 215, 0);
-}
-
-#modal-text .silver {
-  color: rgb(192, 192, 192);
-}
-
-#queue,
-#queue-style-elem {
+/* Quiz */
+#quiz-container {
   position: absolute;
-  display: block;
-  right: 0;
-  top: 45%;
-  transform: translate(0, -50%);
-  background-color: rgb(255, 255, 255);
-  width: 4vw;
-  height: 45vh;
-  border-radius: 10px 0 0 10px; /* Top-Left, Top-Right, Bottom-Right, Bottom-Left */
-  border-left: 3px black solid;
-  border-top: 3px black solid;
-  border-bottom: 3px black solid;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4vmin 15vmin;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-#queue-style-elem {
-  background-color: rgb(24, 113, 255);
-  right: 1vw;
-  height: 20vh;
-  z-index: -10;
-  border-radius: 0;
+/* Quiz buttons (words to be chosen) */
+#quiz-container button {
+  width: 23vw;
+  height: 11vw;
+  margin: 1em;
+  border: none;
+  font-size: 4vmin;
+  color: black;
+  box-shadow:
+    1px 0 0 rgb(76, 0, 255),
+    0 1px 0 rgb(76, 0, 255),
+    2px 1px 0 rgb(76, 0, 255),
+    1px 2px 0 rgb(76, 0, 255),
+    3px 2px 0 rgb(76, 0, 255),
+    2px 3px 0 rgb(76, 0, 255),
+    4px 3px 0 rgb(76, 0, 255),
+    3px 4px 0 rgb(76, 0, 255),
+    5px 4px 0 rgb(76, 0, 255),
+    4px 5px 0 rgb(76, 0, 255),
+    6px 5px 0 rgb(76, 0, 255),
+    5px 6px 0 rgb(76, 0, 255),
+    7px 6px 0 rgb(76, 0, 255),
+    6px 7px 0 rgb(76, 0, 255),
+    8px 7px 0 rgb(76, 0, 255),
+    7px 8px 0 rgb(76, 0, 255),
+    9px 8px 0 rgb(76, 0, 255),
+    8px 9px 0 rgb(76, 0, 255);
+  transition: 100ms ease-in-out;
+}
+
+#quiz-container button:active {
+  box-shadow: none;
+  transform: translate(9px, 8px);
+}
+
+#quiz-container button:hover {
+  background-color: aliceblue;
+}
+
+#quiz-description {
+  font-size: 4vh;
+  color: rgb(113, 113, 113);
+}
+
+/* Next and Previous Page */
+#prevPg,
+#nextPg {
+  font-size: 10vmin;
+  position: fixed;
+  cursor: pointer;
+  transition: transform 0.25s;
+}
+
+#prevPg {
+  bottom: 5%;
+  left: 15%;
+}
+
+#nextPg {
+  bottom: 5%;
+  right: 15%;
+}
+
+#prevPg:hover,
+#nextPg:hover {
+  transform: scale(125%);
 }

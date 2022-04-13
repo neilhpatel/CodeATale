@@ -32,9 +32,6 @@
 
             <!-- Navigation Bar -->
             <left-navbar></left-navbar>
-            
-            <!-- Image -->
-            <!-- <img src="..\..\assets\chapter_images\chapter1.png" alt="chapter-image"> -->
 
             <!-- Skip to Page # -->
              <div></div>
@@ -43,9 +40,7 @@
             <book-mark></book-mark>
 
             <!-- Text -->
-            <p class="main-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est iste vitae voluptatibus repellendus. Tempora minus minima facilis quia tenetur! Itaque ex impedit magni omnis! Eveniet ipsa, eos perferendis aperiam accusantium vitae eius voluptate officiis facere est eum cumque deleniti impedit error excepturi debitis architecto consequatur nam ullam animi et numquam. Voluptate maxime, debitis consectetur sequi esse explicabo consequatur quos accusantium repellat minus et a tempora qui voluptas at nulla harum laudantium assumenda earum ipsam.
-            </p>
+            <p class="main-text"></p>
 
             <!-- Page Number -->
             <span class="page-number">Page</span>
@@ -63,8 +58,8 @@
             <div id="modal">
                 <div id="modal-container"> <!-- Needed for centering the elements with flex while keeping block display -->
                     <span class="highlight-definition" id="modal-words"></span>
-                    <p id="modal-derivative"></p>
                     <p id="modal-def"></p>
+                    <p id="modal-derivative"></p>
                 </div>
                 <div class="def-quiz-container">
                     <button type="button" class="far fa-lightbulb quiz-btn" id="quiz-i" title="Quiz"></button>
@@ -73,8 +68,14 @@
                         <button id="b2">Queue Word</button>
                     </div>
                 </div>
+                <p class="queue-msg-hide" id="queue-msg"></p>
                 <a class="close plainmodal-close"></a>
             </div>
+
+            <!-- Audio Bar -->
+            <audio controls buffered id="audio-bar">
+                <source src="test.mp4">
+            </audio>
         </main>
     </body>
 </html>

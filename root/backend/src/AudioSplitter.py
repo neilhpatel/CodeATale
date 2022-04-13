@@ -13,7 +13,7 @@ timeStamps = [
 
 for ch in range(1, 2, 1):
     chapterAudio = AudioSegment.from_wav(
-        f"../Audio/Chapter-{ch}-Audio/Chapter {ch}.wav")
+        "../Audio/Chapter-{ch}-Audio/Chapter {ch}.wav")
 
     for i in range(len(timeStamps[ch-1])-1):
         start = timeStamps[ch-1][i] * 1000  # Works in milliseconds

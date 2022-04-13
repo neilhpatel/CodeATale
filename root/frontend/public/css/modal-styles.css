@@ -1,3 +1,7 @@
+/* This style effects the popups of the style to the definition popup.
+ * The bookmark is not modified by this script.
+*/
+
 /* General modal styles */
 #modal {
   display: flex;
@@ -5,7 +9,7 @@
   justify-content: center; /* Horizontal Center */
   background-color: rgb(233, 233, 233);
   min-width: 45vw;
-  min-height: 30vh;
+  min-height: 35vh;
   max-width: 60vw;
   font-size: 4vh;
   border-radius: 10px;
@@ -19,19 +23,6 @@
   margin: 4vh 10px;
 }
 
-/* Close button */
-#modal #close-button {
-  position: absolute;
-  right: 0;
-  top: 0;
-  border-radius: 50%;
-  height: 4em;
-  width: 4em;
-  display: inline-block;
-  border: none;
-  background-color: rgb(233, 233, 233);
-}
-
 /* Definition */
 #modal #modal-container #modal-def {
   background-color: rgba(21, 235, 255, 0.8);
@@ -40,7 +31,7 @@
   box-shadow: 0 2px 4px rgb(177, 177, 177);
 }
 
-/* Special Close Button */
+/* Close Button */
 #modal .close {
   position: absolute;
   right: 32px;
@@ -48,6 +39,7 @@
   width: 32px;
   height: 32px;
   opacity: 0.3;
+  transition: ease-in-out 100ms;
 }
 
 #modal .close:hover {
@@ -72,13 +64,14 @@
   transform: rotate(-45deg);
 }
 
+/* Quiz Items (Only effects the definition modal) */
 .def-quiz-container {
   position: absolute;
   top: 0;
   left: 0;
-  display: inline;
 }
 
+/* Quiz button (lightbulb icon) */
 .quiz-btn {
   font-size: 6vmin;
   margin: 0.25em;
@@ -96,21 +89,21 @@
   transform: scale(125%);
 }
 
+/* Quiz options (add to queue or go to quiz) */
 .quiz-options {
   position: absolute;
-  display: none;
-  min-width: 10vw;
-}
-
-.def-quiz-container:hover .quiz-options {
   display: inline-grid;
+  min-width: 8vw;
+  transform: translate(-50%) scale(0%);
+  transition: ease-in-out 150ms;
 }
 
 .quiz-options button {
   margin: 6px;
-  font-size: 2vmin;
-  padding: 0.5em;
+  font-size: 1.5vmin;
+  padding: 0.5em 0;
   border: none;
+  border-radius: 10px;
   box-shadow: -3px 3px 2px black;
   transition: 100ms;
   background-color: rgb(255, 255, 255);
@@ -123,4 +116,22 @@
 
 .quiz-options button:hover {
   background-color: antiquewhite;
+}
+
+/* When hovering over the quiz options keep them from being closed */
+.def-quiz-container:hover .quiz-options {
+  transform: translate(0%) scale(100%);
+}
+
+/* Show text when a word was added to the quiz queue */
+.queue-msg-show {
+  position: absolute;
+  top: 0%;
+  font-size: 2vmin;
+  font-weight: bolder;
+  color: rgb(209, 10, 36);
+}
+
+.queue-msg-hide {
+  display: none;
 }
