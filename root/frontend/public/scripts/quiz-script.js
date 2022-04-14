@@ -31,6 +31,7 @@ let quizIndex = 0;
 
 // We know we can hide the prevButton immediately because the quiz always starts at index 0
 $("#prevPg").hide();
+$("#nextPg").hide();
 
 let modal = $("#modal").plainModal({ duration: 150 }); // The number refers to the time to fade in
 async function defModal() {
@@ -183,7 +184,6 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
         var audio = new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav");
         audio.volume = 0.5;
         audio.play();
-        let docSnap = await getDoc(doc(wordBank, word));
         await updateDoc(doc(wordBank, word), {
           totalIncorrect: increment(1),
           starNumber: 0
