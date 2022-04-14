@@ -28,6 +28,9 @@ const wordBank = collection(db, "Users", username, "wordBank");
 const userRef = doc(db, "Users", username);
 
 let chapterStartPageNumber = [1, 7, 24, 34, 46, 58, 69, 84, 93, 102, 114, 125, 142, 150, 159, 172, 181, 192, 209, 222, 233, 240];
+let chapterTitles = ["", "Puddleby", "Animal Language", "More Money Troubles", "A Message from Africa", "The Great Journey", "Polynesia and the King", "The Bridge of Apes",
+  "The Leader of the Lions", "The Monkeys' Council", "The Rarest Animal of All", "The Black Prince", "Medicine and Magic", "Red Sails and Blue Wings", "The Rats' Warning",
+  "The Barbary Dragon", "Too-Too, The Listener", "The Ocean Gossips", "Smells", "The Rock", "The Fisherman's Town", "Home Again"];
 
 // Creating a list of all special characters to check for
 const specialSet = new Set();
@@ -262,7 +265,7 @@ function updatePageText(chapter, page, modNums) {
       page = sessionStorage.getItem("pageNum");
 
       // Sets that chapter and page number
-      $("#reading-heading").text(`Chapter ${chapter}`);
+      $("#reading-heading").text(`Chapter ${chapter} - ${chapterTitles[parseInt(chapter, 10)]}`);
       $(".page-number").text(`Page ${page}`);
 
       let str = data[parseInt(chapter, 10)][parseInt(page, 10)];
