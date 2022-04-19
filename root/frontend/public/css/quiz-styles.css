@@ -11,6 +11,10 @@
   text-align: center;
 }
 
+#quiz-title {
+  font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
+}
+
 /* Definition */
 #quiz-def {
   position: absolute;
@@ -110,6 +114,7 @@
   margin: 1em;
   border: none;
   font-size: 4vmin;
+  background-color: rgb(255, 255, 243);
   color: black;
   box-shadow:
     1px 0 0 rgb(76, 0, 255),
@@ -139,7 +144,7 @@
 }
 
 #quiz-container button:hover {
-  background-color: aliceblue;
+  background-color: rgba(34, 152, 255, 0.596);
 }
 
 #quiz-description {
