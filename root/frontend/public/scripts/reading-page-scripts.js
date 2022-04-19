@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
 import { getFirestore, collection, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
+import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-storage.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,6 +22,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
+const storage = getStorage();
 
 const username = "mtl10";
 
@@ -162,6 +164,20 @@ function playWordAudio(word) {
   audioObj.play();
 }
 
+function updatePageAudio(pageNumber, chapterNumber) {
+  //const pathReference = ref(storage, "Chapter 1/Chapter1_Page1.mp3");
+  const pathReference = ref(storage, `Chapter ${chapterNumber}/Chapter${chapterNumber}_Page${pageNumber}.mp3`);
+  getDownloadURL(pathReference)
+  .then((url) => {
+    $("#audio-bar")[0].src = url;
+    $("#audio-bar").show();
+  })
+  .catch((error) => {
+    $("#audio-bar")[0].pause();
+    $("#audio-bar").hide();
+  });
+}
+
 
 let modal = $("#modal").plainModal({ duration: 150 });
 function defModal(word, wordSnap, modWord) {
@@ -263,6 +279,7 @@ function updatePageText(chapter, page, modNums) {
       // Changes the page and chapter nums in system storage
       chapter = sessionStorage.getItem("chptNum");
       page = sessionStorage.getItem("pageNum");
+      updatePageAudio(page, chapter);
 
       // Sets that chapter and page number
       $("#reading-heading").text(`Chapter ${chapter} - ${chapterTitles[parseInt(chapter, 10)]}`);
