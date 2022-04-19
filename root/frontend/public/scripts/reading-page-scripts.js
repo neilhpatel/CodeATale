@@ -169,10 +169,10 @@ function updatePageAudio(pageNumber, chapterNumber) {
   const pathReference = ref(storage, `Chapter ${chapterNumber}/Chapter${chapterNumber}_Page${pageNumber}.mp3`);
   getDownloadURL(pathReference)
   .then((url) => {
-    $("#audio-bar")[0].src = url
+    $("#audio-bar")[0].src = url;
     //let audioObj = document.createElement("audio");
     //audioObj.setAttribute('src', url);
-  });
+  })
   .catch((error) => {
     // Handle any errors
   });
