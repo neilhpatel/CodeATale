@@ -172,7 +172,7 @@ function updatePageAudio(pageNumber, chapterNumber) {
     $("#audio-bar")[0].src = url
     //let audioObj = document.createElement("audio");
     //audioObj.setAttribute('src', url);
-  })
+  });
   .catch((error) => {
     // Handle any errors
   });
