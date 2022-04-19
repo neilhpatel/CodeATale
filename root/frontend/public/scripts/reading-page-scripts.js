@@ -161,7 +161,7 @@ function playWordAudio(word) {
   let url = "https://brainy-literacy-assets.s3.amazonaws.com/audio/words/" + firstLetter + "/" + word + ".mp3";
   let audioObj = document.createElement("audio");
   audioObj.src = url;
-  audioObj.volume = .5;
+  audioObj.volume = 0.5;
   audioObj.play();
 }
 
@@ -187,7 +187,7 @@ function defModal(word, wordSnap, modWord) {
   let firstLetter = modWord.charAt(0).toUpperCase();
   let url = "https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/" + firstLetter + "/" + modWord + "%2B.mp3";
   definitionAudio.src = url;
-  definitionAudio.volume = .5;
+  definitionAudio.volume = 0.5;
   definitionAudio.play();
   $("#modal-derivative").empty();
   let length = 0;
