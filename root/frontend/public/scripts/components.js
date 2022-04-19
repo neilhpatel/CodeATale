@@ -11,7 +11,7 @@ class Navbar extends HTMLElement {
             <i class="fas fa-home" id="home-i" title="Home"></i>
             <hr class="line">
             <i class="fas fa-arrow-alt-circle-left" id="back-i" title="Back"></i>
-            <i class="fa-solid fa-school" id="review-i" title="Review"></i>
+            <i class="fa-solid fa-pen-to-square" id="review-i" title="Review"></i>
             <i class="far fa-lightbulb" id="quiz-i" title="Quiz"></i>
             <i class="fas fa-sign-out-alt" id="exit-i" title="Exit"></i>
         </nav>
