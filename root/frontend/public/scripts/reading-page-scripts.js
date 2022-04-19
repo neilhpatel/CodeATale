@@ -170,11 +170,11 @@ function updatePageAudio(pageNumber, chapterNumber) {
   getDownloadURL(pathReference)
   .then((url) => {
     $("#audio-bar")[0].src = url;
-    //let audioObj = document.createElement("audio");
-    //audioObj.setAttribute('src', url);
+    $("#audio-bar").show();
   })
   .catch((error) => {
-    // Handle any errors
+    $("#audio-bar")[0].pause();
+    $("#audio-bar").hide();
   });
 }
 
