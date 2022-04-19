@@ -3,7 +3,8 @@
   position: relative;
   font-size: 8vh;
   color: (37, 37, 37);
-  grid-column: 1/ 7;
+  grid-column: 1 / 7;
+  font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
 /* Container for all of the rows and columns */
