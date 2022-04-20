@@ -48,7 +48,7 @@ async function checkAccount() {
         await setDoc(doc(db, "Users", username), {
             queue: dummyQueue,
             chapterProgress: dummyArray,
-            viewedPages: dummyStringArray
+            pagesViewed: dummyStringArray
         });
         await setDoc(doc(db, "Users", username, "wordBank", "placeholder"), {
             dummyData: true

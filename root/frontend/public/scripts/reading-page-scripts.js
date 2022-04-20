@@ -50,14 +50,10 @@ specialSet.add("?");
 
 let userSnap = await getDoc(userRef);
 let chapterProgressArray = userSnap.data().chapterProgress;
-let pagesViewedArray = userSnap.data().viewedPages;
-
-// console.log(chapterProgressArray);
-// console.log(pagesViewedArray);
+let pagesViewedArray = userSnap.data().pagesViewed;
 
 
 async function increaseChapterProgress(chapter) {
-  console.log("increaseChapterProgress")
   let progress = chapterProgressArray[chapter];
   progress = parseInt(progress, 10);
   progress += 1;
@@ -70,9 +66,6 @@ async function increaseChapterProgress(chapter) {
 async function pageRead(chapter, page) {
   let alreadyAdded = false;
   let pagesViewed = pagesViewedArray[chapter].split(" ");
-  // let pagesViewed = sessionStorage
-  //   .getItem(`viewedPages-ch-${chapter}`)
-  //   .split(" ");
   pagesViewed.forEach((page) => {
     // Check if it is already in the list
     let currChpt = sessionStorage.getItem("chptNum"); // Chapters not indexed from 1
@@ -95,57 +88,13 @@ async function pageRead(chapter, page) {
       // If this is the first page to be added
       currPagesViewed = chapter + "-" + page;
     }
-    pagesViewedArray[chapter] = currPagesViewed
+    pagesViewedArray[chapter] = currPagesViewed;
     await updateDoc(userRef, {
       pagesViewed: pagesViewedArray
     });
     increaseChapterProgress(chapter);
   }
 }
-
-// async function increaseChapterProgress(chapter) {
-//   let progress = chapterProgressArray[chapter];
-//   progress = parseInt(progress, 10);
-//   progress += 1;
-//   chapterProgressArray[chapter] = progress;
-//   await updateDoc(userRef, {
-//     chapterProgress: chapterProgressArray
-//   });
-//   // console.log(chapterProgressArray);
-//   // console.log(sessionStorage.getItem(`progress-ch-${chapter}`));
-// }
-
-// async function pageRead(chapter, page) {
-//   let alreadyAdded = false;
-//   let pagesViewed = pagesViewedArray[chapter].split(" ");
-//   console.log(pagesViewedArray[chapter]);
-//   pagesViewed.forEach((pages) => {
-//     // Check if it is already in the list
-//     let currChpt = sessionStorage.getItem("chptNum"); // Chapters not indexed from 1
-//     let currPg = sessionStorage.getItem("pageNum");
-//     console.log(currChpt);
-//     console.log(currPg);
-//     if (pages === currChpt + "-" + currPg) {
-//       alreadyAdded = true;
-//     }
-//   });
-//   if (alreadyAdded === false) {
-//     let currPagesViewed;
-//     currPagesViewed =
-//         pagesViewedArray[chapter] +
-//         " " +
-//         chapter +
-//         "-" +
-//         page;
-//     pagesViewedArray[chapter] = currPagesViewed
-//     await updateDoc(userRef, {
-//       pagesViewed: pagesViewedArray
-//     });
-//     console.log(pagesViewedArray[chapter]);
-
-//     increaseChapterProgress(chapter);
-//   }
-// }
 
 function increasePage(chapterNum, pageNum) {
   // Remember: since this is indexed from 0 this is the next chapter not the current one
@@ -259,7 +208,6 @@ function defModal(word, wordSnap, modWord) {
       await updateDoc(userRef, {
         queue
       });
-      // console.log(queue);
       window.location.href = "quiz.html";
     } else {
       queue.splice(queue.indexOf(modWord), 1);
@@ -267,7 +215,6 @@ function defModal(word, wordSnap, modWord) {
       await updateDoc(userRef, {
         queue
       });
-      // console.log(queue);
       window.location.href = "quiz.html";
     }
   });
