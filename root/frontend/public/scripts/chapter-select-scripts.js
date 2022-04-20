@@ -30,14 +30,9 @@ if (!sessionStorage.getItem("firstLoad")) {
     sessionStorage.setItem("chptNum", "");
     sessionStorage.setItem("bookmarks", "");
     sessionStorage.setItem("pageNum", "");
-
-    // for (let i = 1; i < 22; i++) {
-    //     sessionStorage.setItem(`viewedPages-ch-${i}`, "0");
-    //     sessionStorage.setItem(`progress-ch-${i}`, "0");
-    // }
 }
 
-const username = "testing3";
+const username = "mtl10";
 
 async function checkAccount() {
     let dummyQueue = [];

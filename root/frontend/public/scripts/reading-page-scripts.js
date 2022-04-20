@@ -22,7 +22,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
-const username = "testing3";
+const username = "mtl10";
 
 const wordBank = collection(db, "Users", username, "wordBank");
 const userRef = doc(db, "Users", username);

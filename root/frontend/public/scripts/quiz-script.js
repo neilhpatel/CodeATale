@@ -23,7 +23,7 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
 const dateObject = new Date();
-const username = "testing";
+const username = "mtl10";
 
 let wordBank = collection(db, "Users", username, "wordBank");
 let userRef = doc(db, "Users", username);
