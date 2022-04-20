@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
-import { getFirestore, collection, doc, getDoc, setDoc, updateDoc, getDocs, where, query, increment} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
+import { getFirestore, collection, doc, getDoc, updateDoc, getDocs, where, query, increment} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,7 +19,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
 const dateObject = new Date();
@@ -136,7 +135,7 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
       $(this).off().one("click", async function() {
         $("button").off();
         $(this).css("background-color", "lime");
-        var audio = new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav");
+        let audio = new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav");
         audio.volume = 0.5;
         audio.play();
         let docSnap = await getDoc(doc(wordBank, word));

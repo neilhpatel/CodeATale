@@ -116,26 +116,18 @@ class DefParser():
                 #         'block_from_quiz': ""
                 #     })
                 # print to test data values
-                print("Word: " + word)
-                print("Is Child? False,\t\tParent Word: \"\"")
-                print("Definition: " + definition)
-                print("Blocked Quiz Options: " + blockedQuizOptions)
-                print("Sight word: " + str(sightWord))
-                print("Child words: ")
+                print("Word: " + word, "Is Child? False,\t\tParent Word: \"\"", "Definition: " + definition,
+                      "Blocked Quiz Options: " + blockedQuizOptions, "Sight word: " + str(sightWord), "Child words: ",
+                      sep=os.linesep)
                 for child in childWords:
                     print(child)
                 print("\n\n\n")
                 # pseudo-creating new "words" for child words, can do pretty much the same thing even after changing
                 # output method
                 for child in childWords:
-                    print("Word: " + child)
-                    print("Is Child? True,\t\tParent Word: \"" + word + "\"")
-                    print("Definition: ")
-                    print("Blocked Quiz Options: ")
-                    print("Excluded words: ")
-                    print("Sight word: ")
-                    print("Child words: ")
-                    print("\n\n\n")
+                    print("Word: " + child, "Is Child? True,\t\tParent Word: \"" + word + "\"", "Definition: ",
+                          "Blocked Quiz Options: ", "Excluded words: ", "Sight word: ", "Child words: ", "\n\n\n",
+                          sep=os.linesep)
                 startInd = endInd + 2
                 textInd += 1
             textInd += 1
