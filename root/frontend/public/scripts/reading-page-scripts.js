@@ -318,66 +318,66 @@ function updatePageText(chapter, page, modNums) {
       });
 
       // Removes highlighting from word if it's not in the database and also adds click-on functionality for those words that are in the database.
-      // $(".isWord").each(async function () {
-      //   let word = $(this).text();
-      //   let modWord = word.toLowerCase();
-      //   let wordDoc = doc(db, modWord.charAt(0), modWord);
-      //   let wordSnap = await getDoc(wordDoc);
+      $(".isWord").each(async function () {
+        let word = $(this).text();
+        let modWord = word.toLowerCase();
+        let wordDoc = doc(db, modWord.charAt(0), modWord);
+        let wordSnap = await getDoc(wordDoc);
         
-      //   if (!wordSnap.exists()) {
-      //     $(this).removeClass("isWord");
-      //   } else {
-      //     if (wordSnap.data().parent_word !== modWord) {
-      //       modWord = wordSnap.data().parent_word;
-      //       wordDoc = doc(db, modWord.charAt(0), modWord);
-      //       wordSnap = await getDoc(wordDoc);
-      //     }
-      //     if (wordSnap.data().definition !== "") {
-      //       $(this).removeClass("isWord");
-      //       $(this).addClass("highlight");
-      //       $(this).off().click(function(event) {
-      //         if (event.detail === 1) {
-      //             let clicks = 0;
-      //             clicks++;
-      //             $(this).one("click", function() {
-      //                 clicks++;
-      //             });
-      //             setTimeout(async function() {
-      //                 if (clicks === 1) {
-      //                   playWordAudio(modWord);
-      //                   let wordRef = doc(wordBank, modWord);
-      //                   let wordDoc = await getDoc(wordRef);
-      //                   if (!wordDoc.exists()) {
-      //                     await setDoc(doc(wordBank, modWord), {
-      //                       definitionQueued: false, highestCorrect: 0, totalCorrect: 0,
-      //                       totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken", starNumber: 0
-      //                     });
-      //                   }
-      //                   clicks = 0;
-      //                 } else {
-      //                   defModal(word, wordSnap, modWord);
-      //                   let wordRef = doc(wordBank, modWord);
-      //                   let wordDoc = await getDoc(wordRef);
-      //                   if (!wordDoc.exists()) {
-      //                     await setDoc(doc(wordBank, modWord), {
-      //                       definitionQueued: true, highestCorrect: 0, totalCorrect: 0,
-      //                       totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken", starNumber: 0
-      //                     });
-      //                   } else if (!wordDoc.data().definitionQueued) {
-      //                     await updateDoc(doc(wordBank, modWord), {
-      //                       definitionQueued: true
-      //                     });
-      //                   }
-      //                   clicks = 0;
-      //                 }
-      //             }, 400);
-      //         }
-      //       });
-      //     } else {
-      //       $(this).removeClass("isWord");
-      //     }
-      //   }
-      // });
+        if (!wordSnap.exists()) {
+          $(this).removeClass("isWord");
+        } else {
+          if (wordSnap.data().parent_word !== modWord) {
+            modWord = wordSnap.data().parent_word;
+            wordDoc = doc(db, modWord.charAt(0), modWord);
+            wordSnap = await getDoc(wordDoc);
+          }
+          if (wordSnap.data().definition !== "") {
+            $(this).removeClass("isWord");
+            $(this).addClass("highlight");
+            $(this).off().click(function(event) {
+              if (event.detail === 1) {
+                  let clicks = 0;
+                  clicks++;
+                  $(this).one("click", function() {
+                      clicks++;
+                  });
+                  setTimeout(async function() {
+                      if (clicks === 1) {
+                        playWordAudio(modWord);
+                        let wordRef = doc(wordBank, modWord);
+                        let wordDoc = await getDoc(wordRef);
+                        if (!wordDoc.exists()) {
+                          await setDoc(doc(wordBank, modWord), {
+                            definitionQueued: false, highestCorrect: 0, totalCorrect: 0,
+                            totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken", starNumber: 0
+                          });
+                        }
+                        clicks = 0;
+                      } else {
+                        defModal(word, wordSnap, modWord);
+                        let wordRef = doc(wordBank, modWord);
+                        let wordDoc = await getDoc(wordRef);
+                        if (!wordDoc.exists()) {
+                          await setDoc(doc(wordBank, modWord), {
+                            definitionQueued: true, highestCorrect: 0, totalCorrect: 0,
+                            totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken", starNumber: 0
+                          });
+                        } else if (!wordDoc.data().definitionQueued) {
+                          await updateDoc(doc(wordBank, modWord), {
+                            definitionQueued: true
+                          });
+                        }
+                        clicks = 0;
+                      }
+                  }, 400);
+              }
+            });
+          } else {
+            $(this).removeClass("isWord");
+          }
+        }
+      });
     });
 }
 
