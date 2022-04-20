@@ -22,7 +22,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
-const username = "mtl10";
+const username = "testing3";
 
 const wordBank = collection(db, "Users", username, "wordBank");
 const userRef = doc(db, "Users", username);
@@ -48,18 +48,31 @@ specialSet.add(",");
 specialSet.add("!");
 specialSet.add("?");
 
-function increaseChapterProgress(chapter) {
-  let progress = sessionStorage.getItem(`progress-ch-${chapter}`);
+let userSnap = await getDoc(userRef);
+let chapterProgressArray = userSnap.data().chapterProgress;
+let pagesViewedArray = userSnap.data().viewedPages;
+
+// console.log(chapterProgressArray);
+// console.log(pagesViewedArray);
+
+
+async function increaseChapterProgress(chapter) {
+  console.log("increaseChapterProgress")
+  let progress = chapterProgressArray[chapter];
   progress = parseInt(progress, 10);
   progress += 1;
-  sessionStorage.setItem(`progress-ch-${chapter}`, progress);
+  chapterProgressArray[chapter] = progress;
+  await updateDoc(userRef, {
+    chapterProgress: chapterProgressArray
+  });
 }
 
-function pageRead(chapter, page) {
+async function pageRead(chapter, page) {
   let alreadyAdded = false;
-  let pagesViewed = sessionStorage
-    .getItem(`viewedPages-ch-${chapter}`)
-    .split(" ");
+  let pagesViewed = pagesViewedArray[chapter].split(" ");
+  // let pagesViewed = sessionStorage
+  //   .getItem(`viewedPages-ch-${chapter}`)
+  //   .split(" ");
   pagesViewed.forEach((page) => {
     // Check if it is already in the list
     let currChpt = sessionStorage.getItem("chptNum"); // Chapters not indexed from 1
@@ -70,10 +83,10 @@ function pageRead(chapter, page) {
   });
   if (alreadyAdded === false) {
     let currPagesViewed;
-    if (sessionStorage.getItem(`viewedPages-ch-${chapter}`)) {
+    if (pagesViewedArray[chapter].length > 0) {
       // If there have been any pages added
       currPagesViewed =
-        sessionStorage.getItem(`viewedPages-ch-${chapter}`) +
+        pagesViewedArray[chapter] +
         " " +
         chapter +
         "-" +
@@ -82,11 +95,57 @@ function pageRead(chapter, page) {
       // If this is the first page to be added
       currPagesViewed = chapter + "-" + page;
     }
-    sessionStorage.setItem(`viewedPages-ch-${chapter}`, currPagesViewed);
-
+    pagesViewedArray[chapter] = currPagesViewed
+    await updateDoc(userRef, {
+      pagesViewed: pagesViewedArray
+    });
     increaseChapterProgress(chapter);
   }
 }
+
+// async function increaseChapterProgress(chapter) {
+//   let progress = chapterProgressArray[chapter];
+//   progress = parseInt(progress, 10);
+//   progress += 1;
+//   chapterProgressArray[chapter] = progress;
+//   await updateDoc(userRef, {
+//     chapterProgress: chapterProgressArray
+//   });
+//   // console.log(chapterProgressArray);
+//   // console.log(sessionStorage.getItem(`progress-ch-${chapter}`));
+// }
+
+// async function pageRead(chapter, page) {
+//   let alreadyAdded = false;
+//   let pagesViewed = pagesViewedArray[chapter].split(" ");
+//   console.log(pagesViewedArray[chapter]);
+//   pagesViewed.forEach((pages) => {
+//     // Check if it is already in the list
+//     let currChpt = sessionStorage.getItem("chptNum"); // Chapters not indexed from 1
+//     let currPg = sessionStorage.getItem("pageNum");
+//     console.log(currChpt);
+//     console.log(currPg);
+//     if (pages === currChpt + "-" + currPg) {
+//       alreadyAdded = true;
+//     }
+//   });
+//   if (alreadyAdded === false) {
+//     let currPagesViewed;
+//     currPagesViewed =
+//         pagesViewedArray[chapter] +
+//         " " +
+//         chapter +
+//         "-" +
+//         page;
+//     pagesViewedArray[chapter] = currPagesViewed
+//     await updateDoc(userRef, {
+//       pagesViewed: pagesViewedArray
+//     });
+//     console.log(pagesViewedArray[chapter]);
+
+//     increaseChapterProgress(chapter);
+//   }
+// }
 
 function increasePage(chapterNum, pageNum) {
   // Remember: since this is indexed from 0 this is the next chapter not the current one
@@ -312,66 +371,66 @@ function updatePageText(chapter, page, modNums) {
       });
 
       // Removes highlighting from word if it's not in the database and also adds click-on functionality for those words that are in the database.
-      $(".isWord").each(async function () {
-        let word = $(this).text();
-        let modWord = word.toLowerCase();
-        let wordDoc = doc(db, modWord.charAt(0), modWord);
-        let wordSnap = await getDoc(wordDoc);
+      // $(".isWord").each(async function () {
+      //   let word = $(this).text();
+      //   let modWord = word.toLowerCase();
+      //   let wordDoc = doc(db, modWord.charAt(0), modWord);
+      //   let wordSnap = await getDoc(wordDoc);
         
-        if (!wordSnap.exists()) {
-          $(this).removeClass("isWord");
-        } else {
-          if (wordSnap.data().parent_word !== modWord) {
-            modWord = wordSnap.data().parent_word;
-            wordDoc = doc(db, modWord.charAt(0), modWord);
-            wordSnap = await getDoc(wordDoc);
-          }
-          if (wordSnap.data().definition !== "") {
-            $(this).removeClass("isWord");
-            $(this).addClass("highlight");
-            $(this).off().click(function(event) {
-              if (event.detail === 1) {
-                  let clicks = 0;
-                  clicks++;
-                  $(this).one("click", function() {
-                      clicks++;
-                  });
-                  setTimeout(async function() {
-                      if (clicks === 1) {
-                        playWordAudio(modWord);
-                        let wordRef = doc(wordBank, modWord);
-                        let wordDoc = await getDoc(wordRef);
-                        if (!wordDoc.exists()) {
-                          await setDoc(doc(wordBank, modWord), {
-                            definitionQueued: false, highestCorrect: 0, totalCorrect: 0,
-                            totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken", starNumber: 0
-                          });
-                        }
-                        clicks = 0;
-                      } else {
-                        defModal(word, wordSnap, modWord);
-                        let wordRef = doc(wordBank, modWord);
-                        let wordDoc = await getDoc(wordRef);
-                        if (!wordDoc.exists()) {
-                          await setDoc(doc(wordBank, modWord), {
-                            definitionQueued: true, highestCorrect: 0, totalCorrect: 0,
-                            totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken", starNumber: 0
-                          });
-                        } else if (!wordDoc.data().definitionQueued) {
-                          await updateDoc(doc(wordBank, modWord), {
-                            definitionQueued: true
-                          });
-                        }
-                        clicks = 0;
-                      }
-                  }, 400);
-              }
-            });
-          } else {
-            $(this).removeClass("isWord");
-          }
-        }
-      });
+      //   if (!wordSnap.exists()) {
+      //     $(this).removeClass("isWord");
+      //   } else {
+      //     if (wordSnap.data().parent_word !== modWord) {
+      //       modWord = wordSnap.data().parent_word;
+      //       wordDoc = doc(db, modWord.charAt(0), modWord);
+      //       wordSnap = await getDoc(wordDoc);
+      //     }
+      //     if (wordSnap.data().definition !== "") {
+      //       $(this).removeClass("isWord");
+      //       $(this).addClass("highlight");
+      //       $(this).off().click(function(event) {
+      //         if (event.detail === 1) {
+      //             let clicks = 0;
+      //             clicks++;
+      //             $(this).one("click", function() {
+      //                 clicks++;
+      //             });
+      //             setTimeout(async function() {
+      //                 if (clicks === 1) {
+      //                   playWordAudio(modWord);
+      //                   let wordRef = doc(wordBank, modWord);
+      //                   let wordDoc = await getDoc(wordRef);
+      //                   if (!wordDoc.exists()) {
+      //                     await setDoc(doc(wordBank, modWord), {
+      //                       definitionQueued: false, highestCorrect: 0, totalCorrect: 0,
+      //                       totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken", starNumber: 0
+      //                     });
+      //                   }
+      //                   clicks = 0;
+      //                 } else {
+      //                   defModal(word, wordSnap, modWord);
+      //                   let wordRef = doc(wordBank, modWord);
+      //                   let wordDoc = await getDoc(wordRef);
+      //                   if (!wordDoc.exists()) {
+      //                     await setDoc(doc(wordBank, modWord), {
+      //                       definitionQueued: true, highestCorrect: 0, totalCorrect: 0,
+      //                       totalIncorrect: 0, lastDateAccessed: "Quiz Not Taken", starNumber: 0
+      //                     });
+      //                   } else if (!wordDoc.data().definitionQueued) {
+      //                     await updateDoc(doc(wordBank, modWord), {
+      //                       definitionQueued: true
+      //                     });
+      //                   }
+      //                   clicks = 0;
+      //                 }
+      //             }, 400);
+      //         }
+      //       });
+      //     } else {
+      //       $(this).removeClass("isWord");
+      //     }
+      //   }
+      // });
     });
 }
 
