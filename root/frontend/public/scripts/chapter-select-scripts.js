@@ -30,14 +30,33 @@ if (!sessionStorage.getItem("firstLoad")) {
     sessionStorage.setItem("chptNum", "");
     sessionStorage.setItem("bookmarks", "");
     sessionStorage.setItem("pageNum", "");
-
-    for (let i = 1; i < 22; i++) {
-        sessionStorage.setItem(`viewedPages-ch-${i}`, "0");
-        sessionStorage.setItem(`progress-ch-${i}`, "0");
-    }
 }
 
 const username = "mtl10";
+
+async function checkAccount() {
+    let dummyQueue = [];
+    let dummyArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    let dummyStringArray = ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"];
+    let userDoc = await getDoc(doc(db, "Users", username));
+    if (!userDoc.exists()) {
+        await setDoc(doc(db, "Users", username), {
+            queue: dummyQueue,
+            chapterProgress: dummyArray,
+            pagesViewed: dummyStringArray
+        });
+        await setDoc(doc(db, "Users", username, "wordBank", "placeholder"), {
+            dummyData: true
+        });
+    }
+}
+
+await checkAccount();
+
+let userRef = doc(db, "Users", username);
+
+let userSnap = await getDoc(userRef);
+let chapterProgressArray = userSnap.data().chapterProgress;
 
 let chptArr = [
 "Puddleby",
@@ -87,7 +106,7 @@ let chapterStartPageNumber = [1, 7, 24, 34, 46, 58, 69, 84, 93, 102, 114, 125, 1
 
 // Loop for each chapter and create a chapter-box component
 for (let i = 1; i <= 21; i++) {
-    let chapterProgress = sessionStorage.getItem(`progress-ch-${i}`);
+    let chapterProgress = chapterProgressArray[i];
     
     // ~~ Converts a float into an int by flipping the bits twice
     let percentComplete = ~~ (100 * (chapterProgress  / (chapterStartPageNumber[parseInt(i, 10)] - chapterStartPageNumber[parseInt(i-1, 10)])));
@@ -137,17 +156,4 @@ imgButtons.each(function(i) {
     });
 });
 
-async function checkAccount() {
-    let dummyQueue = [];
-    let userDoc = await getDoc(doc(db, "Users", username));
-    if (!userDoc.exists()) {
-        await setDoc(doc(db, "Users", username), {
-            queue: dummyQueue
-        });
-        await setDoc(doc(db, "Users", username, "wordBank", "placeholder"), {
-            dummyData: true
-        });
-    }
-}
 
-checkAccount();
