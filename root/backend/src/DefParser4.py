@@ -2,17 +2,17 @@ import docx2txt
 import os
 
 
-# import firebase_admin
-# from firebase_admin import credentials
-# from firebase_admin import firestore
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
 
 # Use a service account
-# cwd = os.getcwd()
-# jsonFilePath = os.path.join(cwd, "ServiceAccountKey.json")
-# cred = credentials.Certificate(jsonFilePath)
-# firebase_admin.initialize_app(cred)
-#
-# db = firestore.client()
+cwd = os.getcwd()
+jsonFilePath = os.path.join(cwd, "ServiceAccountKey.json")
+cred = credentials.Certificate(jsonFilePath)
+firebase_admin.initialize_app(cred)
+
+db = firestore.client()
 
 class DefParser():
 
@@ -93,28 +93,28 @@ class DefParser():
                     definition = "MISSING DEFINITION"
 
                 # # populate database; no need to run this every time so it can be commented out until needed
-                # collection_ref = db.collection(word[0])
-                # doc_ref = collection_ref.document(word)
-                # doc_ref.set({
-                #     'is_sight_word': False,
-                #     'is_child_word': False,
-                #     'parent_word': word,
-                #     'definition': definition,
-                #     'derivative_words': childWords,
-                #     'block_from_quiz': "",
-                # })
-                #
-                # for child in childWords:
-                #     collection_ref = db.collection(child[0])
-                #     doc_ref = collection_ref.document(child)
-                #     doc_ref.set({
-                #         'is_sight_word': False,
-                #         'is_child_word': True,
-                #         'parent_word': word,
-                #         'definition': "",
-                #         'derivative_words': "",
-                #         'block_from_quiz': ""
-                #     })
+                collection_ref = db.collection(word[0])
+                doc_ref = collection_ref.document(word)
+                doc_ref.set({
+                    'is_sight_word': False,
+                    'is_child_word': False,
+                    'parent_word': word,
+                    'definition': definition,
+                    'derivative_words': childWords,
+                    'block_from_quiz': "",
+                })
+
+                for child in childWords:
+                    collection_ref = db.collection(child[0])
+                    doc_ref = collection_ref.document(child)
+                    doc_ref.set({
+                        'is_sight_word': False,
+                        'is_child_word': True,
+                        'parent_word': word,
+                        'definition': "",
+                        'derivative_words': "",
+                        'block_from_quiz': ""
+                    })
                 # print to test data values
                 print("Word: " + word)
                 print("Is Child? False,\t\tParent Word: \"\"")
