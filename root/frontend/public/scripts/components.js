@@ -190,7 +190,11 @@ class Bookmark extends HTMLElement {
                 let userSnap = await getDoc(userRef);
                 let bookmarkList = userSnap.data().bookmarkList;
                 if (bookmarkList) { // If there have been any bookmarks added 
-                    currBookMarks = bookmarkList + " " + sessionStorage.getItem("chptNum") + "-" + sessionStorage.getItem("pageNum");
+                    if (!bookmarkList.includes(sessionStorage.getItem("chptNum") + "-" + sessionStorage.getItem("pageNum"))) {
+                        currBookMarks = bookmarkList + " " + sessionStorage.getItem("chptNum") + "-" + sessionStorage.getItem("pageNum");
+                    } else {
+                        currBookMarks = bookmarkList;
+                    }
                 } else { // If this is the first bookmark to be added
                     currBookMarks = sessionStorage.getItem("chptNum") + "-" + sessionStorage.getItem("pageNum");
                 }
