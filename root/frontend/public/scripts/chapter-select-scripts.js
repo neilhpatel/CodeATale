@@ -38,7 +38,7 @@ async function checkAccount() {
     let dummyQueue = [];
     let dummyArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     let dummyStringArray = ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"];
-    let dummyBookmarkList = ""
+    let dummyBookmarkList = "";
     let userDoc = await getDoc(doc(db, "Users", username));
     if (!userDoc.exists()) {
         await setDoc(doc(db, "Users", username), {
