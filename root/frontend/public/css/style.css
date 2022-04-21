@@ -66,7 +66,6 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
-
 #navbar i:hover {
   transform: scale(125%);
   text-shadow: 0 0 5px rgb(255, 255, 255);
@@ -134,7 +133,7 @@ body::-webkit-scrollbar-thumb:hover {
   scrollbar-color: grey white;
   scrollbar-width: thin;
   left: 88% !important;
-  top: 22% !important;
+  top: 22%;
 }
 
 /* adjusting position of bookmark container (phone screen) */
@@ -142,10 +141,9 @@ body::-webkit-scrollbar-thumb:hover {
   #bookmark-modal-container {
     position: fixed;
     left: 87% !important;
-    top: 22% !important;
+    top: 22%;
     height: 50vh;
     border: 2px solid black;
-    
   }
 }
 
@@ -154,7 +152,7 @@ body::-webkit-scrollbar-thumb:hover {
   #bookmark-modal-container {
     position: fixed;
     left: 85% !important;
-    top: 22% !important;
+    top: 22%;
     border: 2px solid black;
     max-width: 11vw;
     height: 50vh;

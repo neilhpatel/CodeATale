@@ -137,7 +137,6 @@
   }
 }
 
-
 .quiz-options button {
   margin: 6px;
   font-size: 1.5vmin;
@@ -153,7 +152,7 @@
 @media screen and (max-width: 1000px) {
   .quiz-options button {
     padding: 0.5em 0em;
-    font-size: 2vmin;
+    font-size: 2.0vmin;
   }
 }
 

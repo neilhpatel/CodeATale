@@ -131,8 +131,7 @@
     9px 8px 0 rgb(76, 0, 255),
     8px 9px 0 rgb(76, 0, 255);
   transition: 100ms ease-in-out;
-  }
-
+}
 
 /* decreasing the size of the drop shadow (phone screen) */
 @media screen and (max-width: 1000px) {
