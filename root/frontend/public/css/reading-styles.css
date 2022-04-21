@@ -86,6 +86,24 @@ audio {
   background: linear-gradient(90deg, rgb(100, 255, 61) 0%, rgb(55, 255, 245) 50%, rgb(27, 190, 255) 100%);
 }
 
+/* making the audio bar smaller and higher (phone screen) */
+@media screen and (max-width: 1000px) {
+  audio {
+    height: 5vw;
+    bottom: 10%;
+    box-shadow: 0 20px 10px -20px hsl(0deg 0% 0% / 0.38);
+  }
+}
+
+/* making the audio bar smaller and higher for iphone se (phone screen) */
+@media screen and (max-aspect-ratio: 4/2) {
+  audio {
+    height: 5vw;
+    bottom: 10%;
+    box-shadow: 0 20px 10px -15px hsl(0deg 0% 0% / 0.38);
+  }
+}
+
 audio .controlBar {
   background-color: rgba(0, 0, 0, 0);
 }

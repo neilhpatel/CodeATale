@@ -8,12 +8,22 @@
   transform: translate(-50%);
 }
 
+
 /* Slideshow */
 .slideshow {
   width: 75vw;
   margin: 0 auto;
+  font-size: 5em;
   padding: 15vh 0 0 0;
 }
+
+/* Making the font of the image text smaller (phone screen) */
+@media screen and (max-width: 1000px) {
+  .slideshow {
+    font-size: 3em;
+  }
+}
+
 
 /* Size and position of the images */
 .slick-slide img {
@@ -21,6 +31,22 @@
   max-height: 25vw;
   margin: 0 auto;
 }
+
+/* Making the image smaller (phone screen) */
+@media screen and (max-width: 1000px) {
+  .slick-slide img {
+    max-width: 40vw;
+    max-height: 22vw;
+    margin: 0 auto;
+  }
+}
+
+/* Font for text in gallery screen */
+.img_text {
+  text-align: center;
+  font-size: 5em;
+}
+
 
 /* Next and Previous Arrows */
 .nextArrowBtn,

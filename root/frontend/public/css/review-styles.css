@@ -36,12 +36,26 @@
   font-size: 2.5vmin;
 }
 
+/* making border around each title smaller */ 
+@media screen and (max-width: 1000px) {
+  .item-title {
+    border: 2.5px solid black;
+  }
+}
+
 /* Lists */
 ul {
   border: 4px solid black;
   border-radius: 15px;
   background-color: rgba(100, 216, 65, 0.527);
   min-height: 80vh;
+}
+
+/* making the border around the items smaller (phone screen) */
+@media screen and (max-width: 1000px) {
+  ul {
+    border: 2.5px solid black;
+  }
 }
 
 li {
