@@ -1,6 +1,8 @@
 /* Chapter Heading */
 #reading-heading {
   position: absolute;
+  width: 70vw;
+  text-align: center;
   left: 50%;
   transform: translate(-50%);
   color:rgb(73, 73, 73);
@@ -47,12 +49,12 @@
 }
 
 #prevPg {
-  bottom: 5%;
+  bottom: 8%;
   left: 15%;
 }
 
 #nextPg {
-  bottom: 5%;
+  bottom: 8%;
   right: 15%;
 }
 
@@ -91,7 +93,6 @@ audio {
 /* making the audio bar smaller and higher (phone screen) */
 @media screen and (max-width: 1000px) {
   audio {
-    height: 5vw;
     bottom: 10%;
     box-shadow: 0 20px 10px -20px hsl(0deg 0% 0% / 0.38);
   }
@@ -100,7 +101,6 @@ audio {
 /* making the audio bar smaller and higher for iphone se (phone screen) */
 @media screen and (max-aspect-ratio: 4/2) {
   audio {
-    height: 5vw;
     bottom: 10%;
     box-shadow: 0 20px 10px -15px hsl(0deg 0% 0% / 0.38);
   }

@@ -28,13 +28,13 @@ html {
 }
 
 /* Resizing number of columns based on screen size */
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 700px) {
   #selboxes {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 400px) {
   #selboxes {
     grid-template-columns: 1fr;
   }

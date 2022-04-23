@@ -19,7 +19,13 @@
 /* Making the font of the image text smaller (phone screen) */
 @media screen and (max-width: 1000px) {
   .slideshow {
-    font-size: 3em;
+    font-size: 2.75em;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .slideshow {
+    font-size: 1.75em;
   }
 }
 

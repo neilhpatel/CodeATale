@@ -268,6 +268,12 @@ function defModal(word, wordSnap, modWord) {
     $("#queue-msg").off("toggleClass").toggleClass("queue-msg-show queue-msg-hide");
   });
 
+  $("#modal").on("plainmodalopen", function(event) {
+    if ($("#queue-msg").hasClass("queue-msg-show") === true) {
+      $("#queue-msg").toggleClass("queue-msg-show queue-msg-hide");
+    }
+  });
+
   modal = $("#modal").plainModal("open");
 }
 

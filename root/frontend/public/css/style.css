@@ -92,15 +92,6 @@ body::-webkit-scrollbar-thumb:hover {
   top: 10%;
 }
 
-/* adjusting position of bookmark (phone screen) */
-@media screen and (max-width: 1000px) {
-  .bookmark {
-    position: fixed;
-    right: 5%;
-    top: 10%;
-  }
-}
-
 /* adjusting position of bookmark for iphone se (phone screen) */
 @media screen and (max-width: 1000px) and (max-aspect-ratio: 4/2) {
   .bookmark {

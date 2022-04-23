@@ -93,7 +93,6 @@ function removeStars() {
 }
 
 async function quizWords() {
-  // Codacy does not like the use of "undefined"
   checkArrows();
   if (queue === null || queue.length === 0) {
     emptyScreen();
@@ -133,8 +132,9 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
     $(this).html(answers[parseInt(i, 10)].id);
     if (answers[parseInt(i, 10)].id === word) {
       $(this).off().one("click", async function() {
-        $("button").off();
-        $(this).css("background-color", "lime");
+        $(".quiz-option").off();
+        $(this).removeClass("neutral-answer");
+        $(this).addClass("correct-answer");
         let audio = new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav");
         audio.volume = 0.5;
         audio.play();
@@ -158,7 +158,8 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
         }
         let updatedDocSnap = await getDoc(doc(wordBank, word));
         setTimeout(async () => {
-          $(this).css("background-color", "white");
+          $(this).removeClass("correct-answer");
+          $(this).addClass("neutral-answer");
           let starNumber = updatedDocSnap.data().starNumber;
           addStars(starNumber);
           if (starNumber === 0) {
@@ -178,8 +179,9 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
       });
     } else {
       $(this).off().one("click", async function() {
-        $("button").off();
-        $(this).css("background-color", "red");
+        $(".quiz-option").off();
+        $(this).removeClass("neutral-answer");
+        $(this).addClass("incorrect-answer");
         var audio = new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav");
         audio.volume = 0.5;
         audio.play();
@@ -188,7 +190,8 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
           starNumber: 0
         });
         setTimeout(() => {
-          $(this).css("background-color", "white");
+          $(this).removeClass("incorrect-answer");
+          $(this).addClass("neutral-answer");
           removeStars();
           repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords);
         }, 1000);
@@ -205,13 +208,21 @@ function emptyScreen() {
 }
 
 $("#prevPg").off("click").click(function () {
-  $("button").off();
+  console.log("Test prev");
+  $(".quiz-option").off();
+  $(".quiz-option").removeClass("incorrect-answer");
+  $(".quiz-option").removeClass("correct-answer");
+  $(".quiz-option").addClass("neutral-answer");
   quizIndex--;
   quizWords();
 });
 
 $("#nextPg").off("click").click(function () {
-  $("button").off();
+  console.log("Test next");
+  $(".quiz-option").off();
+  $(".quiz-option").removeClass("incorrect-answer");
+  $(".quiz-option").removeClass("correct-answer");
+  $(".quiz-option").addClass("neutral-answer");
   quizIndex++;
   quizWords();
 });

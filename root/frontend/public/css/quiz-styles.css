@@ -18,17 +18,22 @@
 /* Definition */
 #quiz-def {
   position: absolute;
-  font-size: 3vmin;
+  overflow: hidden;
+  font-size: 2.5vmin;
   left: 50%;
   transform: translate(-50%);
   text-align: center;
-  margin: 2vmin;
+  margin: 1vmin 2vmin 2vmin 2vmin;
   padding: 1vmin 2vmin;
   color: rgb(76, 0, 255);
   border-radius: 10px;
   background-color: rgba(151, 255, 250, 0.571);
   box-shadow: 0 8px 4px -4px rgb(104, 104, 104);
+  max-height: 9vh;
+  width: 60vw;
 }
+
+
 
 /* Help Button */
 #help-btn {
@@ -41,6 +46,7 @@
   height: 10vmin;
   border-radius: 50%;
   font-size: 5vmin;
+  font-family: 'Times New Roman', Times, serif;
   border: none;
   box-shadow:
     -4px 4px 1px black,
@@ -101,7 +107,7 @@
   position: absolute;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4vmin 15vmin;
+  gap: 0 15vmin;
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -114,7 +120,6 @@
   margin: 1em;
   border: none;
   font-size: 4vmin;
-  background-color: rgb(255, 255, 243);
   color: black;
   box-shadow:
     1px 0 0 rgb(76, 0, 255),
@@ -136,6 +141,18 @@
     9px 8px 0 rgb(76, 0, 255),
     8px 9px 0 rgb(76, 0, 255);
   transition: 100ms ease-in-out;
+}
+
+.correct-answer {
+  background-color: lime;
+}
+
+.incorrect-answer {
+  background-color: red;
+}
+
+.neutral-answer {
+  background-color: white;
 }
 
 /* decreasing the size of the drop shadow (phone screen) */
@@ -171,7 +188,11 @@
   transform: translate(9px, 8px);
 }
 
-#quiz-container button:hover {
+/* 
+  Only allow the hover color to be shown if red or green is not currently
+  being displayed. The white color is the default "neutral" color state.
+*/
+.neutral-answer:hover {
   background-color: rgba(34, 152, 255, 0.596);
 }
 
