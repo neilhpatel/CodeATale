@@ -37,7 +37,7 @@ body::-webkit-scrollbar-thumb:hover {
   display: flex;
   flex: auto;
   min-width: 10vw;
-  min-height: 10vh;
+  min-height: 100vh;
   flex-direction: column;
   font-size: 5vw;
   border-right: 3px solid black;
@@ -132,8 +132,9 @@ body::-webkit-scrollbar-thumb:hover {
   transition: 300ms ease-in-out;
   scrollbar-color: grey white;
   scrollbar-width: thin;
-  left: 88% !important;
-  top: 22%;
+  left: 90% !important;
+  right: 2%;
+  top: 22% !important;
 }
 
 /* adjusting position of bookmark container (phone screen) */
