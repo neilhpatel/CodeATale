@@ -6,7 +6,8 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-# Use a service account
+# Use a service account. Note that ServiceAccountKey.json needs to be stored in the current working directory in order to
+# write to the database
 cwd = os.getcwd()
 jsonFilePath = os.path.join(cwd, "ServiceAccountKey.json")
 cred = credentials.Certificate(jsonFilePath)
@@ -14,15 +15,17 @@ firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 
-class DefParser():
+class DefParser2():
 
+    # Initialize class with a given file path and the file's text
     def __init__(self, filePath):
         self.filePath = filePath
         self.text = docx2txt.process(self.filePath)
 
+    # Method that reads text and writes word and corresponding word information (is_sight_word, is_child_word, etc.) to
+    # the database
     def parseWordDocumentText(self):
         startInd = 0
-        endInd = 0
         textInd = 0
         newlineCounts = 0
         readyToParse = True
@@ -102,7 +105,7 @@ class DefParser():
                 if definition == "":
                     definition = "MISSING DEFINITION"
 
-                # # populate database; no need to run this every time so it can be commented out until needed
+                # populate database; no need to run this every time so it can be commented out until needed
                 collection_ref = db.collection(word[0])
                 doc_ref = collection_ref.document(word)
                 doc_ref.set({
@@ -125,7 +128,7 @@ class DefParser():
                         'derivative_words': "",
                         'block_from_quiz': ""
                     })
-                # print to test data values
+                # print in terminal to test data values
                 print("Word: " + word, "Is Child? False,\t\tParent Word: \"\"", "Definition: " + definition,
                       "Blocked Quiz Options: " + blockedQuizOptions, "Sight word: " + str(sightWord), "Child words: ", sep=os.linesep)
                 for child in childWords:
@@ -142,14 +145,14 @@ class DefParser():
 
 def main():
     """
-    Main method to run DefParser.py. Reads relative file path of cwd which contains definitions.docx
+    Main method to run DefParser2.py. Reads relative file path of cwd which contains definitions2.docx
     """
 
     prefixPath = os.getcwd()
     newPath = os.path.abspath(os.path.join(prefixPath, os.pardir))
     docPath = os.path.join(newPath, "docs")
     srcPath = os.path.join(docPath, "definitions2.docx")
-    defParser = DefParser(srcPath)
+    defParser = DefParser2(srcPath)
     defParser.parseWordDocumentText()
 
 if __name__ == '__main__':
