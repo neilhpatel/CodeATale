@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
-import { getFirestore, collection, doc, getDoc, setDoc, updateDoc, getDocs, where, query, increment} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,7 +19,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
 // This code only fires once per session and is just 
@@ -30,14 +29,35 @@ if (!sessionStorage.getItem("firstLoad")) {
     sessionStorage.setItem("chptNum", "");
     sessionStorage.setItem("bookmarks", "");
     sessionStorage.setItem("pageNum", "");
-
-    for (let i = 1; i < 22; i++) {
-        sessionStorage.setItem(`viewedPages-ch-${i}`, "0");
-        sessionStorage.setItem(`progress-ch-${i}`, "0");
-    }
 }
 
 const username = "mtl10";
+
+async function checkAccount() {
+    let dummyQueue = [];
+    let dummyArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    let dummyStringArray = ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"];
+    let dummyBookmarkList = "";
+    let userDoc = await getDoc(doc(db, "Users", username));
+    if (!userDoc.exists()) {
+        await setDoc(doc(db, "Users", username), {
+            queue: dummyQueue,
+            chapterProgress: dummyArray,
+            pagesViewed: dummyStringArray,
+            bookmarkList: dummyBookmarkList
+        });
+        await setDoc(doc(db, "Users", username, "wordBank", "placeholder"), {
+            dummyData: true
+        });
+    }
+}
+
+await checkAccount();
+
+let userRef = doc(db, "Users", username);
+
+let userSnap = await getDoc(userRef);
+let chapterProgressArray = userSnap.data().chapterProgress;
 
 let chptArr = [
 "Puddleby",
@@ -87,7 +107,7 @@ let chapterStartPageNumber = [1, 7, 24, 34, 46, 58, 69, 84, 93, 102, 114, 125, 1
 
 // Loop for each chapter and create a chapter-box component
 for (let i = 1; i <= 21; i++) {
-    let chapterProgress = sessionStorage.getItem(`progress-ch-${i}`);
+    let chapterProgress = chapterProgressArray[i];
     
     // ~~ Converts a float into an int by flipping the bits twice
     let percentComplete = ~~ (100 * (chapterProgress  / (chapterStartPageNumber[parseInt(i, 10)] - chapterStartPageNumber[parseInt(i-1, 10)])));
@@ -137,17 +157,4 @@ imgButtons.each(function(i) {
     });
 });
 
-async function checkAccount() {
-    let dummyQueue = [];
-    let userDoc = await getDoc(doc(db, "Users", username));
-    if (!userDoc.exists()) {
-        await setDoc(doc(db, "Users", username), {
-            queue: dummyQueue
-        });
-        await setDoc(doc(db, "Users", username, "wordBank", "placeholder"), {
-            dummyData: true
-        });
-    }
-}
 
-checkAccount();

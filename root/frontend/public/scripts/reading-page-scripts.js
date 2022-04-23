@@ -50,18 +50,24 @@ specialSet.add(",");
 specialSet.add("!");
 specialSet.add("?");
 
-function increaseChapterProgress(chapter) {
-  let progress = sessionStorage.getItem(`progress-ch-${chapter}`);
+let userSnap = await getDoc(userRef);
+let chapterProgressArray = userSnap.data().chapterProgress;
+let pagesViewedArray = userSnap.data().pagesViewed;
+
+
+async function increaseChapterProgress(chapter) {
+  let progress = chapterProgressArray[chapter];
   progress = parseInt(progress, 10);
   progress += 1;
-  sessionStorage.setItem(`progress-ch-${chapter}`, progress);
+  chapterProgressArray[chapter] = progress;
+  await updateDoc(userRef, {
+    chapterProgress: chapterProgressArray
+  });
 }
 
-function pageRead(chapter, page) {
+async function pageRead(chapter, page) {
   let alreadyAdded = false;
-  let pagesViewed = sessionStorage
-    .getItem(`viewedPages-ch-${chapter}`)
-    .split(" ");
+  let pagesViewed = pagesViewedArray[chapter].split(" ");
   pagesViewed.forEach((page) => {
     // Check if it is already in the list
     let currChpt = sessionStorage.getItem("chptNum"); // Chapters not indexed from 1
@@ -72,10 +78,10 @@ function pageRead(chapter, page) {
   });
   if (alreadyAdded === false) {
     let currPagesViewed;
-    if (sessionStorage.getItem(`viewedPages-ch-${chapter}`)) {
+    if (pagesViewedArray[chapter].length > 0) {
       // If there have been any pages added
       currPagesViewed =
-        sessionStorage.getItem(`viewedPages-ch-${chapter}`) +
+        pagesViewedArray[chapter] +
         " " +
         chapter +
         "-" +
@@ -84,8 +90,10 @@ function pageRead(chapter, page) {
       // If this is the first page to be added
       currPagesViewed = chapter + "-" + page;
     }
-    sessionStorage.setItem(`viewedPages-ch-${chapter}`, currPagesViewed);
-
+    pagesViewedArray[chapter] = currPagesViewed;
+    await updateDoc(userRef, {
+      pagesViewed: pagesViewedArray
+    });
     increaseChapterProgress(chapter);
   }
 }
@@ -218,7 +226,6 @@ function defModal(word, wordSnap, modWord) {
       await updateDoc(userRef, {
         queue
       });
-      // console.log(queue);
       window.location.href = "quiz.html";
     } else {
       queue.splice(queue.indexOf(modWord), 1);
@@ -226,7 +233,6 @@ function defModal(word, wordSnap, modWord) {
       await updateDoc(userRef, {
         queue
       });
-      // console.log(queue);
       window.location.href = "quiz.html";
     }
   });
