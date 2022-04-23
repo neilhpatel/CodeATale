@@ -8,7 +8,7 @@ class Navbar extends HTMLElement {
         // Create the HTML for the element
         this.innerHTML = `
         <nav id="navbar">
-            <i class="fas fa-home" id="home-i" title="Home"></i>
+            <i class="fas fa-home" id="home-i" title="Home" style="padding-top: 40px"></i>
             <hr class="line">
             <i class="fas fa-arrow-alt-circle-left" id="back-i" title="Back"></i>
             <i class="fa-solid fa-pen-to-square" id="review-i" title="Review"></i>
@@ -178,7 +178,7 @@ class Bookmark extends HTMLElement {
             if (window.location.href.substring(window.location.href.length - 17, window.location.href.length) === "reading-page.html") {
                 onReadingPage = true;
             }
-            setTimeout(() => {addBookmarkHelper(alreadyAdded, onReadingPage);}, 150); // Adds a delay so the button can be seen being pressed down
+            addBookmarkHelper(alreadyAdded, onReadingPage);
         });
 
         // Popup modal to display the bookmark
