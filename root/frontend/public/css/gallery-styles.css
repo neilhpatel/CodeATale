@@ -9,6 +9,7 @@
 }
 
 /* Slideshow */
+/* Includes all of the elements of the gallery (excluding the nav bar) */
 .slideshow {
   width: 75vw;
   margin: 0 auto;
@@ -33,11 +34,14 @@
   transition: transform 0.25s;
 }
 
+/* Next and previous arrows effects */
 .nextArrowBtn:hover,
 .prevArrowBtn:hover {
   transform: scale(125%);
 }
 
+/* Positioning */
 .nextArrowBtn { right: 5%; }
 
+/* Positioning */
 .prevArrowBtn { left: 5%; }

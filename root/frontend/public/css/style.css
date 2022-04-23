@@ -1,3 +1,4 @@
+/* Font imports from google fonts */
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,regular,italic,500,500italic,700,700italic,900,900italic);
 @import url(https://fonts.googleapis.com/css?family=Libre+Caslon+Text:regular,italic,700);
 @import url(https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300italic,regular,italic,500,500italic,600,600italic,700,700italic);
@@ -10,6 +11,7 @@
   font-family: Baskervville, Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+/* Background color for all pages */
 body {
   background-color: #AFEEEE;
 }
@@ -48,7 +50,6 @@ body::-webkit-scrollbar-thumb:hover {
   border-right: 3px solid black;
   border-bottom: 3px solid black;
   text-align: center;
-
   background: rgb(40,255,0);
   background: linear-gradient(0deg, rgba(40,255,0,1) 0%, rgba(102,224,255,1) 25%, rgba(220,41,226,1) 50%, rgba(233,82,98,1) 75%, rgba(224,255,0,1) 100%);
 }
@@ -61,6 +62,7 @@ body::-webkit-scrollbar-thumb:hover {
   transition: transform 0.5s;
 }
 
+/* Increase size and add a white border on hover */
 #navbar i:hover {
   transform: scale(125%);
   text-shadow: 0 0 5px rgb(255, 255, 255);
@@ -81,6 +83,7 @@ body::-webkit-scrollbar-thumb:hover {
   top: 10%;
 }
 
+/* Button to open the bookmark popup */
 .fa-bookmark {
   font-size: 5vw;
   background-color: rgba(0, 0, 0, 0.0);
@@ -96,6 +99,7 @@ body::-webkit-scrollbar-thumb:hover {
   color: rgb(66, 66, 66);
 }
 
+/* Bookmark popup */
 #bookmark-modal-container {
   position: fixed;
   padding: 0.5rem;
@@ -113,14 +117,17 @@ body::-webkit-scrollbar-thumb:hover {
   top: 22% !important;
 }
 
+/* Change size of all children in bookmark popup */
 #bookmark-modal-container * {
   font-size: 1.75vmin;
 }
 
+/* Header for the bookmark popup */
 .bookmark-header {
   margin: 1vmin;
 }
 
+/* List of bookmarks */
 .bookmark-list {
   display: grid;
   max-width: 6.5vw;
@@ -150,7 +157,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 /* Add a new bookmark and current bookmark */
-/* Note: newBookmark refers to any bookmark that has been added */
+/* Note: newBookmark refers to ANY bookmark that has been added */
 #add-bookmark, .newBookmark {
   padding: 0.5rem;
   border: none;
@@ -164,6 +171,7 @@ body::-webkit-scrollbar-thumb:hover {
   cursor: pointer;
 }
 
+/* Text inside of each bookmark */
 .newBookmark span {
   font-size: 1vmin;
   display: block;
@@ -179,6 +187,7 @@ body::-webkit-scrollbar-thumb:hover {
   cursor: pointer;
 }
 
+/* Color of add bookmark button */
 #add-bookmark {
   background-color: rgb(104, 243, 229);
 }
@@ -189,6 +198,7 @@ body::-webkit-scrollbar-thumb:hover {
   transform: translate(-4px, 4px);
 }
 
+/* Delete bookmark button */
 .bookmarkDel {
   padding: 0.75rem 0.1rem;
   border: none;

@@ -37,7 +37,8 @@
   font-size: 2.5vmin;
 }
 
-/* Lists */
+/* General Lists Styles */
+/* Unordered list */
 ul {
   border: 4px solid black;
   border-radius: 15px;
@@ -45,6 +46,7 @@ ul {
   min-height: 80vh;
 }
 
+/* List item */
 li {
   list-style-type: none;
   font-size: 2.5vmin;
