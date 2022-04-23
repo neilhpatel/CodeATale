@@ -1,6 +1,7 @@
 from pydub import AudioSegment
 import os
 
+#Contains the timestamps by page. Each page has a start and end timestamp which is used when splicing the chapter audio file
 timeStamps = [
     [], #Leave here for proper indexing
     [[0, 46], [46, 110], [110, 167], [167.5, 207], [207, 244], [244, 273]], #C1
@@ -26,14 +27,19 @@ timeStamps = [
     [[0, 48], [48, 88], [88, 133], [133, 177], [177, 215], [215, 253], [253, 274]] #C21
 ]
 
+# Contains the starting page of each chapter
 chapterStartPageNumber = [0, 1, 7, 24, 34, 46, 58, 69, 84, 93, 102, 114, 125, 142, 150, 159, 172, 181, 192, 209, 222, 233, 240]
 
+# Method that splits chapter audio into pages. All chapter audio files (dd_1.mp3, dd_2.mp3, ..., dd_21.mp3) should be
+# placed inside backend/Audio/ChapterAudio in order for the code below to run. Additionally, folders titled "C1", "C2", ...
+# "C21" should be created within the ChapterAudio directory so all created audio files can be placed there.
 def splitChapterAudioToPages():
     prefixPath = os.getcwd()
     newPath = os.path.abspath(os.path.join(prefixPath, os.pardir))
     chapterAudioDirectory = os.path.join(newPath, "Audio/ChapterAudio")
     files = os.listdir(chapterAudioDirectory)
 
+    #Loop through each chapter and all pages within the chpater and splice chapter audio with the given timestamps
     for chapterNumber in range(1, 22):
         chapterAudioFile = "dd_" + str(chapterNumber) + ".mp3"
         pageNumber = chapterStartPageNumber[chapterNumber]
@@ -43,10 +49,10 @@ def splitChapterAudioToPages():
             for page in enumerate(pageTimeStamps):
                 start = page[1][0] * 1000 # Works in milliseconds
                 end = page[1][1] * 1000
-                newAudio = chapterAudio[start:end]
+                newAudio = chapterAudio[start:end] #Index chapterAudio file with start and end points
                 filePath = chapterAudioDirectory + "/C" + str(chapterNumber) + "/Chapter"+ str(chapterNumber) + "_Page" + str(pageNumber) + ".mp3"
 
-                newAudio.export(filePath, format="mp3") #Exports file to specified file path
+                newAudio.export(filePath, format="mp3") #Exports file "Chapter{chapterNum}_Page{pageNumber}.mp3" to specified file path
                 pageNumber += 1
 
 def main():
