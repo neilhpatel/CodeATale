@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
 import { getFirestore, collection, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
+import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-storage.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,12 +22,17 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
+const storage = getStorage();
 
 const username = "mtl10";
 
 const wordBank = collection(db, "Users", username, "wordBank");
+const userRef = doc(db, "Users", username);
 
 let chapterStartPageNumber = [1, 7, 24, 34, 46, 58, 69, 84, 93, 102, 114, 125, 142, 150, 159, 172, 181, 192, 209, 222, 233, 240];
+let chapterTitles = ["", "Puddleby", "Animal Language", "More Money Troubles", "A Message from Africa", "The Great Journey", "Polynesia and the King", "The Bridge of Apes",
+  "The Leader of the Lions", "The Monkeys' Council", "The Rarest Animal of All", "The Black Prince", "Medicine and Magic", "Red Sails and Blue Wings", "The Rats' Warning",
+  "The Barbary Dragon", "Too-Too, The Listener", "The Ocean Gossips", "Smells", "The Rock", "The Fisherman's Town", "Home Again"];
 
 // Creating a list of all special characters to check for
 const specialSet = new Set();
@@ -44,18 +50,24 @@ specialSet.add(",");
 specialSet.add("!");
 specialSet.add("?");
 
-function increaseChapterProgress(chapter) {
-  let progress = sessionStorage.getItem(`progress-ch-${chapter}`);
+let userSnap = await getDoc(userRef);
+let chapterProgressArray = userSnap.data().chapterProgress;
+let pagesViewedArray = userSnap.data().pagesViewed;
+
+
+async function increaseChapterProgress(chapter) {
+  let progress = chapterProgressArray[chapter];
   progress = parseInt(progress, 10);
   progress += 1;
-  sessionStorage.setItem(`progress-ch-${chapter}`, progress);
+  chapterProgressArray[chapter] = progress;
+  await updateDoc(userRef, {
+    chapterProgress: chapterProgressArray
+  });
 }
 
-function pageRead(chapter, page) {
+async function pageRead(chapter, page) {
   let alreadyAdded = false;
-  let pagesViewed = sessionStorage
-    .getItem(`viewedPages-ch-${chapter}`)
-    .split(" ");
+  let pagesViewed = pagesViewedArray[chapter].split(" ");
   pagesViewed.forEach((page) => {
     // Check if it is already in the list
     let currChpt = sessionStorage.getItem("chptNum"); // Chapters not indexed from 1
@@ -66,10 +78,10 @@ function pageRead(chapter, page) {
   });
   if (alreadyAdded === false) {
     let currPagesViewed;
-    if (sessionStorage.getItem(`viewedPages-ch-${chapter}`)) {
+    if (pagesViewedArray[chapter].length > 0) {
       // If there have been any pages added
       currPagesViewed =
-        sessionStorage.getItem(`viewedPages-ch-${chapter}`) +
+        pagesViewedArray[chapter] +
         " " +
         chapter +
         "-" +
@@ -78,8 +90,10 @@ function pageRead(chapter, page) {
       // If this is the first page to be added
       currPagesViewed = chapter + "-" + page;
     }
-    sessionStorage.setItem(`viewedPages-ch-${chapter}`, currPagesViewed);
-
+    pagesViewedArray[chapter] = currPagesViewed;
+    await updateDoc(userRef, {
+      pagesViewed: pagesViewedArray
+    });
     increaseChapterProgress(chapter);
   }
 }
@@ -155,17 +169,33 @@ function playWordAudio(word) {
   let url = "https://brainy-literacy-assets.s3.amazonaws.com/audio/words/" + firstLetter + "/" + word + ".mp3";
   let audioObj = document.createElement("audio");
   audioObj.src = url;
+  audioObj.volume = 0.5;
   audioObj.play();
+}
+
+function updatePageAudio(pageNumber, chapterNumber) {
+  $("#audio-bar")[0].pause();
+  const pathReference = ref(storage, `Chapter ${chapterNumber}/Chapter${chapterNumber}_Page${pageNumber}.mp3`);
+  getDownloadURL(pathReference)
+  .then((url) => {
+    $("#audio-bar")[0].src = url;
+    $("#audio-bar").show();
+  })
+  .catch((error) => {
+    $("#audio-bar").hide();
+  });
 }
 
 
 let modal = $("#modal").plainModal({ duration: 150 });
 function defModal(word, wordSnap, modWord) {
   //let modWord = word.toLowerCase().replace(/[^a-z0-9’-]+/gi, ""); // Keeps all alphanumeric characters as well as the special apostrophe // Keeping this just in case we need to use the replace feature again.
+  $("#audio-bar")[0].pause();
   let definitionAudio = document.createElement("audio");
   let firstLetter = modWord.charAt(0).toUpperCase();
   let url = "https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/" + firstLetter + "/" + modWord + "%2B.mp3";
   definitionAudio.src = url;
+  definitionAudio.volume = 0.5;
   definitionAudio.play();
   $("#modal-derivative").empty();
   let length = 0;
@@ -190,29 +220,29 @@ function defModal(word, wordSnap, modWord) {
     definitionAudio.play();
   });
 
-  $("#b1").off("click").click(function() {
-    let queue = JSON.parse(sessionStorage.getItem("queue"));
-    if (queue === null) { queue = []; }
+  $("#b1").off("click").click(async function() {
     if (!queue.includes(modWord)) {
       queue.unshift(modWord);
-      sessionStorage.setItem("queue", JSON.stringify(queue));
-      // console.log(queue);
+      await updateDoc(userRef, {
+        queue
+      });
       window.location.href = "quiz.html";
     } else {
       queue.splice(queue.indexOf(modWord), 1);
       queue.unshift(modWord);
-      sessionStorage.setItem("queue", JSON.stringify(queue));
-      // console.log(queue);
+      await updateDoc(userRef, {
+        queue
+      });
       window.location.href = "quiz.html";
     }
   });
 
-  $("#b2").off("mousedown").mousedown(function() {
-    let queue = JSON.parse(sessionStorage.getItem("queue"));
-    if (queue === null) { queue = []; }
+  $("#b2").off("mousedown").mousedown(async function() {
     if (!queue.includes(modWord)) {
       queue.push(modWord);
-      sessionStorage.setItem("queue", JSON.stringify(queue));
+      await updateDoc(userRef, {
+        queue
+      });
       if ($("#queue-msg").hasClass("queue-msg-show") === false) {
         $("#queue-msg").text("Word added to quiz queue!");
         $("#queue-msg").toggleClass("queue-msg-hide queue-msg-show");
@@ -257,9 +287,10 @@ function updatePageText(chapter, page, modNums) {
       // Changes the page and chapter nums in system storage
       chapter = sessionStorage.getItem("chptNum");
       page = sessionStorage.getItem("pageNum");
+      updatePageAudio(page, chapter);
 
       // Sets that chapter and page number
-      $("#reading-heading").text(`Chapter ${chapter}`);
+      $("#reading-heading").text(`Chapter ${chapter} - ${chapterTitles[parseInt(chapter, 10)]}`);
       $(".page-number").text(`Page ${page}`);
 
       let str = data[parseInt(chapter, 10)][parseInt(page, 10)];
@@ -332,6 +363,7 @@ function updatePageText(chapter, page, modNums) {
                   });
                   setTimeout(async function() {
                       if (clicks === 1) {
+                        $("#audio-bar")[0].pause();
                         playWordAudio(modWord);
                         let wordRef = doc(wordBank, modWord);
                         let wordDoc = await getDoc(wordRef);
@@ -397,4 +429,7 @@ nextPage.click(() => {
 // -------------
 // --- Audio ---
 // -------------
-$("#audio-bar")[0].volume = 0.1;
+$("#audio-bar")[0].volume = 0.5;
+
+let userDoc = await getDoc(userRef);
+let queue = userDoc.data().queue;

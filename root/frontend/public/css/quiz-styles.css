@@ -138,6 +138,34 @@
   transition: 100ms ease-in-out;
 }
 
+/* decreasing the size of the drop shadow (phone screen) */
+@media screen and (max-width: 1000px) {
+  #quiz-container button {
+    width: 23vw;
+    height: 9vw;
+    margin: 1em;
+    border: none;
+    font-size: 4vmin;
+    color: black;
+    box-shadow:
+      1px 0 0 rgb(76, 0, 255),
+      0 1px 0 rgb(76, 0, 255),
+      2px 1px 0 rgb(76, 0, 255),
+      1px 2px 0 rgb(76, 0, 255),
+      3px 2px 0 rgb(76, 0, 255),
+      2px 3px 0 rgb(76, 0, 255),
+      4px 3px 0 rgb(76, 0, 255),
+      3px 4px 0 rgb(76, 0, 255),
+      5px 4px 0 rgb(76, 0, 255),
+      4px 5px 0 rgb(76, 0, 255),
+      6px 5px 0 rgb(76, 0, 255),
+      5px 6px 0 rgb(76, 0, 255),
+      7px 6px 0 rgb(76, 0, 255),
+      6px 7px 0 rgb(76, 0, 255);
+    transition: 100ms ease-in-out;
+  }
+}
+
 #quiz-container button:active {
   box-shadow: none;
   transform: translate(9px, 8px);

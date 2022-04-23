@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
-import { getFirestore, collection, doc, getDoc, setDoc, updateDoc, getDocs, where, query} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
+import { getFirestore, collection, doc, getDoc, updateDoc, getDocs, where, query, increment} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,15 +19,18 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
 const dateObject = new Date();
 const username = "mtl10";
 
 let wordBank = collection(db, "Users", username, "wordBank");
+let userRef = doc(db, "Users", username);
 let quizIndex = 0;
-let queue = JSON.parse(sessionStorage.getItem("queue"));
+
+// We know we can hide the prevButton immediately because the quiz always starts at index 0
+$("#prevPg").hide();
+$("#nextPg").hide();
 
 let modal = $("#modal").plainModal({ duration: 150 }); // The number refers to the time to fade in
 async function defModal() {
@@ -132,16 +135,16 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
       $(this).off().one("click", async function() {
         $("button").off();
         $(this).css("background-color", "lime");
-        var audio = new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav");
+        let audio = new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav");
         audio.volume = 0.5;
         audio.play();
         let docSnap = await getDoc(doc(wordBank, word));
         await updateDoc(doc(wordBank, word), {
-          totalCorrect: docSnap.data().totalCorrect + 1
+          totalCorrect: increment(1)
         });
         if (docSnap.data().starNumber + 1 !== 5) {
           await updateDoc(doc(wordBank, word), {
-            starNumber: docSnap.data().starNumber + 1
+            starNumber: increment(1)
           });
         } else {
           await updateDoc(doc(wordBank, word), {
@@ -150,11 +153,11 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
         }
         if (docSnap.data().highestCorrect !== 5) {
           await updateDoc(doc(wordBank, word), {
-            highestCorrect: docSnap.data().highestCorrect + 1
+            highestCorrect: increment(1)
           });
         }
         let updatedDocSnap = await getDoc(doc(wordBank, word));
-        setTimeout(() => {
+        setTimeout(async () => {
           $(this).css("background-color", "white");
           let starNumber = updatedDocSnap.data().starNumber;
           addStars(starNumber);
@@ -164,7 +167,9 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
               quizIndex--;
             }
             queue.splice(queue.indexOf(word), 1);
-            sessionStorage.setItem("queue", JSON.stringify(queue));
+            await updateDoc(userRef, {
+              queue
+            });
             quizWords();
           } else {
             repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords);
@@ -178,9 +183,8 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
         var audio = new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav");
         audio.volume = 0.5;
         audio.play();
-        let docSnap = await getDoc(doc(wordBank, word));
         await updateDoc(doc(wordBank, word), {
-          totalIncorrect: docSnap.data().totalIncorrect + 1,
+          totalIncorrect: increment(1),
           starNumber: 0
         });
         setTimeout(() => {
@@ -201,11 +205,13 @@ function emptyScreen() {
 }
 
 $("#prevPg").off("click").click(function () {
+  $("button").off();
   quizIndex--;
   quizWords();
 });
 
 $("#nextPg").off("click").click(function () {
+  $("button").off();
   quizIndex++;
   quizWords();
 });
@@ -213,5 +219,8 @@ $("#nextPg").off("click").click(function () {
 $("#help-btn").off("click").click(function () {
   setTimeout(() => {defModal();}, 50);
 });
+
+let userDoc = await getDoc(userRef);
+let queue = userDoc.data().queue;
 
 quizWords();
