@@ -33,8 +33,6 @@
   width: 60vw;
 }
 
-
-
 /* Help Button */
 #help-btn {
   position: absolute;
@@ -189,8 +187,8 @@
 }
 
 /* 
-  Only allow the hover color to be shown if red or green is not currently
-  being displayed. The white color is the default "neutral" color state.
+ * Only allow the hover color to be shown if red or green is not currently
+ * being displayed. The white color is the default "neutral" color state.
 */
 .neutral-answer:hover {
   background-color: rgba(34, 152, 255, 0.596);

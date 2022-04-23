@@ -1,4 +1,5 @@
 from pydub import AudioSegment
+import os
 
 timeStamps = [
     [], #Leave here for proper indexing
@@ -48,9 +49,8 @@ def splitChapterAudioToPages():
                 newAudio.export(filePath, format="mp3") #Exports file to specified file path
                 pageNumber += 1
 
-    for i in range(len(timeStamps[ch-1])-1):
-        start = timeStamps[ch-1][i] * 1000  # Works in milliseconds
-        end = timeStamps[ch-1][i+1] * 1000
+def main():
+    splitChapterAudioToPages()
 
 if __name__ == '__main__':
     main()
