@@ -158,11 +158,11 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
             highestCorrect: increment(1)
           });
         }
-        let updatedDocSnap = await getDoc(doc(wordBank, word));
+        let starNumber = docSnap.data().starNumber + 1;
+        addStars(starNumber);
+        if (starNumber === 5) { starNumber = 0; }
         setTimeout(async () => {
           $(this).css("background-color", "white");
-          let starNumber = updatedDocSnap.data().starNumber;
-          addStars(starNumber);
           if (starNumber === 0) {
             //console.log("Congratulations, you've mastered the word!");
             if (quizIndex === queue.length - 1) {
@@ -191,9 +191,9 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
           totalIncorrect: increment(1),
           starNumber: 0
         });
+        removeStars();
         setTimeout(() => {
           $(this).css("background-color", "white");
-          removeStars();
           repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords);
           ableToGoToNextPage = true;
         }, 1000);
