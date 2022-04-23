@@ -151,11 +151,10 @@
 /* increasing the font size for the quiz option buttons */
 @media screen and (max-width: 1000px) {
   .quiz-options button {
-    padding: 0.5em 0em;
-    font-size: 2.0vmin;
+    padding: 0.5em 0;
+    font-size: 2vmin;
   }
 }
-
 
 .quiz-options button:active {
   box-shadow: none;

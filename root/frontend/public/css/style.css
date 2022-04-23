@@ -119,7 +119,6 @@ body::-webkit-scrollbar-thumb:hover {
   color: rgb(66, 66, 66);
 }
 
-
 #bookmark-modal-container {
   position: fixed;
   padding: 0.5rem;
@@ -177,11 +176,8 @@ body::-webkit-scrollbar-thumb:hover {
 @media screen and (max-width: 1000px) and (max-aspect-ratio: 4/2) {
   #bookmark-modal-container * {
     font-size: 10px;
-    
   }
 }
-
-
 
 .bookmark-header {
   margin: 0.25rem;
