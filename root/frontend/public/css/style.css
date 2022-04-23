@@ -190,7 +190,6 @@ body::-webkit-scrollbar-thumb:hover {
   grid-template-columns: 8fr 1fr;
 }
 
-
 /* Bookmark's Scrollbar's Width */
 #bookmark-modal-container::-webkit-scrollbar, .main-text::-webkit-scrollbar {
   width: 8px;
