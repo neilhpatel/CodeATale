@@ -11,6 +11,7 @@ html {
   font-size: 4vw;
   left: 50%;
   transform: translate(-50%);
+  font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
 /* Chapter selection boxes */
@@ -47,8 +48,9 @@ html {
   border-radius: 1em;
   border: none;
   box-shadow: -4px 3px 4px rgba(0, 0, 0, 0.2);
-  font-size: 2vw;
+  font-size: 1.75vw;
   cursor: pointer;
+  font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
 /* Gallery button */
@@ -101,6 +103,7 @@ html {
   margin: 0.5em;
   font-size: 1.5em;
   font-weight: bold;
+  font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
 /* Progress bar */
@@ -118,14 +121,15 @@ html {
   transform: scale(100%);
 }
 
-.progress-bar, .progress {
-  height: 0.6em;
+.progress-bar {
+  height: 1vmin;
   border: 2px solid black;
   border-radius: 5px;
 }
-
 /* The amount of progress displayed in the progress bar. */
 .progress {
+  height: 1.1vmin;
+  border: 2px solid black;
   border: none;
   background-color: rgb(73, 255, 49);
 }

@@ -1,10 +1,11 @@
 /* Chapter Heading */
 #reading-heading {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-    color:rgb(73, 73, 73);
-    font-size: 6vh;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  color:rgb(73, 73, 73);
+  font-size: 6vh;
+  font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
 /* Page Number */
@@ -15,6 +16,7 @@
   transform: translate(-50%);
   color:rgb(73, 73, 73);
   font-size: 5vh;
+  font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
 /* Text block */
@@ -25,7 +27,6 @@
   transform: translate(-50%);
   max-width: 70vw;
   max-height: 75vh;
-  overflow: auto;
   font-size: 4vmin;
   line-height: 5vmin;
   margin: 0 2vh;
@@ -80,10 +81,29 @@ audio {
   bottom: 8%;
   transform: translate(-50%) scale(125%);
   width: 40vw;
+  height: 5vh;
   transition: 100ms ease-in-out;
-  box-shadow: 0 29px 8px -25px hsl(0deg 0% 0% / 0.38);
+  box-shadow: 0 30px 10px -24px hsl(0deg 0% 0% / 0.38);
   border-radius: 15px;
   background: linear-gradient(90deg, rgb(100, 255, 61) 0%, rgb(55, 255, 245) 50%, rgb(27, 190, 255) 100%);
+}
+
+/* making the audio bar smaller and higher (phone screen) */
+@media screen and (max-width: 1000px) {
+  audio {
+    height: 5vw;
+    bottom: 10%;
+    box-shadow: 0 20px 10px -20px hsl(0deg 0% 0% / 0.38);
+  }
+}
+
+/* making the audio bar smaller and higher for iphone se (phone screen) */
+@media screen and (max-aspect-ratio: 4/2) {
+  audio {
+    height: 5vw;
+    bottom: 10%;
+    box-shadow: 0 20px 10px -15px hsl(0deg 0% 0% / 0.38);
+  }
 }
 
 audio .controlBar {
