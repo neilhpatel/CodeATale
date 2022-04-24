@@ -157,7 +157,9 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
             highestCorrect: increment(1)
           });
         }
-        let updatedDocSnap = await getDoc(doc(wordBank, word));
+        let starNumber = docSnap.data().starNumber + 1;
+        addStars(starNumber);
+        if (starNumber === 5) { starNumber = 0; }
         setTimeout(async () => {
           $(this).removeClass("correct-answer");
           $(this).addClass("neutral-answer");
@@ -191,6 +193,7 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
           totalIncorrect: increment(1),
           starNumber: 0
         });
+        removeStars();
         setTimeout(() => {
           $(this).removeClass("incorrect-answer");
           $(this).addClass("neutral-answer");

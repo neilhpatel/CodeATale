@@ -9,7 +9,7 @@ class DocParser:
         self.filePath = filePath
 
     # Parse the database document. Remove all new line, tab, and '+' characters and then split by the space delimiter.
-    def parseDatabase(self):
+    def parseDatabaseOfWords(self):
         text = docx2txt.process(self.filePath)
         filteredText = text.lower().replace("\n", " ").replace("\t", "").replace("+", "")
         allWords = filteredText.split()
@@ -35,7 +35,7 @@ def main():
     docPath = os.path.join(newPath, "docs")
     databaseFilePath = os.path.join(docPath, "database_words.docx")
     databaseDocParser = DocParser(databaseFilePath)
-    databaseDocParser.parseDatabase()
+    databaseDocParser.parseDatabaseOfWords()
     print("Number of unique words in the database: ", len(databaseDocParser.wordSet))
 
     storyFilePath = os.path.join(docPath, "DrDolittle.docx")
@@ -50,6 +50,7 @@ def main():
     print("Number of words in Dr. Dolittle not in database: " ,
           len(difference))
 
+    # Write to a text file all words in Dr. Dolittle that do not have audio as listed in database_words.docx
     with open("missingWordsInDatabase.txt", "w") as file:
         for word in difference:
             file.write("%s\n" % word)

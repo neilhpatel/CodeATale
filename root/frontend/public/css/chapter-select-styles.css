@@ -14,7 +14,10 @@ html {
   font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
-/* Chapter selection boxes */
+/*
+  Chapter selection boxes
+  Includes: chapter button, gallery button, chapter number, and progress
+*/
 #selboxes {
   position: relative;
   display: inline-grid;
@@ -40,7 +43,10 @@ html {
   }
 }
 
-/* Chapter select button */
+/*
+  Chapter select button
+  Brings user to the selected chapter
+*/
 #selboxes button {
   background-color: #5bffff;
   width: 18vw;
@@ -53,7 +59,10 @@ html {
   font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
-/* Gallery button */
+/*
+  Gallery button
+  Brings user to image gallery
+*/
 #selboxes .img-button {
   position: absolute;
   display: block;
@@ -63,18 +72,19 @@ html {
   transition: background-color 0.5s, transform 0.5s;
 }
 
-/* Gallery button effects */
+/* Gallery button hover effects */
 #selboxes .img-button:hover {
   transform: translate(51%, -100%) scale(20%, 96%);
   background-color: #fd5e45;
 }
 
+/* Gallery button on click effects */
 #selboxes .img-button:active {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
   background-color: #eaa79c;
 }
 
-/* Gallery button icon */
+/* Gallery button image icon */
 .img-button-icon {
   position: relative;
   left: 30%;
@@ -87,10 +97,12 @@ html {
   transition: 250ms ease-in-out;
 }
 
+/* Chapter select button on hover */
 #selboxes .chapter-button:hover {
   background-color: #0ff;
 }
 
+/* Chapter select button on click */
 #selboxes .chapter-button:active {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
   transform: translateY(4px);
@@ -106,7 +118,7 @@ html {
   font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
-/* Progress bar */
+/* Progress bar number */
 .progress-num {
   position: relative;
   top: -10%;
@@ -121,11 +133,13 @@ html {
   transform: scale(100%);
 }
 
+/* Progress bar */
 .progress-bar {
   height: 1vmin;
   border: 2px solid black;
   border-radius: 5px;
 }
+
 /* The amount of progress displayed in the progress bar. */
 .progress {
   height: 1.1vmin;
@@ -134,7 +148,10 @@ html {
   background-color: rgb(73, 255, 49);
 }
 
-/* At 100% completion change to "gold" */
+/*
+  At 100% completion change to rainbow
+  This might not work on all platforms
+*/
 .chapter-box .percent100 {
   background-image: linear-gradient(to right, red, orange, yellow, rgb(51, 255, 51), rgb(0, 204, 255), rgb(255, 4, 188));
   -webkit-background-clip: text;
@@ -142,13 +159,14 @@ html {
   animation: move 1000s linear infinite;
 }
 
+/* Keyframe animation for the rainbow effect */
 @keyframes move {
   to {
     background-position: 4500vh;
   }
 }
 
-/* At 0% completion change to black */
+/* At 0% completion of a chapter change to black */
 .chapter-box .percent0 {
   color: rgb(59, 29, 0);
 }

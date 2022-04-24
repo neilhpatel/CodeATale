@@ -50,11 +50,6 @@ specialSet.add(",");
 specialSet.add("!");
 specialSet.add("?");
 
-let userSnap = await getDoc(userRef);
-let chapterProgressArray = userSnap.data().chapterProgress;
-let pagesViewedArray = userSnap.data().pagesViewed;
-
-
 async function increaseChapterProgress(chapter) {
   let progress = chapterProgressArray[chapter];
   progress = parseInt(progress, 10);
@@ -165,7 +160,7 @@ function checkArrows() {
 //Note: this function does throw an exception for audio of words not in database. But it does not break the application,
 //it simply doesn't play audio for the word. In the future, determine if a word exists in the database before playing audio.
 function playWordAudio(word) {
-  let firstLetter = word.charAt(0);
+  let firstLetter = word.charAt(0).toLowerCase();
   let url = "https://brainy-literacy-assets.s3.amazonaws.com/audio/words/" + firstLetter + "/" + word + ".mp3";
   let audioObj = document.createElement("audio");
   audioObj.src = url;
@@ -407,12 +402,6 @@ function updatePageText(chapter, page, modNums) {
     });
 }
 
-$("document").ready(function () {
-  let chapterNum = parseInt(sessionStorage.getItem("chptNum"), 10);
-  let pageNum = parseInt(sessionStorage.getItem("pageNum"), 10);
-  // $("img").attr("src", `../../assets/chapter_images/chapter${chapterNum}.png`);
-  updatePageText(chapterNum, pageNum, maintainPage);
-});
 
 const prevPage = $("#prevPg");
 prevPage.click(() => {
@@ -439,3 +428,12 @@ $("#audio-bar")[0].volume = 0.5;
 
 let userDoc = await getDoc(userRef);
 let queue = userDoc.data().queue;
+let chapterProgressArray = userDoc.data().chapterProgress;
+let pagesViewedArray = userDoc.data().pagesViewed;
+
+$("document").ready(function () {
+  let chapterNum = parseInt(sessionStorage.getItem("chptNum"), 10);
+  let pageNum = parseInt(sessionStorage.getItem("pageNum"), 10);
+  // $("img").attr("src", `../../assets/chapter_images/chapter${chapterNum}.png`);
+  updatePageText(chapterNum, pageNum, maintainPage);
+});
