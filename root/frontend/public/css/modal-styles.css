@@ -18,9 +18,25 @@
   border-image: linear-gradient(90deg, rgba(40, 255, 0, 1) 0%, rgba(102, 224, 255, 1) 25%, rgba(220, 41, 226, 1) 50%, rgba(233, 82, 98, 1) 75%, rgba(224, 255, 0, 1) 100%) 1;
 }
 
+/* Making the definition screen bigger (phone screen) */
+@media screen and (max-width: 1000px) {
+  #modal {
+    min-width: 55vw;
+    min-height: 45vh;
+    font-size: 4vh;
+  }
+}
+
 /* Adds padding between the defition and the word */
 #modal #modal-container p {
   margin: 4vh 10px;
+}
+
+/* Decrease padding between word and definition (phone screen) */
+@media screen and (max-width: 1000px) {
+  #modal #modal-container p {
+    margin: 1vh 10px;
+  }
 }
 
 /* Definition */
@@ -42,7 +58,17 @@
   transition: ease-in-out 100ms;
 }
 
+
 /* Close Button effect */
+/* Changing the position of the close button (phone screen) */
+@media screen and (max-width: 1000px) {
+  #modal .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+}
+
 #modal .close:hover {
   opacity: 1;
 }
@@ -84,7 +110,15 @@
   transition: 100ms;
 }
 
+
 /* Quiz button effects */
+/* Making the quiz button bigger */
+@media screen and (max-width: 1000px) {
+  .quiz-btn {
+    font-size: 9vmin;
+  }
+}
+
 .quiz-btn:hover {
   transform: scale(125%);
 }
@@ -103,7 +137,15 @@
   transition: ease-in-out 150ms;
 }
 
+
 /* Quiz-option buttons to go to a quiz or add to the queue */
+/* Making the quiz option buttons wider */
+@media screen and (max-width: 1000px) {
+  .quiz-options {
+    min-width: 10vw;
+  }
+}
+
 .quiz-options button {
   margin: 6px;
   font-size: 1.5vmin;
@@ -115,7 +157,16 @@
   background-color: rgb(255, 255, 255);
 }
 
+
 /* Quiz-option buttons on click effects */
+/* increasing the font size for the quiz option buttons */
+@media screen and (max-width: 1000px) {
+  .quiz-options button {
+    padding: 0.5em 0;
+    font-size: 2vmin;
+  }
+}
+
 .quiz-options button:active {
   box-shadow: none;
   transform: translate(-3px, 3px);

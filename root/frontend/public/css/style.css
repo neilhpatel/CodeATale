@@ -43,6 +43,7 @@ body::-webkit-scrollbar-thumb:hover {
 #navbar {
   position: fixed;
   display: flex;
+  flex: auto;
   min-width: 10vw;
   min-height: 100vh;
   flex-direction: column;
@@ -56,13 +57,24 @@ body::-webkit-scrollbar-thumb:hover {
 
 /* Navigation bar icons */
 #navbar i {
-  margin: 0.5em 0.25em;
+  margin: 0.4em 0.25em;
 
   cursor: pointer;
   transition: transform 0.5s;
 }
 
+
 /* Increase size and add a white border on hover */
+/* making margin between icons smaller for iphone se (phone screen) */
+@media screen and (max-aspect-ratio: 4/2) {
+  #navbar i {
+    margin: 0.5em 0.25em;
+
+    cursor: pointer;
+    transition: transform 0.5s;
+  }
+}
+
 #navbar i:hover {
   transform: scale(125%);
   text-shadow: 0 0 5px rgb(255, 255, 255);
@@ -79,11 +91,30 @@ body::-webkit-scrollbar-thumb:hover {
 /* Bookmark */
 .bookmark {
   position: fixed;
-  right: 4.5%;
+  right: 5%;
   top: 10%;
 }
 
+
 /* Button to open the bookmark popup */
+/* adjusting position of bookmark (phone screen) */
+@media screen and (max-width: 1000px) {
+  .bookmark {
+    position: fixed;
+    right: 5%;
+    top: 10%;
+  }
+}
+
+/* adjusting position of bookmark for iphone se (phone screen) */
+@media screen and (max-width: 1000px) and (max-aspect-ratio: 4/2) {
+  .bookmark {
+    position: fixed;
+    right: 5.5%;
+    top: 10%;
+  }
+}
+
 .fa-bookmark {
   font-size: 5vw;
   background-color: rgba(0, 0, 0, 0.0);
@@ -118,11 +149,50 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 /* Change size of all children in bookmark popup */
+/* adjusting position of bookmark container (phone screen) */
+@media screen and (max-width: 1000px) {
+  #bookmark-modal-container {
+    position: fixed;
+    left: 87% !important;
+    top: 22%;
+    height: 50vh;
+    border: 2px solid black;
+  }
+}
+
+/* adjusting position of bookmark container for iphone se (phone screen) */
+@media screen and (max-width: 1000px) and (max-aspect-ratio: 4/2) {
+  #bookmark-modal-container {
+    position: fixed;
+    left: 85% !important;
+    top: 22%;
+    border: 2px solid black;
+    max-width: 11vw;
+    height: 50vh;
+    text-align: center;
+  }
+}
+
+
 #bookmark-modal-container * {
   font-size: 1.75vmin;
 }
 
 /* Header for the bookmark popup */
+/* decreasing font for chapter icon (phone screen) */
+@media screen and (max-width: 1000px) {
+  #bookmark-modal-container * {
+    font-size: 12px;
+  }
+}
+
+/* decreasing font for chapter icon iphone se (phone screen) */
+@media screen and (max-width: 1000px) and (max-aspect-ratio: 4/2) {
+  #bookmark-modal-container * {
+    font-size: 10px;
+  }
+}
+
 .bookmark-header {
   margin: 1vmin;
 }
@@ -139,6 +209,13 @@ body::-webkit-scrollbar-thumb:hover {
 /* Bookmark's Scrollbar's Width */
 #bookmark-modal-container::-webkit-scrollbar, .main-text::-webkit-scrollbar {
   width: 8px;
+}
+
+/* decreasing width of scroll bar in bookmark (phone screen) */
+@media screen and (max-width: 1000px) {
+  #bookmark-modal-container::-webkit-scrollbar, .main-text::-webkit-scrollbar {
+    width: 6px;
+  }
 }
 
 /* Bookmark's Scrollbar's Track */
@@ -169,6 +246,34 @@ body::-webkit-scrollbar-thumb:hover {
   transition: ease-in-out 150ms;
 }
 
+/* decreasing size for add new bookmark button (phone screen) */
+@media screen and (max-width: 1000px) {
+  #add-bookmark, .newBookmark {
+    padding: 0.3rem;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(168, 255, 29);
+    box-shadow: -3px 3px 0 black;
+    transition: ease-in-out 150ms;
+    font-size: 12px;
+  }
+}
+
+/* decreasing size for add new bookmark button for iphone se (phone screen) */
+@media screen and (max-width: 1000px) and (max-aspect-ratio: 4/2) {
+  #add-bookmark, .newBookmark {
+    padding: 0.3rem;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(168, 255, 29);
+    box-shadow: -3px 3px 0 black;
+    transition: ease-in-out 150ms;
+    font-size: 10px;
+  }
+}
+
+
+
 #add-bookmark:hover {
   cursor: pointer;
 }
@@ -184,6 +289,7 @@ body::-webkit-scrollbar-thumb:hover {
   box-shadow: none;
   transform: translate(-4px, 4px);
 }
+
 
 .newBookmark:hover {
   cursor: pointer;

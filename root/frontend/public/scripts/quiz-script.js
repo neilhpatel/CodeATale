@@ -27,6 +27,7 @@ const username = "mtl10";
 let wordBank = collection(db, "Users", username, "wordBank");
 let userRef = doc(db, "Users", username);
 let quizIndex = 0;
+let ableToGoToNextPage = true;
 
 // We know we can hide the prevButton immediately because the quiz always starts at index 0
 $("#prevPg").hide();
@@ -133,7 +134,8 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
     $(this).html(answers[parseInt(i, 10)].id);
     if (answers[parseInt(i, 10)].id === word) {
       $(this).off().one("click", async function() {
-        $("button").off();
+        $(".quiz-option").off();
+        ableToGoToNextPage = false;
         $(this).css("background-color", "lime");
         let audio = new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav");
         audio.volume = 0.5;
@@ -174,11 +176,13 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
           } else {
             repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords);
           }
+          ableToGoToNextPage = true;
         }, 1000);
       });
     } else {
       $(this).off().one("click", async function() {
-        $("button").off();
+        $(".quiz-option").off();
+        ableToGoToNextPage = false;
         $(this).css("background-color", "red");
         var audio = new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav");
         audio.volume = 0.5;
@@ -191,6 +195,7 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
           $(this).css("background-color", "white");
           removeStars();
           repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords);
+          ableToGoToNextPage = true;
         }, 1000);
       });
     }
@@ -205,15 +210,21 @@ function emptyScreen() {
 }
 
 $("#prevPg").off("click").click(function () {
-  $("button").off();
-  quizIndex--;
-  quizWords();
+  if (ableToGoToNextPage) {
+    $(".quiz-option").off().empty();
+    $(".quiz-option").css("background-color", "white");
+    quizIndex--;
+    quizWords();
+  } 
 });
 
 $("#nextPg").off("click").click(function () {
-  $("button").off();
-  quizIndex++;
-  quizWords();
+  if (ableToGoToNextPage) {
+    $(".quiz-option").off().empty();
+    $(".quiz-option").css("background-color", "white");
+    quizIndex++;
+    quizWords();
+  }
 });
 
 $("#help-btn").off("click").click(function () {
