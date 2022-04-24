@@ -17,7 +17,7 @@ db = firestore.client()
 
 class DefParser():
 
-    # Initialize class with a given file path and the file's text
+    #Initialize class with a given file path and the file's text
     def __init__(self, filePath):
         self.filePath = filePath
         self.text = docx2txt.process(self.filePath)
@@ -57,6 +57,8 @@ class DefParser():
                     lineInd += 1
                 # If the above loop ended at a newline character, current word is a sight word and no more parsing is
                 # needed. Else, continue to parse info.
+                # if (word == "ask"):
+                #     print(line[lineInd])
                 if line[lineInd] != "\n":
                     # lineInd should now be pointing to either '(' if there are child words or '=' if not
                     # parse child words into array
@@ -90,13 +92,11 @@ class DefParser():
                         blockedQuizOptions = definition[start+4:len(definition)-1]
                         definition = definition[:start]
 
-                # if a word has no definition, it is a sight word
                 if definition == "":
                     sightWord = True
                 else:
                     for i in enumerate(definition):
                         if i[1] == '[':
-                            excludedString = definition[i[0]:len(definition)]
                             definition = definition[0:i[0]-1]
                             break
 

@@ -21,6 +21,7 @@ class StoryPages:
         self.filePath = filePath
         self.text = docx2txt.process(self.filePath)
 
+
     # Method that parses the story into pages that can be accessed by a page number using self.pageDictionary
     def parseStoryIntoPages(self):
         pageText = ['']
@@ -109,7 +110,7 @@ class StoryPages:
 
 def main():
     """
-        Main method to run StoryParser.py. Reads relative file path of cwd which contains DrDolittle.docx. Note that
+        Main method to run StoryPages.py. Reads relative file path of cwd which contains DrDolittle.docx. Note that
         DrDolittleOriginal.docx also contains images + captions while DrDolittle.docx does not.
     """
     prefixPath = os.getcwd()

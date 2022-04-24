@@ -39,7 +39,7 @@ def splitChapterAudioToPages():
     chapterAudioDirectory = os.path.join(newPath, "Audio/ChapterAudio")
     files = os.listdir(chapterAudioDirectory)
 
-    # Loop through each chapter and all pages within the chpater and splice chapter audio with the given timestamps
+    #Loop through each chapter and all pages within the chpater and splice chapter audio with the given timestamps
     for chapterNumber in range(1, 22):
         chapterAudioFile = "dd_" + str(chapterNumber) + ".mp3"
         pageNumber = chapterStartPageNumber[chapterNumber]
