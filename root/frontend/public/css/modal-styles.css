@@ -138,7 +138,6 @@
   transition: ease-in-out 150ms;
 }
 
-
 /* Quiz-option buttons to go to a quiz or add to the queue */
 /* Making the quiz option buttons wider */
 @media screen and (max-width: 1000px) {
