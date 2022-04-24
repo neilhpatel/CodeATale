@@ -50,11 +50,6 @@ specialSet.add(",");
 specialSet.add("!");
 specialSet.add("?");
 
-let userSnap = await getDoc(userRef);
-let chapterProgressArray = userSnap.data().chapterProgress;
-let pagesViewedArray = userSnap.data().pagesViewed;
-
-
 async function increaseChapterProgress(chapter) {
   let progress = chapterProgressArray[chapter];
   progress = parseInt(progress, 10);
@@ -401,12 +396,6 @@ function updatePageText(chapter, page, modNums) {
     });
 }
 
-$("document").ready(function () {
-  let chapterNum = parseInt(sessionStorage.getItem("chptNum"), 10);
-  let pageNum = parseInt(sessionStorage.getItem("pageNum"), 10);
-  // $("img").attr("src", `../../assets/chapter_images/chapter${chapterNum}.png`);
-  updatePageText(chapterNum, pageNum, maintainPage);
-});
 
 const prevPage = $("#prevPg");
 prevPage.click(() => {
@@ -433,3 +422,12 @@ $("#audio-bar")[0].volume = 0.5;
 
 let userDoc = await getDoc(userRef);
 let queue = userDoc.data().queue;
+let chapterProgressArray = userDoc.data().chapterProgress;
+let pagesViewedArray = userDoc.data().pagesViewed;
+
+$("document").ready(function () {
+  let chapterNum = parseInt(sessionStorage.getItem("chptNum"), 10);
+  let pageNum = parseInt(sessionStorage.getItem("pageNum"), 10);
+  // $("img").attr("src", `../../assets/chapter_images/chapter${chapterNum}.png`);
+  updatePageText(chapterNum, pageNum, maintainPage);
+});
