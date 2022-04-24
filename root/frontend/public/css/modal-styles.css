@@ -1,4 +1,4 @@
-/* 
+/*
   This effects the style of the definition popups, but can be extended for other popups.
   The bookmark popup is not modified by this script.
 */
@@ -58,7 +58,6 @@
   opacity: 0.3;
   transition: ease-in-out 100ms;
 }
-
 
 /* Close Button effect */
 /* Changing the position of the close button (phone screen) */

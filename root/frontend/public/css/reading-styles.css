@@ -119,9 +119,9 @@ audio:hover {
   box-shadow: 0 29px 15px -25px hsl(0deg 0% 0% / 0.38);
 }
 
-/* 
-  Adds color to center of audio bar rather than just the background 
-  Since this uses webkit it might not work on all platforms. 
+/*
+  Adds color to center of audio bar rather than just the background
+  Since this uses webkit it might not work on all platforms.
 */
 audio::-webkit-media-controls-panel {
   border: none;

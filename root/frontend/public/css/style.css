@@ -233,9 +233,9 @@ body::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
 
-/* 
-  Add a new bookmark and current bookmark 
-  Note: newBookmark refers to ANY bookmark that has been added 
+/*
+  Add a new bookmark and current bookmark
+  Note: newBookmark refers to ANY bookmark that has been added
 */
 #add-bookmark, .newBookmark {
   padding: 0.5rem;

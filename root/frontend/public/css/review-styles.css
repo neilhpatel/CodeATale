@@ -37,9 +37,9 @@
   font-size: 2.5vmin;
 }
 
-/* 
-  General Lists Styles 
-  Unordered list 
+/*
+  General Lists Styles
+  Unordered list
 */
 ul {
   border: 4px solid black;
@@ -47,7 +47,6 @@ ul {
   background-color: rgba(100, 216, 65, 0.527);
   min-height: 80vh;
 }
-
 
 /* List item */
 /* making the border around the items smaller (phone screen) */
