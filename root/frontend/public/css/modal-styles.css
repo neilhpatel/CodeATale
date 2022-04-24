@@ -73,9 +73,9 @@
   opacity: 1;
 }
 
-/* 
+/*
   Close button styling
-  Close button will break without these styles 
+  Close button will break without these styles
 */
 #modal .close::before,
 #modal .close::after {
@@ -111,7 +111,6 @@
   display: inline;
   transition: 100ms;
 }
-
 
 /* Quiz button effects */
 /* Making the quiz button bigger */

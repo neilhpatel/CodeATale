@@ -15,8 +15,8 @@ html {
 }
 
 /*
-  Chapter selection boxes 
-  Includes: chapter button, gallery button, chapter number, and progress 
+  Chapter selection boxes
+  Includes: chapter button, gallery button, chapter number, and progress
 */
 #selboxes {
   position: relative;
@@ -43,9 +43,9 @@ html {
   }
 }
 
-/* 
+/*
   Chapter select button
-  Brings user to the selected chapter 
+  Brings user to the selected chapter
 */
 #selboxes button {
   background-color: #5bffff;
@@ -149,8 +149,8 @@ html {
 }
 
 /* 
-  At 100% completion change to rainbow 
-  This might not work on all platforms 
+  At 100% completion change to rainbow
+  This might not work on all platforms
 */
 .chapter-box .percent100 {
   background-image: linear-gradient(to right, red, orange, yellow, rgb(51, 255, 51), rgb(0, 204, 255), rgb(255, 4, 188));
