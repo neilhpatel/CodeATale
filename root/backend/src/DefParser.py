@@ -6,7 +6,8 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-# Use a service account
+# Use a service account. Note that ServiceAccountKey.json needs to be stored in the current working directory in order to
+# write to the database
 cwd = os.getcwd()
 jsonFilePath = os.path.join(cwd, "ServiceAccountKey.json")
 cred = credentials.Certificate(jsonFilePath)
@@ -16,13 +17,15 @@ db = firestore.client()
 
 class DefParser():
 
+    #Initialize class with a given file path and the file's text
     def __init__(self, filePath):
         self.filePath = filePath
         self.text = docx2txt.process(self.filePath)
 
+    # Method that reads text and writes word and corresponding word information (is_sight_word, is_child_word, etc.) to
+    # the database
     def parseWordDocumentText(self):
         startInd = 0
-        endInd = 0
         textInd = 0
         # Get rid of tab characters in parsed document
         self.text = self.text.replace("\t", "")
@@ -88,17 +91,12 @@ class DefParser():
                         start = definition.index("[")
                         blockedQuizOptions = definition[start+4:len(definition)-1]
                         definition = definition[:start]
-                    #if not sightWord:
-                     #   definition = line[lineInd + 2:len(line) - 1]
 
-                # if a word has no definition, it is a sight word
-                excludedString = ""
                 if definition == "":
                     sightWord = True
                 else:
                     for i in enumerate(definition):
                         if i[1] == '[':
-                            excludedString = definition[i[0]:len(definition)]
                             definition = definition[0:i[0]-1]
                             break
 
@@ -125,7 +123,7 @@ class DefParser():
                         'derivative_words': "",
                         'block_from_quiz': ""
                     })
-                # # print to test data values
+                # print in terminal to test data values
                 # print("Word: " + word, "Is Child? False,\t\tParent Word: \"\"", "Definition: " + definition,
                 #     "Blocked Quiz Options: " + blockedQuizOptions, "Sight word: " + str(sightWord), "Child words: ", sep=os.linesep)
                 # for child in childWords:
@@ -140,7 +138,8 @@ class DefParser():
                 # skip newline character in between entries
                 textInd += 1
             textInd += 1
-         # adding last word
+
+        # adding last word
         last_line = self.text[startInd:]
         last_word = last_line[0:last_line.index("=")].lower()
         last_definition = last_line[last_line.index("=")+2:last_line.index("[")].strip().lower()
