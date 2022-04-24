@@ -186,7 +186,7 @@
   transform: translate(9px, 8px);
 }
 
-/* 
+/*
  * Only allow the hover color to be shown if red or green is not currently
  * being displayed. The white color is the default "neutral" color state.
 */
