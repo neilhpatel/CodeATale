@@ -14,9 +14,9 @@ html {
   font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
-/* 
- * Chapter selection boxes 
- * Includes: chapter button, gallery button, chapter number, and progress 
+/*
+ * Chapter selection boxes
+ * Includes: chapter button, gallery button, chapter number, and progress
  */
 #selboxes {
   position: relative;
@@ -61,7 +61,7 @@ html {
 
 /* 
  * Gallery button
- * Brings user to image gallery 
+ * Brings user to image gallery
  */
 #selboxes .img-button {
   position: absolute;
