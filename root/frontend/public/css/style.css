@@ -63,7 +63,6 @@ body::-webkit-scrollbar-thumb:hover {
   transition: transform 0.5s;
 }
 
-
 /* Increase size and add a white border on hover */
 /* making margin between icons smaller for iphone se (phone screen) */
 @media screen and (max-aspect-ratio: 4/2) {
@@ -94,7 +93,6 @@ body::-webkit-scrollbar-thumb:hover {
   right: 5%;
   top: 10%;
 }
-
 
 /* Button to open the bookmark popup */
 /* adjusting position of bookmark (phone screen) */
@@ -271,8 +269,6 @@ body::-webkit-scrollbar-thumb:hover {
     font-size: 10px;
   }
 }
-
-
 
 #add-bookmark:hover {
   cursor: pointer;

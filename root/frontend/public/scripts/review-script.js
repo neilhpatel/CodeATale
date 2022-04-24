@@ -6,7 +6,7 @@ import { getFirestore, collection, getDocs} from "https://www.gstatic.com/fireba
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyC2lfp2oGwlyluipIjXCt0ueQKXkqUudA",
+  apiKey: "AIzaSyC2lfp2oGwlyluipIjXCt0ueQKXkq_UudA",
   authDomain: "junior-design-178a4.firebaseapp.com",
   databaseURL: "https://junior-design-178a4-default-rtdb.firebaseio.com",
   projectId: "junior-design-178a4",

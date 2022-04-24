@@ -17,6 +17,7 @@
   border: 7px solid;
   text-align: center;
   border-image: linear-gradient(90deg, rgba(40, 255, 0, 1) 0%, rgba(102, 224, 255, 1) 25%, rgba(220, 41, 226, 1) 50%, rgba(233, 82, 98, 1) 75%, rgba(224, 255, 0, 1) 100%) 1;
+  padding: 2vmin;
 }
 
 /* Making the definition screen bigger (phone screen) */
@@ -162,7 +163,7 @@
 @media screen and (max-width: 1000px) {
   .quiz-options button {
     padding: 0.5em 0;
-    font-size: 2vmin;
+    font-size: 3vmin;
   }
 }
 
@@ -184,7 +185,7 @@
 .queue-msg-show {
   position: absolute;
   top: 0%;
-  font-size: 2vmin;
+  font-size: 3vmin;
   font-weight: bolder;
   color: rgb(209, 10, 36);
 }

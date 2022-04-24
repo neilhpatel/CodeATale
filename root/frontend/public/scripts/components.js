@@ -224,7 +224,7 @@ class Bookmark extends HTMLElement {
             if (window.location.href.substring(window.location.href.length - 17, window.location.href.length) === "reading-page.html") {
                 onReadingPage = true;
             }
-            setTimeout(() => {addBookmarkHelper(alreadyAdded, onReadingPage);}, 150); // Adds a delay so the button can be seen being pressed down
+            addBookmarkHelper(alreadyAdded, onReadingPage);
         });
 
         // Popup modal to display the bookmark

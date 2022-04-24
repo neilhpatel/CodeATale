@@ -94,7 +94,6 @@ function removeStars() {
 }
 
 async function quizWords() {
-  // Codacy does not like the use of "undefined"
   checkArrows();
   if (queue === null || queue.length === 0) {
     emptyScreen();
@@ -162,7 +161,8 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
         addStars(starNumber);
         if (starNumber === 5) { starNumber = 0; }
         setTimeout(async () => {
-          $(this).css("background-color", "white");
+          $(this).removeClass("correct-answer");
+          $(this).addClass("neutral-answer");
           if (starNumber === 0) {
             //console.log("Congratulations, you've mastered the word!");
             if (quizIndex === queue.length - 1) {
@@ -184,7 +184,7 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
         $(".quiz-option").off();
         ableToGoToNextPage = false;
         $(this).css("background-color", "red");
-        var audio = new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav");
+        let audio = new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav");
         audio.volume = 0.5;
         audio.play();
         await updateDoc(doc(wordBank, word), {
@@ -193,7 +193,8 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
         });
         removeStars();
         setTimeout(() => {
-          $(this).css("background-color", "white");
+          $(this).removeClass("incorrect-answer");
+          $(this).addClass("neutral-answer");
           repeatQuiz(answers, word, wordSnap, blockedWords, quizzableWords);
           ableToGoToNextPage = true;
         }, 1000);
