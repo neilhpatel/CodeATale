@@ -66,7 +66,7 @@ $("document").ready(function() {
         let newImg = $(`
         <div class="slide">
             <img class="gal-img" src="../../assets/Dr.DolittlePictures/Ch. ${num}/img${num}_${i}.jpg">
-            <div style="text-align: center; font-size:5em">${captions.has("img" + num + "_" + i) ? captions.get("img" + num + "_" + i) : ""}</div>
+            <div style="text-align: center">${captions.has("img" + num + "_" + i) ? captions.get("img" + num + "_" + i) : ""}</div>
         </div>
         `);
         $(".slideshow").append(newImg);
