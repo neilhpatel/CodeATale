@@ -1,5 +1,6 @@
-/* This effects the style of the definition popups, but can be extended for other popups.
- * The bookmark popup is not modified by this script.
+/* 
+  This effects the style of the definition popups, but can be extended for other popups.
+  The bookmark popup is not modified by this script.
 */
 
 /* General modal styles */
@@ -47,8 +48,10 @@
   opacity: 1;
 }
 
-/* Close button styling */
-/* Close button will break without these styles */
+/* 
+  Close button styling
+  Close button will break without these styles 
+*/
 #modal .close::before,
 #modal .close::after {
   position: absolute;
