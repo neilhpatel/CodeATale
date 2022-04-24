@@ -14,8 +14,10 @@ html {
   font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
-/* Chapter selection boxes */
-/* Includes: chapter button, gallery button, chapter number, and progress */
+/* 
+ * Chapter selection boxes 
+ * Includes: chapter button, gallery button, chapter number, and progress 
+ */
 #selboxes {
   position: relative;
   display: inline-grid;
@@ -41,8 +43,10 @@ html {
   }
 }
 
-/* Chapter select button */
-/* Brings user to the selected chapter */
+/* 
+ * Chapter select button
+ * Brings user to the selected chapter 
+ */
 #selboxes button {
   background-color: #5bffff;
   width: 18vw;
@@ -55,8 +59,10 @@ html {
   font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
 
-/* Gallery button */
-/* Brings user to image gallery */
+/* 
+ * Gallery button
+ * Brings user to image gallery 
+ */
 #selboxes .img-button {
   position: absolute;
   display: block;
@@ -142,8 +148,10 @@ html {
   background-color: rgb(73, 255, 49);
 }
 
-/* At 100% completion change to rainbow */
-/* This might not work on all platforms */
+/* 
+ * At 100% completion change to rainbow 
+ * This might not work on all platforms 
+ */
 .chapter-box .percent100 {
   background-image: linear-gradient(to right, red, orange, yellow, rgb(51, 255, 51), rgb(0, 204, 255), rgb(255, 4, 188));
   -webkit-background-clip: text;

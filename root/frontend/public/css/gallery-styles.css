@@ -8,8 +8,10 @@
   transform: translate(-50%);
 }
 
-/* Slideshow */
-/* Includes all of the elements of the gallery (excluding the nav bar) */
+/* 
+ * Slideshow 
+ * Includes all of the elements of the gallery (excluding the nav bar) 
+ */
 .slideshow {
   width: 75vw;
   margin: 0 auto;
