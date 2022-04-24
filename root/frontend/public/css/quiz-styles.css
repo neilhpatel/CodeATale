@@ -122,8 +122,10 @@
   font-size: 4vmin;
   background-color: rgb(255, 255, 243);
   color: black;
+  
   /* This effect makes the buttons look 3D. */
-  box-shadow: 
+  box-shadow:
+    
     1px 0 0 rgb(76, 0, 255),
     0 1px 0 rgb(76, 0, 255),
     2px 1px 0 rgb(76, 0, 255),
