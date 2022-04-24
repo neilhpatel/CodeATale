@@ -15,14 +15,11 @@ def checkPageLength(paragraphCount, pageText):
 class StoryPages:
     pageDictionary = {}
     text = []
-    # Based on the frontend UI, 700 seems to be a good amount to leave
-    AVERAGE_CHARACTERS_PER_PAGE = 700
-    # space for an audio scrollbar but this can be changed later on depending on our needs.
 
+    # Initialize class with a given file path and the file's text
     def __init__(self, filePath):
         self.filePath = filePath
         self.text = docx2txt.process(self.filePath)
-
 
     # Method that parses the story into pages that can be accessed by a page number using self.pageDictionary
     def parseStoryIntoPages(self):
@@ -35,9 +32,12 @@ class StoryPages:
         chapterNumber = 0
         endsAtParagraph = False
         endOfChapter = False
+
+        # Continue iterating until the entire story has been parsed
         while totalCharacterCount < len(self.text):
             letter = self.text[totalCharacterCount]
 
+            # End of chapter occurs when '\n\n\n' appears
             if letter == '\n' and self.text[totalCharacterCount + 1] == '\n' and self.text[
                     totalCharacterCount + 2] == '\n' and self.text[totalCharacterCount + 3] == '\n':
                 endOfChapter = True
@@ -108,6 +108,10 @@ class StoryPages:
 
 
 def main():
+    """
+        Main method to run StoryParser.py. Reads relative file path of cwd which contains DrDolittle.docx. Note that
+        DrDolittleOriginal.docx also contains images + captions while DrDolittle.docx does not.
+    """
     prefixPath = os.getcwd()
     newPath = os.path.abspath(os.path.join(prefixPath, os.pardir))
     docPath = os.path.join(newPath, "docs")
@@ -116,6 +120,7 @@ def main():
     storyPages.parseStoryIntoPages()
     storyPages.correctDictionaryNumbering()
 
+    # Write the chapter to page to text mapping to a json file called parsedPages.json in frontend/assets/json_files
     with open("../../frontend/assets/json_files/parsedPages.json", "w") as outfile:
         json.dump(storyPages.pageDictionary, outfile)
 

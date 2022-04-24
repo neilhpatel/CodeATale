@@ -11,6 +11,7 @@
   text-align: center;
 }
 
+/* The name of the page */
 #quiz-title {
   font-family: Libre Caslon Text, Arial, Helvetica, sans-serif;
 }
@@ -49,6 +50,7 @@
   transition: 100ms ease-in-out;
 }
 
+/* Help button effects */
 #help-btn:active {
   transform: translate(-6px, 6px) translate(-50%);
   box-shadow: none;
@@ -65,13 +67,14 @@
   text-decoration: underline;
 }
 
-/* Stars */
+/* Stars Container */
 #stars-container {
   position: absolute;
   right: 2%;
   top: 2%;
 }
 
+/* Stars */
 #stars {
   width: 15vw;
   height: 5vh;
@@ -81,22 +84,25 @@
   overflow: hidden;
 }
 
+/* Text under the stars */
 #stars-text {
   text-align: center;
   font-size: 3vmin;
   font-weight: bold;
 }
 
+/* Size of each star */
 #stars img {
   width: 2.5vw;
 }
 
+/* Stars list container */
 #stars-list {
   display: flex;
   justify-content: center;
 }
 
-/* Quiz */
+/* Quiz Container */
 #quiz-container {
   position: absolute;
   display: grid;
@@ -116,7 +122,10 @@
   font-size: 4vmin;
   background-color: rgb(255, 255, 243);
   color: black;
+
+  /* This effect makes the buttons look 3D. */
   box-shadow:
+
     1px 0 0 rgb(76, 0, 255),
     0 1px 0 rgb(76, 0, 255),
     2px 1px 0 rgb(76, 0, 255),
@@ -138,6 +147,7 @@
   transition: 100ms ease-in-out;
 }
 
+/* Answer button's effects */
 /* decreasing the size of the drop shadow (phone screen) */
 @media screen and (max-width: 1000px) {
   #quiz-container button {
@@ -175,6 +185,7 @@
   background-color: rgba(34, 152, 255, 0.596);
 }
 
+/* Instructions */
 #quiz-description {
   font-size: 4vh;
   color: rgb(113, 113, 113);

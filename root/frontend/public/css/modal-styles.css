@@ -1,5 +1,6 @@
-/* This style effects the popups of the style to the definition popup.
- * The bookmark is not modified by this script.
+/*
+  This effects the style of the definition popups, but can be extended for other popups.
+  The bookmark popup is not modified by this script.
 */
 
 /* General modal styles */
@@ -58,6 +59,7 @@
   transition: ease-in-out 100ms;
 }
 
+/* Close Button effect */
 /* Changing the position of the close button (phone screen) */
 @media screen and (max-width: 1000px) {
   #modal .close {
@@ -71,6 +73,10 @@
   opacity: 1;
 }
 
+/*
+  Close button styling
+  Close button will break without these styles
+*/
 #modal .close::before,
 #modal .close::after {
   position: absolute;
@@ -106,6 +112,7 @@
   transition: 100ms;
 }
 
+/* Quiz button effects */
 /* Making the quiz button bigger */
 @media screen and (max-width: 1000px) {
   .quiz-btn {
@@ -117,11 +124,12 @@
   transform: scale(125%);
 }
 
+/* Keep the quiz menu open while hovering over the options */
 .def-quiz-container:hover .quiz-btn {
   transform: scale(125%);
 }
 
-/* Quiz options (add to queue or go to quiz) */
+/* Container for the quiz-option buttons */
 .quiz-options {
   position: absolute;
   display: inline-grid;
@@ -130,6 +138,7 @@
   transition: ease-in-out 150ms;
 }
 
+/* Quiz-option buttons to go to a quiz or add to the queue */
 /* Making the quiz option buttons wider */
 @media screen and (max-width: 1000px) {
   .quiz-options {
@@ -148,6 +157,7 @@
   background-color: rgb(255, 255, 255);
 }
 
+/* Quiz-option buttons on click effects */
 /* increasing the font size for the quiz option buttons */
 @media screen and (max-width: 1000px) {
   .quiz-options button {
@@ -179,6 +189,7 @@
   color: rgb(209, 10, 36);
 }
 
+/* Hide the quiz-queue popup when not hovering over the quiz icon (lightbulb) */
 .queue-msg-hide {
   display: none;
 }
