@@ -135,7 +135,8 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
       $(this).off().one("click", async function() {
         $(".quiz-option").off();
         ableToGoToNextPage = false;
-        $(this).css("background-color", "lime");
+        $(this).removeClass("neutral-answer");
+        $(this).addClass("correct-answer");
         let audio = new Audio("../../../backend/Audio/Sound Effects/Correct Answer - Sound Effect.wav");
         audio.volume = 0.5;
         audio.play();
@@ -183,7 +184,8 @@ async function quizHelper(answers, word, wordSnap, blockedWords, quizzableWords)
       $(this).off().one("click", async function() {
         $(".quiz-option").off();
         ableToGoToNextPage = false;
-        $(this).css("background-color", "red");
+        $(this).removeClass("neutral-answer");
+        $(this).addClass("incorrect-answer");
         let audio = new Audio("../../../backend/Audio/Sound Effects/Incorrect Answer - Sound Effect.wav");
         audio.volume = 0.5;
         audio.play();
@@ -213,7 +215,9 @@ function emptyScreen() {
 $("#prevPg").off("click").click(function () {
   if (ableToGoToNextPage) {
     $(".quiz-option").off().empty();
-    $(".quiz-option").css("background-color", "white");
+    $(".quiz-option").removeClass("correct-answer");
+    $(".quiz-option").removeClass("incorrect-answer");
+    $(".quiz-option").addClass("neutral-answer");
     quizIndex--;
     quizWords();
   } 
@@ -222,7 +226,9 @@ $("#prevPg").off("click").click(function () {
 $("#nextPg").off("click").click(function () {
   if (ableToGoToNextPage) {
     $(".quiz-option").off().empty();
-    $(".quiz-option").css("background-color", "white");
+    $(".quiz-option").removeClass("correct-answer");
+    $(".quiz-option").removeClass("incorrect-answer");
+    $(".quiz-option").addClass("neutral-answer");
     quizIndex++;
     quizWords();
   }
