@@ -13,7 +13,7 @@ Illiteracy in children is a major issue - students that cannot read early on oft
 ### Build Status
 Development is finished and codebase is currently ready for handoff to client.
 
-# Install Guide
+## Install Guide
 
 ### 1. Prerequisites
 To clone and run this application, you will need [Git](https://git-scm.com/) installed on your computer. To run any of the python files in the backend folder, you will need [Python](https://www.python.org/downloads/) installed on your computer (this is not required to run the actual application).
@@ -42,46 +42,46 @@ pip3 install -r requirements.txt #if you have Python 3.x.x
 No build is necessary for this application.
 
 ### 4. Run the application
-#### Option 1 (recommended): Run index.html using an integrated development environment (IDE). [IntelliJ](https://www.jetbrains.com/help/idea/installation-guide.html#standalone), [PyCharm](https://www.jetbrains.com/help/pycharm/installation-guide.html#standalone), and [VSCode](https://code.visualstudio.com/download) can be used.
-* With IntelliJ/PyCharm, open the repository and navigate to the index.html file located in CodeATale/root/frontend/public/html. At the top right of the file, there should be icons for chrome, Firefox, Safari, and any other browsers. Click on your preferred browser.
-* With VSCode, open the repository. Navigate to the extensions tab on the left sidebar and search and download the extension Live Server by Ritwick Dey in Marketplace (usually first option). After installation, navigate to the index.html file in CodeATale/root/frontend/public/html. Double click anywhere in the file and select “Open with Live Server”. Note the default browser opened can be changed by going to Files > Preferences > Settings > Extensions > Live Server > Custom Browser
+**Option 1 (recommended): Run index.html using an integrated development environment (IDE). [IntelliJ](https://www.jetbrains.com/help/idea/installation-guide.html#standalone), [PyCharm](https://www.jetbrains.com/help/pycharm/installation-guide.html#standalone), and [VSCode](https://code.visualstudio.com/download) can be used.**
+  * With IntelliJ/PyCharm, open the repository and navigate to the index.html file located in CodeATale/root/frontend/public/html. At the top right of the file, there should be icons for chrome, Firefox, Safari, and any other browsers. Click on your preferred browser.
+  * With VSCode, open the repository. Navigate to the extensions tab on the left sidebar and search and download the extension Live Server by Ritwick Dey in Marketplace (usually first option). After installation, navigate to the index.html file in CodeATale/root/frontend/public/html. Double click anywhere in the file and select “Open with Live Server”. Note the default browser opened can be changed by going to Files > Preferences > Settings > Extensions > Live Server > Custom Browser
 
-#### Option 2: Run index.html using a Google Chrome extension.
-* Open Google Chrome and download the [“Web Server for Chrome” Extension](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en). After installation, click Launch app. Click Choose Folder and navigate to CodeATale/root and select the frontend folder. You should see “Current: /frontend” on the extension page. Now, click on the Web Server URL link and click on public/ and html/ and the application will open.
+**Option 2: Run index.html using a Google Chrome extension.**
+  * Open Google Chrome and download the [“Web Server for Chrome” Extension](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en). After installation, click Launch app. Click Choose Folder and navigate to CodeATale/root and select the frontend folder. You should see “Current: /frontend” on the extension page. Now, click on the Web Server URL link and click on public/ and html/ and the application will open.
 
-# Release Notes
+## Release Notes
 
 ### Software features (version 1.0):
 1. Chapter selection page
-    * Select which chapter to read
-    * Access the bookmark widget
-    * Select which chapter’s image gallery to view
-    * Check on chapter progress
+   * Select which chapter to read
+   * Access the bookmark widget
+   * Select which chapter’s image gallery to view
+   * Check on chapter progress
 2. Bookmark widget - all bookmarks are stored in a database and saved between sessions
-    * Create a bookmark for current page
-    * Delete a bookmark
-    * Go to a bookmark’s page
+   * Create a bookmark for current page
+   * Delete a bookmark
+   * Go to a bookmark’s page
 3. Gallery Screen
 4. Reading Screen Page
 5. Quiz Screen
 6. Review page
-    * View information for each highlightable word that has been clicked on
-         * If the definition was queued
-         * The highest score
-         * Total number of times correct
-         * Total number of times incorrect
-         * Date quiz was last accessed
+   * View information for each highlightable word that has been clicked on
+      * If the definition was queued
+      * The highest score
+      * Total number of times correct
+      * Total number of times incorrect
+      * Date quiz was last accessed
 7. Quiz page
-    * Select the word that matches the given definition out of 4 options
-    * Keeps track of the number of consecutive correct answers for a specific word (represented by gold stars)
-    * Help button
-         * Provides brief explanation for how the quiz works
+   * Select the word that matches the given definition out of 4 options
+   * Keeps track of the number of consecutive correct answers for a specific word (represented by gold stars)
+   * Help button
+      * Provides brief explanation for how the quiz works
 8. Reading page
-    * Access the bookmark widget
-    * Read the story (all of the book’s text will be on the reading page)
-    * Play an voice acted audio reading of the current page
-    * Click on highlightable words and listen to them being spoken
-    * Double click on highlightable words to view their definition and listen to the definition being read aloud
+   * Access the bookmark widget
+   * Read the story (all of the book’s text will be on the reading page)
+   * Play an voice acted audio reading of the current page
+   * Click on highlightable words and listen to them being spoken
+   * Double click on highlightable words to view their definition and listen to the definition being read aloud
 
 ### Bugs/Issues
 1. In the review screen, a number shows the highest score rather than gold stars.
