@@ -1,5 +1,4 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
 import { getFirestore, doc, getDoc, setDoc} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -45,9 +44,6 @@ async function checkAccount() {
             chapterProgress: dummyArray,
             pagesViewed: dummyStringArray,
             bookmarkList: dummyBookmarkList
-        });
-        await setDoc(doc(db, "Users", username, "wordBank", "placeholder"), {
-            dummyData: true
         });
     }
 }
