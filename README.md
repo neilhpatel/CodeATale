@@ -13,7 +13,7 @@ Illiteracy in children is a major issue - students that cannot read early on oft
 ### Build Status
 Development is finished and codebase is currently ready for handoff to client.
 
-## Install Guide
+## Installation Guide
 
 ### 1. Prerequisites
 To clone and run this application, you will need [Git](https://git-scm.com/) installed on your computer. To run any of the python files in the backend folder, you will need [Python](https://www.python.org/downloads/) installed on your computer (this is not required to run the actual application).
