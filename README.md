@@ -49,66 +49,79 @@ No build is necessary for this application.
 **Option 2: Run index.html using a Google Chrome extension.**
     * Open Google Chrome and download the [“Web Server for Chrome” Extension](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en). After installation, click Launch app. Click Choose Folder and navigate to CodeATale/root and select the frontend folder. You should see “Current: /frontend” on the extension page. Now, click on the Web Server URL link and click on public/ and html/ and the application will open.
 
+### 5. Troubleshooting
+1. I am getting a "No module named docx2txt", "No module named pydub", or "No module named firebase_admin" error when running a python file.
+   * Install the necessary dependencies using the pip install command listed above.
+2. I am trying to run DefParser.py, DefParser2.py, DefParser3.py, or DefParser4.py but am getting the error “No such file or directory … /ServiceAccountKey.json”.
+   * You need to place the file ServiceAccountKey.json inside the CodeATale/root/backend/src folder.
+3. I am on the reading screen but none of the words are being highlighted.
+   * This likely means the daily limit of reads/writes for Firebase has been exceeded. You need to either wait until the limit is reset around midnight Pacific time or upgrade your plan to allow more reads/writes to the database.
+4. I am trying to use option 2 to run the application, but the reading screen is blank.
+   * You likely selected the incorrect folder instead of the folder titled "frontend".
+5. I am opening index.html directly from my file directory but the application is blank except for the text "Choose a Chapter and Start Reading"
+   * Unfortunately, this application does not support direct opening of index.html and requires an equivalent of a live server as mentioned in step 4 of the Installation Guide.
+
+
 ## Release Notes
 
 ### Software features (version 1.0):
- 1. Chapter selection page
-     * Select which chapter to read
-     * Access the bookmark widget
-     * Select which chapter’s image gallery to view
-     * Check on chapter progress
+1. Chapter selection page
+   * Select which chapter to read
+   * Access the bookmark widget
+   * Select which chapter’s image gallery to view
+   * Check on chapter progress
 
- 2. Bookmark widget - all bookmarks are stored in a database and saved between sessions
-     * Create a bookmark for current page
-     * Delete a bookmark
-     * Go to a bookmark’s page
+2. Bookmark widget - all bookmarks are stored in a database and saved between sessions
+   * Create a bookmark for current page
+   * Delete a bookmark
+   * Go to a bookmark’s page
 
- 3. Gallery Screen
+3. Gallery Screen
+   * View the images for a particular chapter
+   * Read the captions for the chapter's images
 
- 4. Reading Screen Page
- 
- 5. Quiz Screen
- 
- 6. Review page
-     * View information for each highlightable word that has been clicked on
-         * If the definition was queued
-         * The highest score
-         * Total number of times correct
-         * Total number of times incorrect
-         * Date quiz was last accessed
+4. Reading page
+   * Access the bookmark widget
+   * Read the story (all of the book’s text will be on the reading page)
+   * Play audio narration of the story text on the current page
+   * Click on highlightable words and listen to them being spoken by a real person
+   * Double click on highlightable words to view their definition and listen to the definition being read aloud
+      * Can add the word to the quiz queue or go to a quiz directly when viewing the definition   
 
- 7. Quiz page
-     * Select the word that matches the given definition out of 4 options
-     * Keeps track of the number of consecutive correct answers for a specific word (represented by gold stars)
-     * Help button
-         * Provides brief explanation for how the quiz works
- 
- 8. Reading page
-     * Access the bookmark widget
-     * Read the story (all of the book’s text will be on the reading page)
-     * Play an voice acted audio reading of the current page
-     * Click on highlightable words and listen to them being spoken
-     * Double click on highlightable words to view their definition and listen to the definition being read aloud
+5. Quiz page
+   * Select the word that matches the given definition out of 4 options
+   * Keeps track of the number of consecutive correct answers for a specific word (represented by gold stars)
+   * Navigate between quizzes for different words if multiple words have been added to the quiz queue
+   * Help button
+      * Provides brief explanation for how the quiz works
+
+6. Review page
+   * View information for each highlightable word that has been clicked on
+      * If the definition was queued
+      * The highest score
+      * Total number of times correct
+      * Total number of times incorrect
+      * Date quiz was last accessed
 
 ### Bugs/Issues
  1. In the review screen, a number shows the highest score rather than gold stars.
  2. In the review screen, clicking on a word does not add that word to the quiz queue.
- 3. In the quiz screen, there is no queue for the user to see what words they are going to be quizzes on.
+ 3. In the quiz screen, there is no queue for the user to see what words they are going to be quizzed on.
  4. Only looks correct on mobile if viewed in landscape mode.
  5. There is missing story audio at the end of Chapters 5 and 11.
  6. Usernames are currently hardcoded and should instead by replaced with the username verified from the login of the [Brainy Literacy HearATale Application](http://brainyliteracyapp.hearatale.org/#/).
 
 ### Credits
- * Project Director: [Dr. Walter Evans](mailto:wevans@augusta.edu)
- * Developers: [JIC Team 1338](mailto:jjohnson660@gatech.edu)
-      * Assata Quinichett
-      * Collin Hubbard
-      * James Johnson
-      * Jinuk Yun
-      * Neil Patel
-      * Pranathi Singareddy
- * In collaboration with nonprofit [HearATale](https://www.hearatale.com/)
+* Project Director: [Dr. Walter Evans](mailto:wevans@augusta.edu)
+* Developers: [JIC Team 1338](mailto:jjohnson660@gatech.edu)
+   * Assata Quinichett
+   * Collin Hubbard
+   * James Johnson
+   * Jinuk Yun
+   * Neil Patel
+   * Pranathi Singareddy
+* In collaboration with nonprofit [HearATale](https://www.hearatale.com/)
 
 ### License
- * The open source license chosen for this project is the [MIT License](https://choosealicense.com/licenses/mit/).
- * Questions regarding IP should be directed to Amanda Girard at [amanda.girard@lmc.gatech.edu](mailto:amanda.girard@lmc.gatech.edu).
+* The open source license chosen for this project is the [MIT License](https://choosealicense.com/licenses/mit/).
+* Questions regarding IP should be directed to Amanda Girard at [amanda.girard@lmc.gatech.edu](mailto:amanda.girard@lmc.gatech.edu).
