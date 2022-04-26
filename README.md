@@ -43,12 +43,11 @@ No build is necessary for this application.
 
 ### 4. Run the application
 **Option 1 (recommended): Run index.html using an integrated development environment (IDE). [IntelliJ](https://www.jetbrains.com/help/idea/installation-guide.html#standalone), [PyCharm](https://www.jetbrains.com/help/pycharm/installation-guide.html#standalone), and [VSCode](https://code.visualstudio.com/download) can be used.**
-   * With IntelliJ/PyCharm, open the repository and navigate to the index.html file located in CodeATale/root/frontend/public/html. At the top right of the file, there should be icons for chrome, Firefox, Safari, and any other browsers. Click on your preferred browser.
-   * With VSCode, open the repository. Navigate to the extensions tab on the left sidebar and search and download the extension Live Server by Ritwick Dey in Marketplace (usually first option). After installation, navigate to the index.html file in CodeATale/root/frontend/public/html. Double click anywhere in the file and select “Open with Live Server”. Note the default browser opened can be changed by going to Files > Preferences > Settings > Extensions > Live Server > Custom Browser
+    * With IntelliJ/PyCharm, open the repository and navigate to the index.html file located in CodeATale/root/frontend/public/html. At the top right of the file, there should be icons for chrome, Firefox, Safari, and any other browsers. Click on your preferred browser.
+    * With VSCode, open the repository. Navigate to the extensions tab on the left sidebar and search and download the extension Live Server by Ritwick Dey in Marketplace (usually first option). After installation, navigate to the index.html file in CodeATale/root/frontend/public/html. Double click anywhere in the file and select “Open with Live Server”. Note the default browser opened can be changed by going to Files > Preferences > Settings > Extensions > Live Server > Custom Browser
 
 **Option 2: Run index.html using a Google Chrome extension.**
-
-   * Open Google Chrome and download the [“Web Server for Chrome” Extension](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en). After installation, click Launch app. Click Choose Folder and navigate to CodeATale/root and select the frontend folder. You should see “Current: /frontend” on the extension page. Now, click on the Web Server URL link and click on public/ and html/ and the application will open.
+    * Open Google Chrome and download the [“Web Server for Chrome” Extension](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en). After installation, click Launch app. Click Choose Folder and navigate to CodeATale/root and select the frontend folder. You should see “Current: /frontend” on the extension page. Now, click on the Web Server URL link and click on public/ and html/ and the application will open.
 
 ### 5. Troubleshooting
    1. I am getting a "No module named docx2txt", "No module named pydub", or "No module named firebase_admin" error when running a python file.
