@@ -167,3 +167,10 @@ No build is necessary for this application.
 ### License
 * The open source license chosen for this project is the [MIT License](https://choosealicense.com/licenses/mit/).
 * Questions regarding IP should be directed to Amanda Girard at [amanda.girard@lmc.gatech.edu](mailto:amanda.girard@lmc.gatech.edu).
+
+### Check out what it looks like before downloading!
+![alt text](root/backend/Screenshots/chapter-select-screen.png?raw=true) <br>
+![alt text](root/backend/Screenshots/gallery-screen.png?raw=true) <br>
+![alt text](root/backend/Screenshots/quiz-screen.png?raw=true) <br>
+![alt text](root/backend/Screenshots/reading-screen.png?raw=true) <br>
+![alt text](root/backend/Screenshots/review-screen.png?raw=true) <br>
