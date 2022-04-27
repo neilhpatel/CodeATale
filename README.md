@@ -69,39 +69,39 @@ No build is necessary for this application.
 
 **Plan:** Spark Plan - This plan requires $0 a month. It has usage quotas for Database, Firestore, Storage, Functions, Phone Auth, Hosting, & Test Lab. We recommend upgrading to the Blaze plan for optimal use to eliminate any bugs caused from reaching such quotas; however the Blaze plan will have a pay as you go pricing model. For more information, check out the [Firebase pricing plans](https://firebase.google.com/pricing?authuser=0&hl=en).
 
-### Resources Used:
-***Firestore Database:*** <br>
-This database largely contains information pertaining to users and individual words from the story. The database organizes information by collections, which contain documents, which store specific information.
+#### Resources Used:
+1) *Firestore Database:* <br>
+    This database largely contains information pertaining to users and individual words from the story. The database organizes information by collections, which contain documents, which store specific information.
 
-  *Structure of Data:*
-  One collection is called `Users`. All of the documents within this collection are distinct usernames (ex: “mtl10”, “neil”). Information is included as follows, on a document by document basis:
-  * bookMarkList
-  * chapterProgress
-  * pagesViewed
-  * queue
-    
-  There are 26 other collections, each labeled with one lowercase letter in the alphabet (“a”, “b”, “c”, …. “z”). Each of these collections includes numerous documents labeled with distinct words that begin with the collection letter. For example, “aback” and “abandon” are documents within the “a” collection. Information is included as follows, on a document by document basis:
-  * block_from_quiz (str) - contains all the words that should be excluded as quiz answer options for the quiz of the word (see document label)
-  * definition (str) - definition of the word (see document label)
-  * derivative_words (list) - list of derivative words (str) of the word (see document label)
-  * is_child_word (bool) - describes if the word (see document label)
-  * is_sight_word (bool) - describes if the word (see document label) is a sight word
-  * parent_word (bool) - describes if the word (see document label) is a parent word
-  
-  Note that all information across these collections, documents, and specific information is lower-case. Child words refer to words that are derivatives of another word. Parent words refer to words that have derivative words. Sight words refer to words that are simple enough such that the user requires no highlight/quiz feature in the application.
+    *Structure of Data:*
+    One collection is called `Users`. All of the documents within this collection are distinct usernames (ex: “mtl10”, “neil”). Information is included as follows, on a document by document basis:
+    * bookMarkList
+    * chapterProgress
+    * pagesViewed
+    * queue
 
-Consult [the Firestore documentation](https://firebase.google.com/docs/firestore?hl=en&authuser=1) for instructions on how to properly read and write from this database.
+    There are 26 other collections, each labeled with one lowercase letter in the alphabet (“a”, “b”, “c”, …. “z”). Each of these collections includes numerous documents labeled with distinct words that begin with the collection letter. For example, “aback” and “abandon” are documents within the “a” collection. Information is included as follows, on a document by document basis:
+    * block_from_quiz (str) - contains all the words that should be excluded as quiz answer options for the quiz of the word (see document label)
+    * definition (str) - definition of the word (see document label)
+    * derivative_words (list) - list of derivative words (str) of the word (see document label)
+    * is_child_word (bool) - describes if the word (see document label)
+    * is_sight_word (bool) - describes if the word (see document label) is a sight word
+    * parent_word (bool) - describes if the word (see document label) is a parent word
 
-***Storage:*** <br>
-This database stores audio files on a page by page basis, organized by chapter.
+    Note that all information across these collections, documents, and specific information is lower-case. Child words refer to words that are derivatives of another word. Parent words refer to words that have derivative words. Sight words refer to words that are simple enough such that the user requires no highlight/quiz feature in the application.
 
-  *Structure of Data:*
-  * Folders listed in “Chapter {Number}/” format where {Number} gets replaced by the target chapter number
-  * Within the folder, audio files are listed in “Chapter{Number}_Page{Number}.mp3” format where the first {Number} is the target chapter number and the second {Number} is the target page number
-  
-  *Note that all pages do not have audio yet.*
-    
-Consult [the Cloud Storage documentation](https://firebase.google.com/docs/storage/web/start?hl=en&authuser=1) for instructions on how to properly read and write from this database.
+    Consult [the Firestore documentation](https://firebase.google.com/docs/firestore?hl=en&authuser=1) for instructions on how to properly read and write from this database.
+
+2) *Storage:* <br>
+    This database stores audio files on a page by page basis, organized by chapter.
+
+    *Structure of Data:*
+    * Folders listed in “Chapter {Number}/” format where {Number} gets replaced by the target chapter number
+    * Within the folder, audio files are listed in “Chapter{Number}_Page{Number}.mp3” format where the first {Number} is the target chapter number and the second {Number} is the target page number
+
+    *Note that all pages do not have audio yet.*
+
+    Consult [the Cloud Storage documentation](https://firebase.google.com/docs/storage/web/start?hl=en&authuser=1) for instructions on how to properly read and write from this database.
 
 
 ## Release Notes
