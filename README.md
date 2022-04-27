@@ -50,16 +50,58 @@ No build is necessary for this application.
    * Open Google Chrome and download the [“Web Server for Chrome” Extension](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en). After installation, click Launch app. Click Choose Folder and navigate to CodeATale/root and select the frontend folder. You should see “Current: /frontend” on the extension page. Now, click on the Web Server URL link and click on public/ and html/ and the application will open.
 
 ### 5. Troubleshooting
-1. I am getting a "No module named docx2txt", "No module named pydub", or "No module named firebase_admin" error when running a python file.
+1. I am getting a `No module named docx2txt`, `No module named pydub`, or `No module named firebase_admin` error when running a python file.
    * Install the necessary dependencies using the pip install command listed above.
-2. I am trying to run DefParser.py, DefParser2.py, DefParser3.py, or DefParser4.py but am getting the error “No such file or directory … /ServiceAccountKey.json”.
+2. I am trying to run DefParser.py, DefParser2.py, DefParser3.py, or DefParser4.py but am getting the error `No such file or directory …/ServiceAccountKey.json`.
    * You need to place the file ServiceAccountKey.json inside the CodeATale/root/backend/src folder.
 3. I am on the reading screen but none of the words are being highlighted.
    * This likely means the daily limit of reads/writes for Firebase has been exceeded. You need to either wait until the limit is reset around midnight Pacific time or upgrade your plan to allow more reads/writes to the database.
 4. I am trying to use option 2 to run the application, but the reading screen is blank.
-   * You likely selected the incorrect folder instead of the folder titled "frontend".
+   * You likely selected the incorrect folder instead of the folder titled `frontend`.
 5. I am opening index.html directly from my file directory but the application is blank except for the text "Choose a Chapter and Start Reading"
    * Unfortunately, this application does not support direct opening of index.html and requires an equivalent of a live server as mentioned in step 4 of the Installation Guide.
+
+
+### 6. Database Information
+**Project Name:** Junior Design
+
+**Project ID:** junior-design-178a
+
+**Plan:** Spark Plan - This plan requires $0 a month. It has usage quotas for Database, Firestore, Storage, Functions, Phone Auth, Hosting, & Test Lab. We recommend upgrading to the Blaze plan for optimal use to eliminate any bugs caused from reaching such quotas; however the Blaze plan will have a pay as you go pricing model. For more information [go to the website](https://firebase.google.com/pricing?authuser=0&hl=en).
+
+#### Resources Used:
+***Firestore Database:*** <br>
+This database largely contains information pertaining to users and individual words from the story. The database organizes information by collections, which contain documents, which store specific information.
+
+  *Data Structure:*
+  One collection is called `Users`. All of the documents within this collection are distinct usernames (ex: “mt110”, “neil”). Information is included as follows, on a document by document basis:
+  * bookMarkList
+  * chapterProgress
+  * pagesViewed
+  * queue
+    
+  There are 26 other collections, each labeled with one lowercase letter in the alphabet (“a”, “b”, “c”, …. “z”). Each of these collections includes numerous documents labeled with distinct words that begin with the collection letter. For example, “aback” and “abandon” are documents within the “a” collection. Information is included as follows, on a document by document basis:
+  * block_from_quiz (str) - contains all the words that should be excluded as quiz answer options for the quiz of the word (see document label)
+  * definition (str) - definition of the word (see document label)
+  * derivative_words (list) - list of derivative words (str) of the word (see document label)
+  * is_child_word (bool) - describes if the word (see document label)
+  * is_sight_word (bool) - describes if the word (see document label) is a sight word
+  * parent_word (bool) - describes if the word (see document label) is a parent word
+  
+  Note that all information across these collections, documents, and specific information is lower-case. Child words refer to words that are derivatives of another word. Parent words refer to words that have derivative words. Sight words refer to words that are simple enough such that the user requires no highlight/quiz feature in the application.
+
+Consult [this link](https://firebase.google.com/docs/firestore?hl=en&authuser=1) for instructions on how to properly read and write from this database.
+
+***Storage:*** <br>
+This database stores audio files on a page by page basis, organized by chapter.
+
+  *Data Structure:*
+  * Folders listed in “Chapter {Number}/” format where {Number} gets replaced by the target chapter number
+  * Within the folder, audio files are listed in “Chapter{Number}_Page{Number}.mp3” format where the first {Number} is the target chapter number and the second {Number} is the target page number
+  
+  *Note that all pages do not have audio yet.*
+    
+Consult [this link](https://firebase.google.com/docs/storage/web/start?hl=en&authuser=1) for instructions on how to properly read and write from this database.
 
 
 ## Release Notes
