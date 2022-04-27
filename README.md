@@ -67,14 +67,14 @@ No build is necessary for this application.
 
 **Project ID:** junior-design-178a
 
-**Plan:** Spark Plan - This plan requires $0 a month. It has usage quotas for Database, Firestore, Storage, Functions, Phone Auth, Hosting, & Test Lab. We recommend upgrading to the Blaze plan for optimal use to eliminate any bugs caused from reaching such quotas; however the Blaze plan will have a pay as you go pricing model. For more information [go to the website](https://firebase.google.com/pricing?authuser=0&hl=en).
+**Plan:** Spark Plan - This plan requires $0 a month. It has usage quotas for Database, Firestore, Storage, Functions, Phone Auth, Hosting, & Test Lab. We recommend upgrading to the Blaze plan for optimal use to eliminate any bugs caused from reaching such quotas; however the Blaze plan will have a pay as you go pricing model. For more information, check out the [Firebase pricing plans](https://firebase.google.com/pricing?authuser=0&hl=en).
 
-#### Resources Used:
+### Resources Used:
 ***Firestore Database:*** <br>
 This database largely contains information pertaining to users and individual words from the story. The database organizes information by collections, which contain documents, which store specific information.
 
-  *Data Structure:*
-  One collection is called `Users`. All of the documents within this collection are distinct usernames (ex: “mt110”, “neil”). Information is included as follows, on a document by document basis:
+  *Structure of Data:*
+  One collection is called `Users`. All of the documents within this collection are distinct usernames (ex: “mtl10”, “neil”). Information is included as follows, on a document by document basis:
   * bookMarkList
   * chapterProgress
   * pagesViewed
@@ -90,18 +90,18 @@ This database largely contains information pertaining to users and individual wo
   
   Note that all information across these collections, documents, and specific information is lower-case. Child words refer to words that are derivatives of another word. Parent words refer to words that have derivative words. Sight words refer to words that are simple enough such that the user requires no highlight/quiz feature in the application.
 
-Consult [this link](https://firebase.google.com/docs/firestore?hl=en&authuser=1) for instructions on how to properly read and write from this database.
+Consult [the Firestore documentation](https://firebase.google.com/docs/firestore?hl=en&authuser=1) for instructions on how to properly read and write from this database.
 
 ***Storage:*** <br>
 This database stores audio files on a page by page basis, organized by chapter.
 
-  *Data Structure:*
+  *Structure of Data:*
   * Folders listed in “Chapter {Number}/” format where {Number} gets replaced by the target chapter number
   * Within the folder, audio files are listed in “Chapter{Number}_Page{Number}.mp3” format where the first {Number} is the target chapter number and the second {Number} is the target page number
   
   *Note that all pages do not have audio yet.*
     
-Consult [this link](https://firebase.google.com/docs/storage/web/start?hl=en&authuser=1) for instructions on how to properly read and write from this database.
+Consult [the Cloud Storage documentation](https://firebase.google.com/docs/storage/web/start?hl=en&authuser=1) for instructions on how to properly read and write from this database.
 
 
 ## Release Notes
