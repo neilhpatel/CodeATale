@@ -59,34 +59,6 @@ class Navbar extends HTMLElement {
 customElements.define("left-navbar", Navbar);
 
 // =============================
-// Stars custom element
-// =============================
-class Stars extends HTMLElement {
-    constructor() {
-        super();
-
-        // Create the HTML for the element
-        this.innerHTML = `
-        <div id="stars-container">
-            <div id="stars">
-                <img src="../../assets/Stars/Silver-Star-Blank.png" id="star1" alt="First star">
-            
-                <img src="../../assets/Stars/Silver-Star-Blank.png" id="star2" alt="Second star">
-            
-                <img src="../../assets/Stars/Silver-Star-Blank.png" id="star3" alt="Third star">
-            
-                <img src="../../assets/Stars/Silver-Star-Blank.png" id="star4" alt="Fourth star">
-            
-                <img src="../../assets/Stars/Silver-Star-Blank.png" id="star5" alt="Fifth star">
-                    
-            </div>
-        </div>
-        `;
-    }
-}
-customElements.define("stars-bar", Stars);
-
-// =============================
 // Bookmark custom element
 // =============================
 class Bookmark extends HTMLElement {

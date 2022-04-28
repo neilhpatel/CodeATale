@@ -30,8 +30,18 @@ if (!sessionStorage.getItem("firstLoad")) {
     sessionStorage.setItem("pageNum", "");
 }
 
+// This part of the code most likely needs to be changed to access the username
+// of whoever is using the app. Since we are not handling login, we used a constant
+// hardcoded variable to set the username instead
 const username = "mtl10";
 
+// As a general side note, the .off() method exists to remove
+// click methods on a text or button. It is needed or else the
+// text or button in question can repeat the function twice
+// potentially
+
+// Checks the account to see if the user has an account and creates one with default if
+// there isn't one
 async function checkAccount() {
     let dummyQueue = [];
     let dummyArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -50,11 +60,15 @@ async function checkAccount() {
 
 await checkAccount();
 
+// A reference to the user data in the database
 let userRef = doc(db, "Users", username);
 
+// A snapshot of the user data in the database
 let userSnap = await getDoc(userRef);
+// An array that contains the chapter progress of the user
 let chapterProgressArray = userSnap.data().chapterProgress;
 
+// An array that contains the titles for every chapter
 let chptArr = [
 "Puddleby",
 
@@ -99,6 +113,9 @@ let chptArr = [
 "Home Again"
 ];
 
+// An array that contains all the start numbers
+// for chapters. Needed for the reading page to flow smoothly
+// from chapter to chapter
 let chapterStartPageNumber = [1, 7, 24, 34, 46, 58, 69, 84, 93, 102, 114, 125, 142, 150, 159, 172, 181, 192, 209, 222, 233, 240];
 
 // Loop for each chapter and create a chapter-box component
