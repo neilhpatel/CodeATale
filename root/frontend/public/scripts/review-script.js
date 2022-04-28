@@ -20,14 +20,28 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// This part of the code most likely needs to be changed to access the username
+// of whoever is using the app. Since we are not handling login, we used a constant
+// hardcoded variable to set the username instead
 const username = "mtl10";
 
+// A reference to the wordBank in the database
 let wordBankCollection = collection(db, "Users", username, "wordBank");
 
+// As a general side note, the .off() method exists to remove
+// click methods on a text or button. It is needed or else the
+// text or button in question can repeat the function twice
+// potentially
+
+// Function to populate the review screen
 async function populateReviewScreen() {
+  // A snapshot of the wordBank data in the database
   let wordBankSnapshot = await getDocs(wordBankCollection);
   let wordBank = wordBankSnapshot.docs;
-   
+  
+  // For each word in the wordBank, will loop through
+  // and add the appropriate data associated with each word to the
+  // columns
   wordBank.forEach( (word) => {
     $(".words").append(`<li>${word.id}</li>`);
     $(".definitionQueued").append(`<li>${word.data().definitionQueued}</li>`);

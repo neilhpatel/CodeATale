@@ -23,12 +23,21 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage();
 
+// This part of the code most likely needs to be changed to access the username
+// of whoever is using the app. Since we are not handling login, we used a constant
+// hardcoded variable to set the username instead
 const username = "mtl10";
 
+// A reference to the wordBank in the database
 const wordBank = collection(db, "Users", username, "wordBank");
+// A reference to the user data in the database
 const userRef = doc(db, "Users", username);
 
+// An array that contains all the start numbers
+// for chapters. Needed for the reading page to flow smoothly
+// from chapter to chapter
 let chapterStartPageNumber = [1, 7, 24, 34, 46, 58, 69, 84, 93, 102, 114, 125, 142, 150, 159, 172, 181, 192, 209, 222, 233, 240];
+// An array that contains the titles for every chapter
 let chapterTitles = ["", "Puddleby", "Animal Language", "More Money Troubles", "A Message from Africa", "The Great Journey", "Polynesia and the King", "The Bridge of Apes",
   "The Leader of the Lions", "The Monkeys' Council", "The Rarest Animal of All", "The Black Prince", "Medicine and Magic", "Red Sails and Blue Wings", "The Rats' Warning",
   "The Barbary Dragon", "Too-Too, The Listener", "The Ocean Gossips", "Smells", "The Rock", "The Fisherman's Town", "Home Again"];
@@ -49,6 +58,8 @@ specialSet.add(",");
 specialSet.add("!");
 specialSet.add("?");
 
+// Only called when the chapter isn't in the pagesViewed string
+// and it updates the progress the user has made in the chapter
 async function increaseChapterProgress(chapter) {
   let progress = chapterProgressArray[chapter];
   progress = parseInt(progress, 10);
@@ -59,6 +70,7 @@ async function increaseChapterProgress(chapter) {
   });
 }
 
+// Called every time a page is read in the reading screen
 async function pageRead(chapter, page) {
   let alreadyAdded = false;
   let pagesViewed = pagesViewedArray[chapter].split(" ");
@@ -85,6 +97,7 @@ async function pageRead(chapter, page) {
       currPagesViewed = chapter + "-" + page;
     }
     pagesViewedArray[chapter] = currPagesViewed;
+    // Updates the database if new pages have been viewed
     await updateDoc(userRef, {
       pagesViewed: pagesViewedArray
     });
@@ -92,6 +105,7 @@ async function pageRead(chapter, page) {
   }
 }
 
+// Method to go to the next page
 function increasePage(chapterNum, pageNum) {
   // Remember: since this is indexed from 0 this is the next chapter not the current one
   if (pageNum + 1 >= chapterStartPageNumber[parseInt(chapterNum, 10)]) {
@@ -111,6 +125,7 @@ function increasePage(chapterNum, pageNum) {
   pageRead(chapterNum, pageNum);
 }
 
+// Method to go to the prev page
 function decreasePage(chapterNum, pageNum) {
   if (pageNum - 1 < chapterStartPageNumber[chapterNum - 1]) {
     // Remember: since this is indexed from 0 this is the current chapter
@@ -130,6 +145,8 @@ function decreasePage(chapterNum, pageNum) {
   pageRead(chapterNum, pageNum);
 }
 
+// Function called on html load-in to set the current page and chapter
+// num and to call the pageRead function
 function maintainPage() {
   let pageNum = sessionStorage.getItem("pageNum");
   let chapterNum = sessionStorage.getItem("chptNum");
@@ -139,6 +156,7 @@ function maintainPage() {
   return;
 }
 
+// Checks to see if next and prev arrow buttons should be present
 function checkArrows() {
   if (sessionStorage.getItem("pageNum") <= chapterStartPageNumber[0]) {
     $("#prevPg").hide();
@@ -167,6 +185,7 @@ function playWordAudio(word) {
   audioObj.play();
 }
 
+// Updates the page audio accordingly
 function updatePageAudio(pageNumber, chapterNumber) {
   $("#audio-bar")[0].pause();
   const pathReference = ref(storage, `Chapter ${chapterNumber}/Chapter${chapterNumber}_Page${pageNumber}.mp3`);
@@ -180,19 +199,21 @@ function updatePageAudio(pageNumber, chapterNumber) {
   });
 }
 
-
+// The function that handles the pop-in for the definition screen
 let modal = $("#modal").plainModal({ duration: 150 });
 function defModal(word, wordSnap, modWord) {
   //let modWord = word.toLowerCase().replace(/[^a-z0-9’-]+/gi, ""); // Keeps all alphanumeric characters as well as the special apostrophe // Keeping this just in case we need to use the replace feature again.
   $("#audio-bar")[0].pause();
   let definitionAudio = document.createElement("audio");
   let firstLetter = modWord.charAt(0).toUpperCase();
+  // Sets the URL for the definition audio for the word
   let url = "https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/" + firstLetter + "/" + modWord + "%2B.mp3";
   definitionAudio.src = url;
   definitionAudio.volume = 0.5;
   definitionAudio.play();
   $("#modal-derivative").empty();
   let length = 0;
+  // Adds all derivative words to the definition screen
   wordSnap.data().derivative_words.forEach((derivative) => {
     // Need to remove the semicolon if it's the last derivative word
     length++;
@@ -201,19 +222,24 @@ function defModal(word, wordSnap, modWord) {
       $("#modal-derivative").append("; ");
     }
   });
-  $("#modal-words").text(wordSnap.data().parent_word); // I"m thinking of keeping the presented word upper case but using modWord when querying the database so it looks nicer
+  $("#modal-words").text(wordSnap.data().parent_word);
   $("#modal-def").empty();
   $("#modal-def").append(`<span class="highlight-definition">${wordSnap.data().definition}</span>`);
   
 
+  // Word audio plays if the word is clicked on in the definition screen
   $("#modal-words").off("click").click(function () {
     playWordAudio(word);
   });
 
+  // Definition audio plays if the definition is clicked on
   $("#modal-def").off("click").click(function () {
     definitionAudio.play();
   });
 
+  // This button adds the word to the front of the quiz queue
+  // or shifts it to the front if it's already in the queue
+  // and immediately goes to the quiz screen
   $("#b1").off("click").click(async function() {
     if (!queue.includes(modWord)) {
       queue.unshift(modWord);
@@ -224,6 +250,7 @@ function defModal(word, wordSnap, modWord) {
     } else {
       queue.splice(queue.indexOf(modWord), 1);
       queue.unshift(modWord);
+      // Updates the database with the updates quiz queue
       await updateDoc(userRef, {
         queue
       });
@@ -231,6 +258,8 @@ function defModal(word, wordSnap, modWord) {
     }
   });
 
+  // Adds the word to the quiz queue.
+  // If it's already in the queue, it will tell a warning.
   $("#b2").off("mousedown").mousedown(async function() {
     if (!queue.includes(modWord)) {
       queue.push(modWord);
@@ -338,22 +367,31 @@ function updatePageText(chapter, page, modNums) {
 
       // Removes highlighting from word if it's not in the database and also adds click-on functionality for those words that are in the database.
       $(".isWord").each(async function () {
+        // The word that has the isWord property attatched
         let word = $(this).text();
+        // The word after being lowercased
         let modWord = word.toLowerCase();
         let wordDoc = doc(db, modWord.charAt(0), modWord);
         let wordSnap = await getDoc(wordDoc);
         
+        // Checks to see if the word exists in the database
         if (!wordSnap.exists()) {
           $(this).removeClass("isWord");
         } else {
+          // Changes modWord to the parent word of the word if it already isn't the parent word
           if (wordSnap.data().parent_word !== modWord) {
             modWord = wordSnap.data().parent_word;
             wordDoc = doc(db, modWord.charAt(0), modWord);
             wordSnap = await getDoc(wordDoc);
           }
+          // Checks to see if the word has a definition.
+          // Else it removes the word as having the ".isWord" class
           if (wordSnap.data().definition !== "") {
             $(this).removeClass("isWord");
             $(this).addClass("highlight");
+            // Adds single click and double click event listeners
+            // Single click plays audio while double click pulls open
+            // the definition screen
             $(this).off().click(function(event) {
               if (event.detail === 1) {
                   let clicks = 0;
@@ -378,6 +416,8 @@ function updatePageText(chapter, page, modNums) {
                         defModal(word, wordSnap, modWord);
                         let wordRef = doc(wordBank, modWord);
                         let wordDoc = await getDoc(wordRef);
+                        // Sets the word in the wordBank if it doesn't exist
+                        // and updates the word to have definitionQueued to be true otherwise
                         if (!wordDoc.exists()) {
                           await setDoc(doc(wordBank, modWord), {
                             definitionQueued: true, highestCorrect: 0, totalCorrect: 0,
@@ -401,7 +441,7 @@ function updatePageText(chapter, page, modNums) {
     });
 }
 
-
+// Adds click event to prevPage button
 const prevPage = $("#prevPg");
 prevPage.click(() => {
   let chapterNum = parseInt(sessionStorage.getItem("chptNum"), 10);
@@ -411,6 +451,7 @@ prevPage.click(() => {
   // $("img").attr("src", `../../assets/chapter_images/chapter${chapterNum}.png`); // Changes the chapter image
 });
 
+// Adds click event to nextPage button
 const nextPage = $("#nextPg");
 nextPage.click(() => {
   let chapterNum = parseInt(sessionStorage.getItem("chptNum"), 10);
@@ -425,11 +466,13 @@ nextPage.click(() => {
 // -------------
 $("#audio-bar")[0].volume = 0.5;
 
+// User data is retrieved at the end so that the rest of the script can run before it gets halted in line 452
 let userDoc = await getDoc(userRef);
 let queue = userDoc.data().queue;
 let chapterProgressArray = userDoc.data().chapterProgress;
 let pagesViewedArray = userDoc.data().pagesViewed;
 
+// Called once everything else is done to present the reading screen
 $("document").ready(function () {
   let chapterNum = parseInt(sessionStorage.getItem("chptNum"), 10);
   let pageNum = parseInt(sessionStorage.getItem("pageNum"), 10);
