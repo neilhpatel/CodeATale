@@ -75,10 +75,10 @@ No build is necessary for this application.
 
     *Structure of Data:*
     One collection is called `Users`. All of the documents within this collection are distinct usernames (ex: “mtl10”, “neil”). Information is included as follows, on a document by document basis:
-    * bookMarkList
-    * chapterProgress
-    * pagesViewed
-    * queue
+    * bookMarkList - Keeps track of the chapter and page number of all bookmarks in chronological order of when they were added (The string is  parsed to find the chapter and page number. ex: chptNum-pageNum chptNum-pageNum)
+    * chapterProgress - An array of numbers for each chapter (index 0 is ignored) that increments until the chapter is fully read by the user. It is used to display a proper percentage bar to the user in the chapter select screen after going through some basic calculations in the code. Each cell number in the array correlates to the chapter number of the book.
+    * pagesViewed - Formatted mostly like the bookMarkList but in an array like the chapterProgress array (again index 0 is ignored). Keeps track of every single page and chapter viewed in this format: chptNum-pageNum chptNum-pageNum. Each cell number in the array correlates to the chapter number of the book.
+    * queue - An array of words in the order that the user added words to the queue. However, the user has the option to quiz the word immediately in which case the queue array is modified locally in the code first before the modified queue array is updated to the database (basically the queue gets updated first in the code and then the updated queue is sent to the database. The code doesn’t directly modify the queue in the database until it modifies the queue in the code first.)
 
     There are 26 other collections, each labeled with one lowercase letter in the alphabet (“a”, “b”, “c”, …. “z”). Each of these collections includes numerous documents labeled with distinct words that begin with the collection letter. For example, “aback” and “abandon” are documents within the “a” collection. Information is included as follows, on a document by document basis:
     * block_from_quiz (str) - contains all the words that should be excluded as quiz answer options for the quiz of the word (see document label)
